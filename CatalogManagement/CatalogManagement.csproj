@@ -162,8 +162,8 @@
     <Content Include="Content\Images\logowerneralpha.png" />
     <Content Include="Content\MenuBar.css" />
     <Content Include="Content\Site.css" />
-    <Content Include="DataBaseModel.edmx.sql" />
     <Content Include="Global.asax" />
+    <Content Include="ScriptsSQL\InitUsers.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap-3.3.7.min.js" />
     <Content Include="Content\Fonts\Lato\Lato-Black.ttf" />
@@ -185,36 +185,36 @@
     <Content Include="Content\Fonts\Dosis\Dosis-Regular.ttf" />
     <Content Include="Content\Fonts\Dosis\Dosis-SemiBold.ttf" />
     <Content Include="Content\Fonts\Dosis\Dosis.zip" />
-    <EntityDeploy Include="ModelDB.edmx">
+    <EntityDeploy Include="DBModels\ModelDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="ModelDB.Context.tt">
+    <Content Include="DBModels\ModelDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelDB.edmx</DependentUpon>
       <LastGenOutput>ModelDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="ModelDB.edmx.diagram">
+    <Content Include="DBModels\ModelDB.edmx.diagram">
       <DependentUpon>ModelDB.edmx</DependentUpon>
     </Content>
-    <Content Include="ModelDB.tt">
+    <Content Include="DBModels\ModelDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelDB.edmx</DependentUpon>
       <LastGenOutput>ModelDB.cs</LastGenOutput>
     </Content>
-    <EntityDeploy Include="BonetaModelDB.edmx">
+    <EntityDeploy Include="DBModels\BonetaModelDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>BonetaModelDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="BonetaModelDB.Context.tt">
+    <Content Include="DBModels\BonetaModelDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BonetaModelDB.edmx</DependentUpon>
       <LastGenOutput>BonetaModelDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="BonetaModelDB.edmx.diagram">
+    <Content Include="DBModels\BonetaModelDB.edmx.diagram">
       <DependentUpon>BonetaModelDB.edmx</DependentUpon>
     </Content>
-    <Content Include="BonetaModelDB.tt">
+    <Content Include="DBModels\BonetaModelDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BonetaModelDB.edmx</DependentUpon>
       <LastGenOutput>BonetaModelDB.cs</LastGenOutput>
@@ -242,77 +242,77 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="BonetaModelDB.Context.cs">
+    <Compile Include="DBModels\BonetaModelDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BonetaModelDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="BonetaModelDB.cs">
+    <Compile Include="DBModels\BonetaModelDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="BonetaModelDB.Designer.cs">
+    <Compile Include="DBModels\BonetaModelDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BonetaModelDB.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Clientes.cs">
+    <Compile Include="DBModels\Clientes.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="ClientesObtener_Result.cs">
+    <Compile Include="DBModels\ClientesObtener_Result.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Code\Configure.cs" />
     <Compile Include="Code\SessionVariables.cs" />
     <Compile Include="Code\Validation.cs" />
-    <Compile Include="Compra.cs">
+    <Compile Include="DBModels\Compra.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="CompraDetalle.cs">
+    <Compile Include="DBModels\CompraDetalle.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Configuracion.cs">
+    <Compile Include="DBModels\Configuracion.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="dUserProfiles.cs">
+    <Compile Include="DBModels\dUserProfiles.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Gastos.cs">
+    <Compile Include="DBModels\Gastos.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Genero.cs">
+    <Compile Include="DBModels\Genero.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="mAccessLog.cs">
+    <Compile Include="DBModels\mAccessLog.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="mAccessTemplates.cs">
+    <Compile Include="DBModels\mAccessTemplates.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="mApplications.cs">
+    <Compile Include="DBModels\mApplications.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Marca.cs">
+    <Compile Include="DBModels\Marca.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="MarcasObtener_Result.cs">
+    <Compile Include="DBModels\MarcasObtener_Result.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModelDB.Context.cs">
+    <Compile Include="DBModels\ModelDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModelDB.cs">
+    <Compile Include="DBModels\ModelDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModelDB.Designer.cs">
+    <Compile Include="DBModels\ModelDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelDB.edmx</DependentUpon>
@@ -334,254 +334,254 @@
     <Compile Include="Models\ViewModels\ListItemsViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\MenuViewModel.cs" />
-    <Compile Include="mOperations.cs">
+    <Compile Include="DBModels\mOperations.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="mProfiles.cs">
+    <Compile Include="DBModels\mProfiles.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="mStatus.cs">
+    <Compile Include="DBModels\mStatus.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="mStatusTypes.cs">
+    <Compile Include="DBModels\mStatusTypes.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="mUsers.cs">
+    <Compile Include="DBModels\mUsers.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Operador.cs">
+    <Compile Include="DBModels\Operador.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Producto.cs">
+    <Compile Include="DBModels\Producto.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProductosObtenerPorCodigo_Result.cs">
+    <Compile Include="DBModels\ProductosObtenerPorCodigo_Result.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProductosObtener_Result.cs">
+    <Compile Include="DBModels\ProductosObtener_Result.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Proveedor.cs">
+    <Compile Include="DBModels\Proveedor.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="ProveedorObtener_Result.cs">
+    <Compile Include="DBModels\ProveedorObtener_Result.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spdUserProfiles_GetAll_Result.cs">
+    <Compile Include="DBModels\spdUserProfiles_GetAll_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spdUserProfiles_GetByUserID_Result.cs">
+    <Compile Include="DBModels\spdUserProfiles_GetByUserID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessLog_Delete_Result.cs">
+    <Compile Include="DBModels\spmAccessLog_Delete_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessLog_GetAccessReportN_Result.cs">
+    <Compile Include="DBModels\spmAccessLog_GetAccessReportN_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessLog_GetAccessReport_Result.cs">
+    <Compile Include="DBModels\spmAccessLog_GetAccessReport_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessLog_GetAll_Result.cs">
+    <Compile Include="DBModels\spmAccessLog_GetAll_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessLog_GetByFkProfileID_Result.cs">
+    <Compile Include="DBModels\spmAccessLog_GetByFkProfileID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessLog_GetByFkUserID_Result.cs">
+    <Compile Include="DBModels\spmAccessLog_GetByFkUserID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessLog_GetByID_Result.cs">
+    <Compile Include="DBModels\spmAccessLog_GetByID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessLog_GetByProfileName_Result.cs">
+    <Compile Include="DBModels\spmAccessLog_GetByProfileName_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessLog_GetByUserLogin_Result.cs">
+    <Compile Include="DBModels\spmAccessLog_GetByUserLogin_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessLog_GetByUserName_Result.cs">
+    <Compile Include="DBModels\spmAccessLog_GetByUserName_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessLog_GetLikeByProfileName_Result.cs">
+    <Compile Include="DBModels\spmAccessLog_GetLikeByProfileName_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessLog_GetLikeByUserLogin_Result.cs">
+    <Compile Include="DBModels\spmAccessLog_GetLikeByUserLogin_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessLog_GetLikeByUserName_Result.cs">
+    <Compile Include="DBModels\spmAccessLog_GetLikeByUserName_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessTemplates_GetAll_Result.cs">
+    <Compile Include="DBModels\spmAccessTemplates_GetAll_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessTemplates_GetByID_Result.cs">
+    <Compile Include="DBModels\spmAccessTemplates_GetByID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmAccessTemplates_GetByName_Result.cs">
+    <Compile Include="DBModels\spmAccessTemplates_GetByName_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmApplications_GetAllWithOperationsAndProfiles_Result.cs">
+    <Compile Include="DBModels\spmApplications_GetAllWithOperationsAndProfiles_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmApplications_GetAllWithOperations_Result.cs">
+    <Compile Include="DBModels\spmApplications_GetAllWithOperations_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmApplications_GetAllWithProfiles_Result.cs">
+    <Compile Include="DBModels\spmApplications_GetAllWithProfiles_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmApplications_GetAll_Result.cs">
+    <Compile Include="DBModels\spmApplications_GetAll_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmApplications_GetByIDWithProfiles_Result.cs">
+    <Compile Include="DBModels\spmApplications_GetByIDWithProfiles_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmApplications_GetByID_Result.cs">
+    <Compile Include="DBModels\spmApplications_GetByID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmApplications_GetByName_Result.cs">
+    <Compile Include="DBModels\spmApplications_GetByName_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmApplications_GetByType_Result.cs">
+    <Compile Include="DBModels\spmApplications_GetByType_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmOperations_GetAll_Result.cs">
+    <Compile Include="DBModels\spmOperations_GetAll_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmOperations_GetByApplicationID_Result.cs">
+    <Compile Include="DBModels\spmOperations_GetByApplicationID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmOperations_GetByID_Result.cs">
+    <Compile Include="DBModels\spmOperations_GetByID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmOperations_GetByNameAndApplicationID_Result.cs">
+    <Compile Include="DBModels\spmOperations_GetByNameAndApplicationID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmOperations_GetByName_Result.cs">
+    <Compile Include="DBModels\spmOperations_GetByName_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmOperations_GetByProfileID_Result.cs">
+    <Compile Include="DBModels\spmOperations_GetByProfileID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmOperations_GetLikeByName_Result.cs">
+    <Compile Include="DBModels\spmOperations_GetLikeByName_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmProfiles_GetAllWithOperations_Result.cs">
+    <Compile Include="DBModels\spmProfiles_GetAllWithOperations_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmProfiles_GetAll_Result.cs">
+    <Compile Include="DBModels\spmProfiles_GetAll_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmProfiles_GetByApplicationID_Result.cs">
+    <Compile Include="DBModels\spmProfiles_GetByApplicationID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmProfiles_GetByID_Result.cs">
+    <Compile Include="DBModels\spmProfiles_GetByID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmProfiles_GetByNameAndApplicationID_Result.cs">
+    <Compile Include="DBModels\spmProfiles_GetByNameAndApplicationID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmProfiles_GetByName_Result.cs">
+    <Compile Include="DBModels\spmProfiles_GetByName_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmStatusType_GetByID_Result.cs">
+    <Compile Include="DBModels\spmStatusType_GetByID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmStatus_GetAll_Result.cs">
+    <Compile Include="DBModels\spmStatus_GetAll_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmStatus_GetByID_Result.cs">
+    <Compile Include="DBModels\spmStatus_GetByID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmStatus_GetByType_Result.cs">
+    <Compile Include="DBModels\spmStatus_GetByType_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmStatus_Insert_Result.cs">
+    <Compile Include="DBModels\spmStatus_Insert_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmStatus_Update_Result.cs">
+    <Compile Include="DBModels\spmStatus_Update_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmUsers_GetByEmailOnly_Result.cs">
+    <Compile Include="DBModels\spmUsers_GetByEmailOnly_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmUser_DoLogin_Result.cs">
+    <Compile Include="DBModels\spmUser_DoLogin_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmUser_GetAllWithProfiles_Result.cs">
+    <Compile Include="DBModels\spmUser_GetAllWithProfiles_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmUser_GetAll_Result.cs">
+    <Compile Include="DBModels\spmUser_GetAll_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmUser_GetByApplicationAndUser_Result.cs">
+    <Compile Include="DBModels\spmUser_GetByApplicationAndUser_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmUser_GetByApplication_Result.cs">
+    <Compile Include="DBModels\spmUser_GetByApplication_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmUser_GetByID_Result.cs">
+    <Compile Include="DBModels\spmUser_GetByID_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmUser_GetLikeByEmail_Result.cs">
+    <Compile Include="DBModels\spmUser_GetLikeByEmail_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmUser_GetLikeByLastName_Result.cs">
+    <Compile Include="DBModels\spmUser_GetLikeByLastName_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmUser_GetLikeByLogin_Result.cs">
+    <Compile Include="DBModels\spmUser_GetLikeByLogin_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmUser_GetLikeByName_Result.cs">
+    <Compile Include="DBModels\spmUser_GetLikeByName_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmUser_GetLikeByOrganization_Result.cs">
+    <Compile Include="DBModels\spmUser_GetLikeByOrganization_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="spmUser_GetLikeByPosition_Result.cs">
+    <Compile Include="DBModels\spmUser_GetLikeByPosition_Result.cs">
       <DependentUpon>ModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="SubTipoProducto.cs">
+    <Compile Include="DBModels\SubTipoProducto.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="SubTipoProductoObtener_Result.cs">
+    <Compile Include="DBModels\SubTipoProductoObtener_Result.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Talla.cs">
+    <Compile Include="DBModels\Talla.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="TallasObtener_Result.cs">
+    <Compile Include="DBModels\TallasObtener_Result.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="TipoGasto.cs">
+    <Compile Include="DBModels\TipoGasto.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="TipoPrecio.cs">
+    <Compile Include="DBModels\TipoPrecio.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="TipoPrecioObtenerPorIdProducto_Result.cs">
+    <Compile Include="DBModels\TipoPrecioObtenerPorIdProducto_Result.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="TipoPrecioPorProducto.cs">
+    <Compile Include="DBModels\TipoPrecioPorProducto.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="TipoProducto.cs">
+    <Compile Include="DBModels\TipoProducto.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="TipoProductoObtener_Result.cs">
+    <Compile Include="DBModels\TipoProductoObtener_Result.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Unidad.cs">
+    <Compile Include="DBModels\Unidad.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="UnidadesObtener_Result.cs">
+    <Compile Include="DBModels\UnidadesObtener_Result.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Venta.cs">
+    <Compile Include="DBModels\Venta.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="VentaDetalle.cs">
+    <Compile Include="DBModels\VentaDetalle.cs">
       <DependentUpon>BonetaModelDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>
