@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Acerca De";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+        <div class="page-header">
+            <h2>Sistema de Trazabilidad e Inventarios <small>v@{ @ViewBag.Version }</small></h2>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+        <div class="list-group">
+            <a href="#" class="list-group-item active">
+                <h4 class="list-group-item-heading">Descargas</h4>
+            </a>
+
+            <a href="~/Downloads/WP.VP220.Driver v3.2.8.zip" class="list-group-item">
+                <h4 class="list-group-item-heading">WP.VP220.Driver</h4>
+                <p class="list-group-item-text">
+                    Controlador de la unidad pegasus VP220.
+                </p>
+            </a>
+            <a href="~/Downloads/WP.VP220.ServerInstaller.msi" class="list-group-item">
+                <h4 class="list-group-item-heading">WP.VP220.ServerInstaller.msi</h4>
+                <p class="list-group-item-text">
+                    Software para la comunicación entre la unidad pegasus VP220 y el sitio web.
+                </p>
+            </a>
+            <a href="~/Downloads/WP.VP220.ServerInstaller.zip" class="list-group-item">
+                <h4 class="list-group-item-heading">WP.VP220.ServerInstaller.zip</h4>
+                <p class="list-group-item-text">
+                    Software para la comunicación entre la unidad pegasus VP220 y el sitio web.
+                </p>
+            </a>
+        </div>
+    </div>
+</div>
+@*<div class="row">
+    <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+        <div class="list-group">
+            <a href="#" class="list-group-item active">
+                <h4 class="list-group-item-heading">Reiniciar prototipo</h4>
+            </a>
+
+            <div class="col-md-12 list-group-item">
+                <button id="reInitPrototype" type="button" class="btn btn-lg btn-danger btn-block" onclick="return ReInitPrototype();"><i class="fa fa-trash-o"></i> Reiniciar</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<script>   
+
+    function ReInitPrototype() {
+        $.post("@Url.Action("ReInitPrototype", "Home")", {}, function (data) {
+            alert(JSON.stringify(data.Message));
+        });
+    };
+
+  
+</script>

@@ -1,0 +1,164 @@
+﻿@using CatalogManagement.Models.Entities
+@using CatalogManagement.Models.ViewModels
+@using System.Web.Optimization
+@using CatalogManagement.Code
+@{
+    var viewModel = (MenuViewModel)Session[SessionVariables.MenuViewModel];
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title </title>
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+   
+    
+</head>
+<body>
+
+    <div id="wrapper">
+
+        <div class="Title">
+            BONETA
+        </div>
+
+     
+            @{SystemUser loggedUser = Session[SessionVariables.SystemUser] as SystemUser; }
+            @if (loggedUser != null)
+            {
+                if (viewModel != null)
+                {
+                    <div id="left">
+                        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+                            <ul class="nav sidebar-nav" id="MenuList">
+                                <li class="sidebar-brand">
+                                   
+                                </li>
+
+                                @foreach (var item in viewModel.ItemsInMenu)
+                                {
+                                if (item.IsDropBox)
+                                {
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle row" data-toggle="dropdown">
+                                        <div class="col-lg-3 col-xs-3"><span class="@item.Span"></span></div>
+                                        <div class="col-lg-7 col-xs-6 itemMenu">@item.Name</div>
+                                        <div class="col-lg-1 col-xs-1"><span class="caret"></span></div>                                   
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li class="dropdown-header"></li>
+                                        @foreach (var subItem in item.InnerItems)
+                                        {
+                                            <li>@Html.ActionLink(subItem.Name, subItem.Action, subItem.Controller, routeValues: new { OperationId = subItem.OperationId.ToString() }, htmlAttributes: null)</li>
+                                        }
+                                    </ul>
+                                </li>
+                                }
+                                else
+                                {
+                                <li><a href="@Html.ActionLink(item.Name, item.Action, item.Controller, routeValues: new { OperationId = item.OperationId }, htmlAttributes: null)"><span class="@item.Span"></span>@item.Name</a></li>
+                                }
+                                }
+
+
+                            </ul>
+                        </nav>
+                    </div>
+                    <div id="right">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-lg-10 col-lg-offset-1 col-xs-12 col-xs-offset-0">
+                                    @RenderBody()
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-lg-10 col-lg-offset-1 col-xs-12 col-xs-offset-0">
+                            @RenderBody()
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-lg-10 col-lg-offset-1 col-xs-12 col-xs-offset-0">
+                        @RenderBody()
+                    </div>
+                </div>
+            }
+
+
+
+        
+
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //Contraer el dropdown al salir de la barra
+            $('.dropdown ul').hide();
+            $('.dropdown a').click(function (e) {
+                //alert('algo');
+                // e.preventDefault();
+                var $menuItem = $(this).next('ul');
+                $menuItem.slideToggle();
+                $('.dropdown ul').not($menuItem).slideUp();
+            });
+
+
+            //Colorear los items
+            var ul = document.getElementById("MenuList");
+
+            if (ul == null)
+                return;
+
+            var ColorCount = 0;
+            var Length = 0;
+
+            for (var i = 0; i < ul.childNodes.length; i++) {
+                if (ul.childNodes[i].nodeName == "LI") { Length++; }
+            }
+
+            Length = Length - 1;
+
+            for (var i = 0; i < ul.childNodes.length; i++) {
+
+                if (ul.childNodes[i].nodeName == "LI") {
+                    //Genera un gradiente
+                    var R1 = 66, G1 = 146, B1 = 244;
+                    var R2 = 72, G2 = 211, B2 = 239;
+
+                    var R = R1 + Math.ceil((R2 - R1) * ColorCount / Length);
+                    var G = G1 + Math.ceil((G2 - G1) * ColorCount / Length);
+                    var B = B1 + Math.ceil((B2 - B1) * ColorCount / Length);
+                    ColorCount = ColorCount + 1;
+                    document.documentElement.style.setProperty('--Color' + (ColorCount), 'rgb(' + R + ',' + G + ',' + B + ')');
+                }
+            }
+
+        });
+
+        $('#right').hover(function () {
+            $('.dropdown ul').hide();
+        });
+    </script>
+</body>
+</html>

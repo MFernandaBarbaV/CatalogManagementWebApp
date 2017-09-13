@@ -1,0 +1,143 @@
+﻿@using CatalogManagement.Models.Entities
+@using CatalogManagement.Models.ViewModels;
+@model CatalogManagement.Models.ViewModels.RelationViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="SubTitle">
+    <h4>
+        @if (Model != null)
+        {
+            @Model.Title;
+        }
+    </h4>
+</div>
+@if (Model == null || Model.Items == null || Model.Items.Count() == 0)
+{
+    <div class="alert alert-danger">
+
+        @if (string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <strong>Sin datos</strong>
+        }
+        else
+        {
+            <strong>@ViewBag.ErrorMessage;</strong>
+
+        }
+
+    </div>
+}
+else
+{
+    <div class="SubTitle">
+        @Model.TitlePrincipalElement : @Model.ItemId - @Model.NameItem
+    </div>
+
+    <div class="RelationViewDiv  col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
+
+
+        <div class="input-group icon-addon addon-md center-block filter ">
+            <input id="filter" type="text" class="form-control" placeholder="Filtrar información">
+            <label for="filter" class="@faIconss.search" rel="tooltip" title="Nombre de Usuario"></label>
+        </div>
+
+        @using (Html.BeginForm(Model.ButtonAction, Model.ButtonController, FormMethod.Post, new { id = "myForm", data_toggle = "validator" }))
+        {
+            @Html.AntiForgeryToken();
+            @Html.HiddenFor(m => m.ItemId);
+            @Html.HiddenFor(m => m.Title);
+            @Html.HiddenFor(m => m.ButtonText);
+            @Html.HiddenFor(m => m.ButtonAction);
+            @Html.HiddenFor(m => m.ButtonController);
+            @Html.HiddenFor(m => m.OperationIdAction);
+            @Html.HiddenFor(m => m.OperationIdToReturn);
+
+            <table class="table table-bordered table-hover table-scrollable filterable">
+                <thead>
+                    <tr class="">
+                        @foreach (var column in Model.Items[0].Columns)
+                        {
+                            <th>
+                                @column.ColumnHeader
+                            </th>
+                        }
+
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    @for (int i = 0; i < Model.Items.Count; i++)
+                    {
+                        <tr class="searchable">
+                            @for (int j = 0; j < Model.Items[i].Columns.Count; j++)
+                        {
+                                @Html.HiddenFor(m => m.Items[i].Columns[j].ID)
+                                @Html.HiddenFor(m => m.Items[i].Columns[j].Type)
+
+                                switch (Model.Items[i].Columns[j].Type)
+                                {
+                                    case ColumnType.CheckBox:
+                                        {
+                                            <td>@Html.CheckBoxFor(m => Model.Items[i].Columns[j].BooleanValue)</td>
+                                        }
+                                        break;
+                                    case ColumnType.Text:
+                                        {
+                                            <td> @Model.Items[i].Columns[j].Value </td>
+                                        }
+                                        break;
+                                    case ColumnType.ComboBox:
+                                        {
+                                            <td>
+                                                @Html.DropDownListFor(m => m.Items[i].Columns[j].Value, @Model.Items[i].Columns[j].MultipleValues.Select(indx => new SelectListItem
+                                           {
+                                               Value = indx.Key.ToString(),
+                                               Text = indx.Value.ToString(),
+
+                                               Selected = "select" == indx.Key.ToString()
+                                           }))
+                                            </td>
+                                        }
+                                        break;
+                                }
+
+                            }
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary PrettyButton " type="submit">@Model.ButtonText</button>
+            </div>
+
+        }
+    </div>
+}
+
+
+<script>
+    $(document).ready(function () {
+        (function ($) {
+
+            $('#filter').keyup(function () {
+
+                var rex = new RegExp($(this).val(), 'i');
+
+                $('.searchable').hide();
+                $('.searchable').filter(function () {
+                    return rex.test($(this).text());
+                }).show();
+
+            })
+
+
+
+        }(jQuery));
+
+
+    });
+
+</script>

@@ -1,0 +1,181 @@
+﻿
+@using CatalogManagement.Models.Entities
+@model CatalogManagement.Models.ViewModels.ItemViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Model == null || Model.Properties == null || Model.Properties.Count() == 0)
+{
+    <div class="form-group SubTitle">
+        <h4>
+            @if (Model != null)
+            { @Model.Title;
+            }
+        </h4>
+    </div>
+
+    <div class="alert alert-danger">
+
+        @if (string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <strong>Sin datos</strong>
+        }
+        else
+        {
+            <strong>@ViewBag.ErrorMessage;</strong>
+
+        }
+
+    </div>
+}
+else
+{
+    if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            <strong>@ViewBag.ErrorMessage;</strong>
+        </div>
+    }
+
+    using (Html.BeginForm(Model.ButtonAction, Model.ButtonController, FormMethod.Post, new { id = "myForm", data_toggle = "validator" }))
+    {
+        @Html.AntiForgeryToken();
+        @*@Html.ValidationSummary();*@
+
+        @Html.HiddenFor(m => m.ItemId);
+        @Html.HiddenFor(m => m.Title);
+        @Html.HiddenFor(m => m.ButtonText);
+        @Html.HiddenFor(m => m.ButtonAction);
+        @Html.HiddenFor(m => m.ButtonController);
+        @Html.HiddenFor(m => m.OperationIdAction);
+        @Html.HiddenFor(m => m.OperationIdToReturn);
+
+        <div class="form-group SubTitle">
+            <h4>@Model.Title</h4>
+        </div>
+
+        <div class="ItemDiv col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
+
+            @for (int i = 0; i < Model.Properties.Count; i++)
+            {
+
+                <div class="form-group  ">
+
+                    @Html.HiddenFor(m => m.Properties[i].Id)
+                    @Html.HiddenFor(m => m.Properties[i].Label)
+                    @Html.HiddenFor(m => m.Properties[i].Type)
+
+                    @if (Model.Properties[i].IsDissabled)
+                    {
+                        @Html.HiddenFor(m => m.Properties[i].Value)
+                    }
+
+                    <label for="@Model.Properties[i].Label" class="control-label">@Model.Properties[i].Label</label>
+
+                    @switch (Model.Properties[i].Type)
+                        {
+
+                            case PropertieType.ComboBox:
+
+                            <div class="input-group icon-addon addon-md center-block col-lg-12 col-xs-12">
+
+                                @Html.DropDownListFor(m => m.Properties[i].ObjectValue, @Model.Properties[i].MultipleValues.Select(indx => new SelectListItem
+                           {
+                               Value = indx.Key.ToString(),
+                               Text = indx.Value.ToString(),
+
+                               Selected = "select" == indx.Key.ToString()
+                           }), new
+                           {
+                               @class = "form-control " + (Model.Properties[i].IsDissabled ? "Dissabled" : ""),
+                               @id = @Model.Properties[i].Label
+                           })
+                                <label for="filter" class="@Model.Properties[i].ClassIcon" rel="tooltip" title="@Model.Properties[i].Label"></label>
+                            </div>
+                            break;
+                        case PropertieType.Password:
+                            <div class="input-group icon-addon addon-md center-block col-lg-12 col-xs-12">
+
+                                @Html.PasswordFor(m => m.Properties[i].ObjectValue, new
+                           {
+                               @class = "form-control ",
+                               @id = "Password",
+                               @pattern = @Model.Properties[i].RegEx,
+                               @oninvalid = "this.setCustomValidity('" + @Model.Properties[i].ErrorMessage + "')",
+                               @oninput = "setCustomValidity('')"
+                           })
+                                <label for="filter" class="@Model.Properties[i].ClassIcon" rel="tooltip" title="@Model.Properties[i].Label"></label>
+                            </div>
+                            <script type="text/javascript">
+                                $("#Password").keyup(function () {
+                                    $("#Password2").attr("pattern", '^' + $("#Password").val() + '$');
+
+                                });
+                            </script>
+                            break;
+                        case PropertieType.ConfirmPassword:
+                            <div class="input-group icon-addon addon-md center-block col-lg-12 col-xs-12">
+
+
+                                @Html.PasswordFor(m => m.Properties[i].ObjectValue, new
+                           {
+                               @class = "form-control ",
+                               @id = "Password2",
+                               @pattern = @Model.Properties[i].RegEx,
+                               @oninvalid = "this.setCustomValidity('Las contraseñas no coinciden')",
+                               @oninput = "setCustomValidity('')"
+                           })
+                                <label for="filter" class="@Model.Properties[i].ClassIcon" rel="tooltip" title="@Model.Properties[i].Label"></label>
+                            </div>
+                            break;
+                        case PropertieType.CheckBox:
+                            <div class="input-group icon-addon addon-md  col-lg-12 col-xs-12 ">
+
+                                    @Html.CheckBoxFor(m => m.Properties[i].BooleanValue, new
+                               {
+                                   @class = "form-control ",
+                                   @id = @Model.Properties[i].Label
+                               })
+                             
+                                <label for="filter" class="@Model.Properties[i].ClassIcon" rel="tooltip" title="@Model.Properties[i].Label"></label>
+                                </div>
+                        break;
+                    case PropertieType.TextBox:
+                    default:
+                            <div class="input-group icon-addon addon-md center-block col-lg-12 col-xs-12">
+
+
+                                @Html.TextBoxFor(m => m.Properties[i].Value, new
+                           {
+                               @class = "form-control " + (Model.Properties[i].IsDissabled ? "Dissabled" : ""),
+                               @id = @Model.Properties[i].Label,
+                               @pattern = @Model.Properties[i].RegEx,
+                               @oninvalid = "this.setCustomValidity('" + @Model.Properties[i].ErrorMessage + "')",
+                               @oninput = "setCustomValidity('')"
+                           })
+                                <label for="filter" class="@Model.Properties[i].ClassIcon" rel="tooltip" title="@Model.Properties[i].Label"></label>
+                            </div>
+                            break;
+
+                    }
+
+                    <div class="help-block with-errors"></div>
+                </div>
+            }
+
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary PrettyButton " type="submit">@Model.ButtonText</button>
+            </div>
+        </div>
+
+    }
+}
+
+<link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<script src="~/Scripts/validator.min.js"></script>
+
+<script>
+    $('#myForm').validator();
+    $('.Dissabled').attr("disabled", "true");
+</script>
