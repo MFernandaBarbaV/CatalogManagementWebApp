@@ -1,4 +1,5 @@
 ﻿using CatalogManagement.Code;
+using CatalogManagement.DBModels;
 using CatalogManagement.Models.Entities;
 using CatalogManagement.Models.ViewModels;
 using System;

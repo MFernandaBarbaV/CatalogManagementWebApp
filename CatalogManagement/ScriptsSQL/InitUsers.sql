@@ -141,6 +141,30 @@ INSERT [dbo].[mOperations] ([OperationID], [Name], [ApplicationID], [SysOperatio
 GO
 INSERT [dbo].[mOperations] ([OperationID], [Name], [ApplicationID], [SysOperation], [IsReadOnly]) VALUES (30, N'Asignar Perfil a Usuario', 1, 30, 0)
 GO
+INSERT [dbo].[mOperations] ([OperationID], [Name], [ApplicationID], [SysOperation], [IsReadOnly]) VALUES (31, N'Nueva Compra', 1, 31, 0)
+GO
+INSERT [dbo].[mOperations] ([OperationID], [Name], [ApplicationID], [SysOperation], [IsReadOnly]) VALUES (32, N'Nuevo Gasto', 1, 32, 0)
+GO
+INSERT [dbo].[mOperations] ([OperationID], [Name], [ApplicationID], [SysOperation], [IsReadOnly]) VALUES (33, N'Ver Compras', 1, 33, 0)
+GO
+INSERT [dbo].[mOperations] ([OperationID], [Name], [ApplicationID], [SysOperation], [IsReadOnly]) VALUES (34, N'Ver Gastos', 1, 34, 0)
+GO
+INSERT [dbo].[mOperations] ([OperationID], [Name], [ApplicationID], [SysOperation], [IsReadOnly]) VALUES (35, N'Dashboard', 1, 35, 0)
+GO
+INSERT [dbo].[mOperations] ([OperationID], [Name], [ApplicationID], [SysOperation], [IsReadOnly]) VALUES (36, N'Editar Gasto', 1, 36, 0)
+GO
+INSERT [dbo].[mOperations] ([OperationID], [Name], [ApplicationID], [SysOperation], [IsReadOnly]) VALUES (37, N'Eliminar Gasto', 1, 37, 0)
+GO
+INSERT [dbo].[mOperations] ([OperationID], [Name], [ApplicationID], [SysOperation], [IsReadOnly]) VALUES (38, N'Ver Tipo de Gasto', 1, 38, 0)
+GO
+INSERT [dbo].[mOperations] ([OperationID], [Name], [ApplicationID], [SysOperation], [IsReadOnly]) VALUES (39, N'Editar Tipo de Gasto', 1, 39, 0)
+GO
+INSERT [dbo].[mOperations] ([OperationID], [Name], [ApplicationID], [SysOperation], [IsReadOnly]) VALUES (40, N'Nuevo Tipo de Gasto', 1, 40, 0)
+GO
+
+
+
+
 SET IDENTITY_INSERT [dbo].[mOperations] OFF
 GO
 INSERT [dbo].[dProfileOperations] ([ProfileID], [OperationID]) VALUES (1, 1)
@@ -202,4 +226,24 @@ GO
 INSERT [dbo].[dProfileOperations] ([ProfileID], [OperationID]) VALUES (1, 29)
 GO
 INSERT [dbo].[dProfileOperations] ([ProfileID], [OperationID]) VALUES (1, 30)
+GO
+INSERT [dbo].[dProfileOperations] ([ProfileID], [OperationID]) VALUES (1, 31)
+GO
+INSERT [dbo].[dProfileOperations] ([ProfileID], [OperationID]) VALUES (1, 32)
+GO
+INSERT [dbo].[dProfileOperations] ([ProfileID], [OperationID]) VALUES (1, 33)
+GO
+INSERT [dbo].[dProfileOperations] ([ProfileID], [OperationID]) VALUES (1, 34)
+GO
+INSERT [dbo].[dProfileOperations] ([ProfileID], [OperationID]) VALUES (1, 35)
+GO
+INSERT [dbo].[dProfileOperations] ([ProfileID], [OperationID]) VALUES (1, 36)
+GO
+INSERT [dbo].[dProfileOperations] ([ProfileID], [OperationID]) VALUES (1, 37)
+GO
+INSERT [dbo].[dProfileOperations] ([ProfileID], [OperationID]) VALUES (1, 38)
+GO
+INSERT [dbo].[dProfileOperations] ([ProfileID], [OperationID]) VALUES (1, 39)
+GO
+INSERT [dbo].[dProfileOperations] ([ProfileID], [OperationID]) VALUES (1, 40)
 GO

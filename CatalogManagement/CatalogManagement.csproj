@@ -636,6 +636,7 @@
     <Content Include="Views\Shared\_RedirectToLogin.cshtml" />
     <Content Include="Views\Shared\_RelationView.cshtml" />
     <Content Include="Views\Catalog\Index.cshtml" />
+    <Content Include="Views\Shared\_FilterItemsView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

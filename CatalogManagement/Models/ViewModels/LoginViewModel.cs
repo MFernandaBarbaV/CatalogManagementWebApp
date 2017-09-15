@@ -1,4 +1,5 @@
-﻿using CatalogManagement.Models.Entities;
+﻿using CatalogManagement.DBModels;
+using CatalogManagement.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -69,9 +70,14 @@ namespace CatalogManagement.Models.ViewModels
                 }
 
             }
-            catch (Exception ex)
+            catch (System.Data.Entity.Core.EntityException ex)
             {
-                errorMessage = "Usuario o contraseña incorrecto";
+                errorMessage = "Error en la conexión";
+                return null;
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;// "Usuario o contraseña incorrecto";
                 return null;
             }
 

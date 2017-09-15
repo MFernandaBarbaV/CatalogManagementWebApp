@@ -1,4 +1,5 @@
-﻿using CatalogManagement.Models.Entities;
+﻿using CatalogManagement.DBModels;
+using CatalogManagement.Models.Entities;
 using CatalogManagement.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -71,18 +72,15 @@ namespace CatalogManagement.Code
 
             model.ItemsInMenu.Add(new MenuItem()
             {
-                Name = "Punto de Venta",
+                Name = "Gastos",
                 Span = faIconss.money,
                 IsDropBox = true,
                 InnerItems = new List<MenuItem>()
                 {
-                    new MenuItem() { Name = "Ver Compras", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)Operations.VerCompras, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerCompras) },
-                    new MenuItem() { Name = "Ver Gastos", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)Operations.VerGastos, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerGastos) },
-                    new MenuItem() { Name = "Ver Tipo de Gasto", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)Operations.VerTipoGasto, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerTipoGasto) },
-
-                    new MenuItem() { Name = "Nueva Compra", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevaCompra, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevaCompra) },
-                    new MenuItem() { Name = "Nuevo Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevoGasto, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevoGasto) },
-                    new MenuItem() { Name = "Nuevo Tipo de Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevoTipoGasto, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevoTipoGasto) },
+                   new MenuItem() { Name = "Ver Gastos", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)Operations.VerGastos, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerGastos) },
+                   new MenuItem() { Name = "Nuevo Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevoGasto, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevoGasto) },
+                   new MenuItem() { Name = "Ver Tipo de Gasto", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)Operations.VerTipoGasto, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerTipoGasto) },
+                   new MenuItem() { Name = "Nuevo Tipo de Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevoTipoGasto, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevoTipoGasto) },
 
                 }
             });
@@ -567,7 +565,7 @@ namespace CatalogManagement.Code
                                     if (resultGasto != null)
                                     {
                                         model.Properties = new List<Propertie>();
-                                        model.Properties.Add(new Propertie() { Id = "Descripcion", Label = "Descripción", Value = resultGasto.Descripcion, RegEx = Utils.GenerateRegex(true, true, true, true, 1, 50, true, true,ref messageValidation), ErrorMessage = messageValidation });
+                                        model.Properties.Add(new Propertie() { Id = "Descripcion", Label = "Descripción", Value = resultGasto.Descripcion, RegEx = Utils.GenerateRegex(true, true, true, true, 1, 50, true, true, ref messageValidation), ErrorMessage = messageValidation });
                                         model.Properties.Add(new Propertie() { Id = "IdTipoGasto", Label = "Tipo Gasto", MultipleValues = tipoGasto, Type = PropertieType.ComboBox, Value = resultGasto.IdTipoGasto.ToString() });
                                         model.Properties.Add(new Propertie() { Id = "Cantidad", Label = "Cantidad", ObjectValue = resultGasto.Cantidad, RegEx = Utils.OnlyNumber, ErrorMessage = Utils.ErrorOnlyNumber, Type = PropertieType.TextBox, ClassIcon = faIconss.money });
 
