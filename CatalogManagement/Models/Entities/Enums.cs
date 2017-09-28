@@ -41,7 +41,7 @@ namespace CatalogManagement.Models.Entities
         EliminarPlantillasdeAcceso = 21,
 
         //Reportes
-        VerReportes = 22,
+        VerReporteGastos = 22,
         NuevoReporte = 23,
         EditarReportes = 24,
         EliminarReportes = 25,      

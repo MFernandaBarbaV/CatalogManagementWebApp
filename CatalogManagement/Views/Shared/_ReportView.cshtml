@@ -1,0 +1,367 @@
+﻿@using CatalogManagement.Models.Entities
+@model CatalogManagement.Models.ViewModels.ReportViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+@if (Model == null || Model.Rows == null)
+{
+    <div class="alert alert-danger">
+        @if (string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        { }
+        else
+        { <strong>@ViewBag.ErrorMessage</strong>}
+    </div>
+}
+else
+{
+    <div class="SubTitle">
+        @Model.Title
+    </div>
+
+    if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+    {
+        <div class="alert alert-success">
+            <strong>@ViewBag.SuccessMessage</strong>
+        </div>
+        <script>
+            window.setTimeout(function () {
+                $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                    $(this).remove();
+                });
+            }, 4000);
+        </script>
+    }
+
+    if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            <strong>@ViewBag.ErrorMessage</strong>
+        </div>
+    }
+
+    using (Html.BeginForm(Model.ButtonAction, Model.ButtonController, FormMethod.Post, new { id = "myForm", data_toggle = "validator" }))
+    {
+        <div class="FiltersDiv">
+
+            @Html.AntiForgeryToken()
+
+            @for (int i = 0; i < Model.Filters.Count; i++)
+            {
+
+                @Html.HiddenFor(m => m.Filters[i].ColumnName)
+                @Html.HiddenFor(m => m.Filters[i].Description)
+                @Html.HiddenFor(m => m.Filters[i].Type)
+
+
+                switch (Model.Filters[i].Type)
+                {
+                    case CatalogManagement.Models.ViewModels.FilterType.Date:
+                        {
+                            <div class="col-lg-2 col-md-3 col-xs-6">@Model.Filters[i].Description</div>
+
+                            <div class="col-lg-2 col-md-3 col-xs-6">
+                                @Html.TextBoxFor(m => m.Filters[i].DateValue, "{0:d MMMM yyyy}", new
+                           {
+
+                               @class = "form-control datepicker",
+                               @id = Model.Filters[i].Id,
+
+                           })
+
+                            </div>
+
+
+                        }
+                        break;
+                    case CatalogManagement.Models.ViewModels.FilterType.Text:
+                        {
+                            <div class="col-lg-2 col-md-3 col-xs-6">@Model.Filters[i].Description</div>
+
+                            <div class="col-lg-2 col-md-3 col-xs-6">
+                                @Html.TextBoxFor(m => m.Filters[i].Value, new
+                           {
+                               @class = "form-control ",
+                               @id = @Model.Filters[i].ColumnName
+                           })
+                            </div>
+                        }
+                        break;
+
+                    case CatalogManagement.Models.ViewModels.FilterType.Number:
+                        {
+                            <div class="col-lg-2 col-md-3 col-xs-6">@Model.Filters[i].Description</div>
+
+                            <div class="col-lg-2 col-md-3 col-xs-6">
+                                @Html.TextBoxFor(m => m.Filters[i].Value, new
+                           {
+                               @class = "form-control ",
+                               @id = @Model.Filters[i].ColumnName
+                           })
+                            </div>
+                        }
+                        break;
+
+                    case CatalogManagement.Models.ViewModels.FilterType.Combo:
+                        {
+                            @Html.HiddenFor(m => m.Filters[i].MultipleValues)
+
+                            <div class="col-lg-2 col-md-3 col-xs-6">@Model.Filters[i].Description</div>
+
+                            <div class="col-lg-2 col-md-3 col-xs-6">
+
+                                @*@Html.ListBoxFor(m => m.Filters[i].ObjectValue, @Model.Filters[i].MultipleValues.Select(indx => new SelectListItem
+                                    {
+                                        Value = indx.Key.ToString(),
+                                        Text = indx.Value.ToString(),
+
+                                        Selected = "select" == indx.Key.ToString()
+                                    }), new
+                                    {
+                                        @class = "form-control ",
+                                        @id = @Model.Filters[i].ColumnName
+                                    })*@
+
+                                @Html.ListBoxFor(m => m.Filters[i].selectedMultipleValues, new MultiSelectList(Model.Filters[i].MultipleValues, "Key", "Value"), new
+                                    {
+                                        @class = "form-control ",
+                                        @id = @Model.Filters[i].ColumnName,
+                                        @Multiple = "multiple"
+                                    })
+
+                            </div>
+                        }
+                        break;
+                }
+
+            }
+
+            <div class="form-group">
+                <button class="btn btn-lg btn-primary PrettyButtonMargin " type="submit">@Model.ButtonText</button>
+            </div>
+
+        </div>
+    }
+
+    if (Model.Rows.Count > 0)
+    {
+        <table class="table table-bordered table-hover table-scrollable hidden-xs visible-md visible-lg visible-sm ">
+            <thead>
+                <tr class="hidden-xs">
+                    @foreach (var column in Model.Rows[0].Columns)
+                    {
+                        <th>
+                            @column.ColumnHeader
+                        </th>
+                    }
+
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                @foreach (var row in Model.Rows)
+                {
+                    <tr class="searchable hidden-xs">
+                        @foreach (var column in row.Columns)
+                        {
+                            switch (column.Type)
+                            {
+                                case CatalogManagement.Models.Entities.ColumnType.Button:
+                                    <td>
+                                        @using (Html.BeginForm(column.ButtonAction, column.ButtonController, new { OperationId = column.ButtonOperationId.ToString(), ItemId = column.ID.ToString() }, FormMethod.Post))
+                                    {
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" value="@column.ButtonOperationId" name="OperationId">
+                                            <input type="hidden" value="@column.ID" name="ID">
+                                            <button class="btn btn-primary" disabled="@column.ButtonDissabled">@column.ButtonText</button>
+                                        }
+                                    </td>
+                                    break;
+                                case CatalogManagement.Models.Entities.ColumnType.CheckBox:
+                                    <td>@column.Value</td>
+                                    break;
+                                case CatalogManagement.Models.Entities.ColumnType.Text:
+                                    <td>@column.Value</td>
+                                    break;
+                                default:
+                                    <td>@column.Value</td>
+                                    break;
+                            }
+                        }
+                    </tr>
+                }
+                @if (Model.Totales != null && Model.Totales.Columns != null && Model.Totales.Columns.Count > 0)
+                {
+
+                    <tr class="searchable hidden-xs">
+                        @foreach (var column in Model.Totales.Columns)
+                        {
+                            switch (column.Type)
+                            {
+                                case CatalogManagement.Models.Entities.ColumnType.Button:
+                                    <td>
+                                        @using (Html.BeginForm(column.ButtonAction, column.ButtonController, new { OperationId = column.ButtonOperationId.ToString(), ItemId = column.ID.ToString() }, FormMethod.Post))
+                                    {
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" value="@column.ButtonOperationId" name="OperationId">
+                                            <input type="hidden" value="@column.ID" name="ID">
+                                            <button class="btn btn-primary" disabled="@column.ButtonDissabled">@column.ButtonText</button>
+                                        }
+                                    </td>
+                                    break;
+                                case CatalogManagement.Models.Entities.ColumnType.CheckBox:
+                                    <td>@column.Value</td>
+                                    break;
+                                case CatalogManagement.Models.Entities.ColumnType.Text:
+                                    <td>@column.Value</td>
+                                    break;
+                                default:
+                                    <td>@column.Value</td>
+                                    break;
+                            }
+                        }
+                    </tr>
+
+                }
+            </tbody>
+
+        </table>
+
+        foreach (var row in Model.Rows)
+        {
+            <table class="table table-bordered table-hover visible-xs hidden-sm hidden-md hidden-lg table-condensed ">
+
+                <tbody id="myTable">
+                    @foreach (var column in row.Columns)
+                    {
+                        <tr class="">
+                            <td class="col-xs-4">@column.ColumnHeader</td>
+
+                            @switch (column.Type)
+                            {
+                                case CatalogManagement.Models.Entities.ColumnType.Button:
+                                    <td class="col-xs-8">
+                                        @using (Html.BeginForm(column.ButtonAction, column.ButtonController, new { OperationId = column.ButtonOperationId.ToString(), ItemId = column.ID.ToString() }, FormMethod.Post))
+                                    {
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" value="@column.ButtonOperationId" name="OperationId">
+                                            <input type="hidden" value="@column.ID" name="ID">
+                                            <button class="btn btn-primary" disabled="@column.ButtonDissabled">@column.ButtonText</button>
+                                        }
+                                    </td>
+                                    break;
+                                case CatalogManagement.Models.Entities.ColumnType.CheckBox:
+                                case CatalogManagement.Models.Entities.ColumnType.Text:
+                                default:
+                                    <td class="col-xs-8">@column.Value</td>
+                                    break;
+                            }
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        }
+
+        <table class="table table-bordered table-hover visible-xs hidden-sm hidden-md hidden-lg table-condensed ">
+
+            <tbody id="myTable">
+                @foreach (var column in Model.Totales.Columns)
+                    {
+                    <tr class="">
+                        <td class="col-xs-4">@column.ColumnHeader</td>
+
+                        @switch (column.Type)
+                        {
+                            case CatalogManagement.Models.Entities.ColumnType.Button:
+                                <td class="col-xs-8">
+                                    @using (Html.BeginForm(column.ButtonAction, column.ButtonController, new { OperationId = column.ButtonOperationId.ToString(), ItemId = column.ID.ToString() }, FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" value="@column.ButtonOperationId" name="OperationId">
+                                        <input type="hidden" value="@column.ID" name="ID">
+                                        <button class="btn btn-primary" disabled="@column.ButtonDissabled">@column.ButtonText</button>
+                                    }
+                                </td>
+                                break;
+                            case CatalogManagement.Models.Entities.ColumnType.CheckBox:
+                            case CatalogManagement.Models.Entities.ColumnType.Text:
+                            default:
+                                <td class="col-xs-8">@column.Value</td>
+                                break;
+                        }
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    }
+}
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $.datepicker.regional['es'] = {
+        closeText: 'Cerrar',
+        prevText: '< Ant',
+        nextText: 'Sig >',
+        currentText: 'Hoy',
+        monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+
+    $(document).ready(function () {
+        $(".datepicker").datepicker({
+            dateFormat: 'd MM yy',
+            changeMonth: true,
+            changeYear: true,
+
+
+        });
+    });
+
+    $(document).ready(function () {
+        (function ($) {
+
+            $('#filter').keyup(function () {
+
+                var rex = new RegExp($(this).val(), 'i');
+
+                $('.searchable').hide();
+                $('.searchable').filter(function () {
+                    return rex.test($(this).text());
+                }).show();
+
+            })
+
+            $('#filterXS').keyup(function () {
+
+                var rex = new RegExp($(this).val(), 'i');
+
+                $('.searchableXS').attr('style', 'display:none !important');
+                $('.searchableXS').filter(function () {
+                    return rex.test($(this).text());
+                }).attr('style', 'display:table ');
+
+            })
+
+        }(jQuery));
+
+
+    });
+
+</script>

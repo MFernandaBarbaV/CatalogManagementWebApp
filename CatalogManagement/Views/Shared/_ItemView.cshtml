@@ -140,9 +140,32 @@ else
                              
                                 <label for="filter" class="@Model.Properties[i].ClassIcon" rel="tooltip" title="@Model.Properties[i].Label"></label>
                                 </div>
-                        break;
-                    case PropertieType.TextBox:
-                    default:
+                            break;
+                        case PropertieType.Date:
+                            @*<div class="input-group icon-addon addon-md  col-lg-12 col-xs-12 ">*@
+
+                                @*@Html.TextBoxFor(m => m.Properties[i].DateValue, new
+                               {
+                                    @type = "date",
+                                   @class = "form-control ",
+                                   @id = @Model.Properties[i].Label
+                               })*@
+                                <div>
+
+                                    @Html.TextBoxFor(m => m.Properties[i].DateValue, "{0:d MMMM yyyy}", new
+                               {
+                                  
+                               @class = "form-control datepicker",
+                                   @id = Model.Properties[i].Id,
+
+                               })
+                                </div>
+
+                                @*<label for="filter" class="@Model.Properties[i].ClassIcon" rel="tooltip" title="@Model.Properties[i].Label"></label>
+                            </div>*@
+                            break;
+                        case PropertieType.TextBox:
+                        default:
                             <div class="input-group icon-addon addon-md center-block col-lg-12 col-xs-12">
 
 
@@ -174,8 +197,37 @@ else
 
 <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet" />
 <script src="~/Scripts/validator.min.js"></script>
-
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
     $('#myForm').validator();
     $('.Dissabled').attr("disabled", "true");
+
+    $.datepicker.regional['es'] = {
+        closeText: 'Cerrar',
+        prevText: '< Ant',
+        nextText: 'Sig >',
+        currentText: 'Hoy',
+        monthNames: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['es']);
+
+    $(document).ready(function () {
+        $(".datepicker").datepicker({
+            dateFormat: 'd MM yy',
+            changeMonth: true,
+            changeYear: true,
+
+
+        });
+    });
 </script>

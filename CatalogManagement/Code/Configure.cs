@@ -84,6 +84,17 @@ namespace CatalogManagement.Code
 
                 }
             });
+            model.ItemsInMenu.Add(new MenuItem()
+            {
+                Name = "Reportes",
+                Span = faIconss.filter,
+                IsDropBox = true,
+                InnerItems = new List<MenuItem>()
+                {
+                    new MenuItem() { Name = "Reporte de Gasto", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)Operations.VerReporteGastos, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerReporteGastos) },
+
+                }
+            });
         }
 
         //PASO #2: Configurar las columnas que se mostrarán al VER el catálogo
@@ -553,6 +564,7 @@ namespace CatalogManagement.Code
                                     if (itemId == 0)//Nuevo
                                     {
                                         resultGasto = new Gastos();
+                                        resultGasto.Fecha = DateTime.Now;
                                         model.SetAttributes(itemId, "Nuevo Gasto", "Guardar", "New", "Catalog", (Operations)operationId, Operations.VerGastos);
 
                                     }
@@ -568,6 +580,7 @@ namespace CatalogManagement.Code
                                         model.Properties.Add(new Propertie() { Id = "Descripcion", Label = "Descripción", Value = resultGasto.Descripcion, RegEx = Utils.GenerateRegex(true, true, true, true, 1, 50, true, true, ref messageValidation), ErrorMessage = messageValidation });
                                         model.Properties.Add(new Propertie() { Id = "IdTipoGasto", Label = "Tipo Gasto", MultipleValues = tipoGasto, Type = PropertieType.ComboBox, Value = resultGasto.IdTipoGasto.ToString() });
                                         model.Properties.Add(new Propertie() { Id = "Cantidad", Label = "Cantidad", ObjectValue = resultGasto.Cantidad, RegEx = Utils.OnlyNumber, ErrorMessage = Utils.ErrorOnlyNumber, Type = PropertieType.TextBox, ClassIcon = faIconss.money });
+                                        model.Properties.Add(new Propertie() { Id = "Fecha", Label = "Fecha", DateValue = resultGasto.Fecha, Type = PropertieType.Date, ClassIcon = faIconss.date });
 
 
                                     }
@@ -857,7 +870,8 @@ namespace CatalogManagement.Code
                             {
                                 Descripcion = model.GetValuePropertieString("Descripcion"),
                                 IdTipoGasto = model.GetValuePropertieByte("IdTipoGasto"),
-                                Cantidad = model.GetValuePropertieInteger("Cantidad")
+                                Cantidad = model.GetValuePropertieInteger("Cantidad"),
+                                Fecha = model.GetValuePropertieDateTime("Fecha"),
                             });
                             db2.SaveChanges();
 
@@ -1053,6 +1067,87 @@ namespace CatalogManagement.Code
             }
         }
 
+        //PASO #2c: Configurar las columnas y filtros que se mostrarán en el reporte
+        /// <summary>
+        /// Método para cargar la información de un catálogo según la operación
+        /// </summary>
+        public static void LoadDataReport(ref ReportViewModel model, int operationId, ref string errorMessage, bool applyFilters)
+        {
+            try
+            {
+                Row row = new Row();
+
+                using (var db = new CatalogManagementDBModel())
+                {
+                    using (var db2 = new PuntoDeVentaEntities())
+                    {
+
+                        switch ((Operations)operationId)
+                        {
+                            case Operations.VerReporteGastos:
+                                model.SetAttributes("Gastos", "Ver", "ViewReport", "Catalog", (Operations)operationId, (Operations)operationId);
+                                if (applyFilters)
+                                {
+                                    decimal total = 0;
+
+                                    model.Rows = new List<Row>();
+
+                                    DateTime minDate = model.Filters[0].DateValue.Date;
+                                    DateTime maxDate = model.Filters[1].DateValue.Date;
+                                    List<int> types = (model.Filters[2].selectedMultipleValues == null) ? new List<int>() : model.Filters[2].selectedMultipleValues.Where(t => t != 0).ToList();
+
+                                    foreach (var item in db2.Gastos.Where(g => g.Fecha >= minDate && g.Fecha <= maxDate && (types.Contains(g.IdTipoGasto) || types.Count == 0)))
+                                    {
+                                        row = new Row();
+                                        row.Columns = new List<Column>();
+                                        row.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = item.Fecha.ToString("dd MMMM yyyy hh:mm tt"), ID = item.IdGasto.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Id", Value = item.IdGasto.ToString(), ID = item.IdGasto.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Descripción", Value = item.Descripcion.ToString(), ID = item.IdGasto.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Tipo de Gasto", Value = item.TipoGasto.Descripcion, ID = item.IdGasto.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Cantidad", Value = item.Cantidad.ToString("c2"), ID = item.IdGasto.ToString() });
+
+                                        model.Rows.Add(row);
+
+                                        total += item.Cantidad;
+                                    }
+                                    model.Totales = new Row();
+                                    model.Totales.Columns = new List<Column>();
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = string.Empty });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Id", Value = string.Empty });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Descripción", Value = "Total:" });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Tipo de Gasto", Value = string.Empty });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Cantidad", Value = total.ToString("c2"), });
+
+
+                                }
+
+
+                                Dictionary<int, string> tipoGasto = new Dictionary<int, string>();
+                                tipoGasto.Add(0, "-Todos-");
+                                foreach (var item in db2.TipoGasto)
+                                {
+                                    tipoGasto.Add(item.IdTipoGasto, item.Descripcion);
+                                }
+
+                                model.Filters = new List<Filter>();
+                                model.Filters.Add(new Filter() { Type = FilterType.Date, Id = "FechaI", Description = "Fecha inicio:", DateValue = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1) });
+                                model.Filters.Add(new Filter() { Type = FilterType.Date, Id = "FechaF", Description = "Fecha fin:", DateValue = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)) });
+                                model.Filters.Add(new Filter() { Type = FilterType.Combo, Id = "Tipo", Description = "Tipo de gasto:", MultipleValues = tipoGasto });
+
+                                break;
+                            default:
+                                errorMessage = "Modulo no implementado en Configure.LoadViewCatalog: " + ((Operations)operationId).ToString("g");
+
+                                break;
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+            }
+        }
 
 
         #region Helpers

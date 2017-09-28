@@ -28,6 +28,8 @@ namespace CatalogManagement.Models.Entities
             set { Value = value.ToString(); }
         }
 
+        public DateTime DateValue { get; set; }
+
         public object ObjectValue { get; set; }
 
         public string RegEx { get; set; }
@@ -54,7 +56,8 @@ namespace CatalogManagement.Models.Entities
 
     public enum PropertieType
     {
-        TextBox, ComboBox, CheckBox, Password, ConfirmPassword
+        TextBox, ComboBox, CheckBox, Password, ConfirmPassword,
+        Date
     }
 
     public static class faIconss
@@ -72,6 +75,7 @@ namespace CatalogManagement.Models.Entities
         public static string search =       "fa fa-search";
         public static string hand =         "fa fa-hand-o-up";
         public static string money = "fa fa-money";
+        public static string filter = "fa fa-filter";
     }
     
 }

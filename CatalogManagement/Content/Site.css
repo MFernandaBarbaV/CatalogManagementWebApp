@@ -239,6 +239,13 @@ textarea {
     margin: 0 auto;
     display: block;
 }
+.PrettyButtonMargin {
+    background-color: rgba(33,133,158,1) !important;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 35px;
+    display: block;
+}
 
 .PrettyButton:hover {
     background-color: rgb(30, 161, 149) !important;
@@ -253,6 +260,14 @@ textarea {
 .ItemDiv {
     background-color: white;
     padding: 20px;
+    position: relative;
+}
+
+.FiltersDiv {
+    background-color: rgba(255,255,255,0.9);
+    padding: 10px;
+    margin: 10px;
+    margin-left: 20px;
     position: relative;
 }
 
@@ -278,3 +293,50 @@ textarea {
 }
 
 
+.ui-widget-header {
+    border-color: white !important;
+    background-color: white !important;
+}
+
+    .ui-state-default,
+    .ui-widget-content .ui-state-default,
+    .ui-widget-header .ui-state-default,
+    .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+        background-color: rgba(33,133,158,1) !important;
+    }
+.ui-widget {
+    font-family: Dosis-Medium !important;
+    font-stretch: normal !important;
+    font-weight: 200 !important;
+}
+
+    .ui-widget, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+        font-family: Dosis-Medium !important;
+        font-stretch: normal !important;
+        font-weight: 200 !important;
+    }
+
+.ui-datepicker th {
+    font-stretch: normal !important;
+    font-weight: 200 !important;
+    color:white;
+}
+
+.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year{
+    height:32px;
+}
+ .ui-widget-content {
+    background-color: rgba(255,255,255,0.5) !important;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    color: rgba(255,255,255,0.9) !important;
+    font-weight: bold;
+    font-stretch: wider;
+    border-color: black !important;
+    background-color: black !important;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    color: rgba(255,255,255,0.9) !important;
+}

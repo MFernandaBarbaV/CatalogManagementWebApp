@@ -37,7 +37,7 @@ namespace CatalogManagement.Models.ViewModels
                 using (CatalogManagementDBModel db = new CatalogManagementDBModel())
                 {
                     var result = db.spmUser_DoLogin(UserName, pwEncripted);
-             
+
                     if (result == null)
                     {
                         errorMessage = "Usuario o contraseña incorrecto";
@@ -51,7 +51,7 @@ namespace CatalogManagement.Models.ViewModels
 
 
                     var profile = db.spdUserProfiles_GetByUserID(user.UserID).First();
-                  
+
                     var operations = db.mProfiles.First(p => p.ProfileID == profile.ProfileID).mOperations.ToList();
 
                     var sysUser = new SystemUser()
@@ -72,7 +72,7 @@ namespace CatalogManagement.Models.ViewModels
             }
             catch (System.Data.Entity.Core.EntityException ex)
             {
-                errorMessage = "Error en la conexión";
+                errorMessage = "Error en la conexión [" + ex.Message + "]";
                 return null;
             }
             catch (Exception e)

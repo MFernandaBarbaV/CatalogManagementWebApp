@@ -320,6 +320,7 @@
     <Compile Include="Models\Entities\Column.cs" />
     <Compile Include="Models\Entities\Propertie.cs" />
     <Compile Include="Models\Entities\Row.cs" />
+    <Compile Include="Models\ViewModels\ReportViewModel.cs" />
     <Compile Include="Models\ViewModels\ViewTemplate.cs" />
     <Compile Include="Models\ViewModels\RelationViewModel.cs" />
     <Compile Include="Global.asax.cs">
@@ -636,7 +637,7 @@
     <Content Include="Views\Shared\_RedirectToLogin.cshtml" />
     <Content Include="Views\Shared\_RelationView.cshtml" />
     <Content Include="Views\Catalog\Index.cshtml" />
-    <Content Include="Views\Shared\_FilterItemsView.cshtml" />
+    <Content Include="Views\Shared\_ReportView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -668,7 +669,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50963</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50963/</IISUrl>
+          <IISUrl>http://localhost:50964/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

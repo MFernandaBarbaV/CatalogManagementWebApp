@@ -83,6 +83,108 @@ namespace CatalogManagement.Controllers
             }
         }
 
+        [Route("Report1/{OperationId}")]
+        public ActionResult ViewFilterReport(string OperationId)
+        {
+            try
+            {
+                #region Validar sesión de usuario
+
+                if (Validation.IsValidSession(Session[SessionVariables.SystemUser]))
+                {
+                    if (!Validation.ValidatePermissions(Session[SessionVariables.SystemUser], OperationId))
+                    {
+                        ViewBag.ErrorMessage = "El usuario no tiene permisos para realizar esta operación";
+                        return PartialView("_ReportView", null);
+                    }
+                }
+                else
+                {
+                    return PartialView("_RedirectToLogin");
+                }
+
+                #endregion
+
+                ReportViewModel model = new ReportViewModel();
+
+                model.Rows = new List<Row>();
+              
+                int operation = 0;
+
+                if (!int.TryParse(OperationId, out operation))
+                {
+                    return View("Index");
+                }
+
+                string errorMessage = string.Empty;
+
+                Configure.LoadDataReport(ref model, operation, ref errorMessage, false);
+
+                ViewBag.ErrorMessage = errorMessage + (Session[SessionVariables.ErrorMessage] == null ? "" : " " + Session[SessionVariables.ErrorMessage].ToString());
+
+                ViewBag.SuccessMessage = (Session[SessionVariables.SuccessMessage] == null ? "" : Session[SessionVariables.SuccessMessage].ToString());
+
+                Session[SessionVariables.SuccessMessage] = null;
+                Session[SessionVariables.ErrorMessage] = null;
+                return PartialView("_ReportView", model);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessage = e.Message;
+                return PartialView("_ReportView", null);
+            }
+        }
+
+        [Route("Report/{OperationId}")]
+        public ActionResult ViewReport(ReportViewModel model, string OperationId)
+        {
+            try
+            {
+                #region Validar sesión de usuario
+
+                if (Validation.IsValidSession(Session[SessionVariables.SystemUser]))
+                {
+                    if (!Validation.ValidatePermissions(Session[SessionVariables.SystemUser], OperationId))
+                    {
+                        ViewBag.ErrorMessage = "El usuario no tiene permisos para realizar esta operación";
+                        return PartialView("_ReportView", null);
+                    }
+                }
+                else
+                {
+                    return PartialView("_RedirectToLogin");
+                }
+
+                #endregion
+
+              
+
+                int operation = 0;
+
+                if (!int.TryParse(OperationId, out operation))
+                {
+                    return View("Index");
+                }
+
+                string errorMessage = string.Empty;
+
+                Configure.LoadDataReport(ref model, operation, ref errorMessage, true);
+
+                ViewBag.ErrorMessage = errorMessage + (Session[SessionVariables.ErrorMessage] == null ? "" : " " + Session[SessionVariables.ErrorMessage].ToString());
+
+                ViewBag.SuccessMessage = (Session[SessionVariables.SuccessMessage] == null ? "" : Session[SessionVariables.SuccessMessage].ToString());
+
+                Session[SessionVariables.SuccessMessage] = null;
+                Session[SessionVariables.ErrorMessage] = null;
+                return PartialView("_ReportView", model);
+            }
+            catch (Exception e)
+            {
+                ViewBag.ErrorMessage = e.Message;
+                return PartialView("_ReportView", null);
+            }
+        }
+
         [Route("View/{OperationId}/{ItemId}")]
         public ActionResult CloseUserSesion(string OperationId, string ItemId)
         {

@@ -59,6 +59,26 @@ namespace CatalogManagement.Models.ViewModels
             }
         }
 
+        public DateTime GetValuePropertieDateTime(string id)
+        {
+            try
+            {
+                if (Properties == null || Properties.Count == 0)
+                    return DateTime.MinValue;
+
+                var prop = Properties.FirstOrDefault(p => p.Id.ToLower().Trim() == id.ToLower().Trim());
+
+                if (prop == null)
+                    return DateTime.MinValue;
+
+                return prop.DateValue;
+            }
+            catch (Exception)
+            {
+                return DateTime.MinValue;
+            }
+        }
+
         public bool? GetValuePropertieBoolean(string id)
         {
             try
