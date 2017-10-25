@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using WP.Security.Hash;
 
 namespace CatalogManagement.Code
 {
@@ -82,6 +81,34 @@ namespace CatalogManagement.Code
                    new MenuItem() { Name = "Ver Tipo de Gasto", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)Operations.VerTipoGasto, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerTipoGasto) },
                    new MenuItem() { Name = "Nuevo Tipo de Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevoTipoGasto, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevoTipoGasto) },
 
+                   new MenuItem() { Name = "Ver Compras", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)Operations.VerCompras, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerCompras) },
+                   new MenuItem() { Name = "Nueva Compra", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevaCompra, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevaCompra) },
+
+                }
+            });
+            model.ItemsInMenu.Add(new MenuItem()
+            {
+                Name = "Ventas",
+                Span = faIconss.money,
+                IsDropBox = true,
+                InnerItems = new List<MenuItem>()
+                {
+                   new MenuItem() { Name = "Ver Ventas", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)Operations.VerVentas, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerVentas) },
+                   new MenuItem() { Name = "Nueva Venta", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevaVenta, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevaVenta) },
+                 
+                }
+            });
+
+            model.ItemsInMenu.Add(new MenuItem()
+            {
+                Name = "Catalogos",
+                Span = faIconss.money,
+                IsDropBox = true,
+                InnerItems = new List<MenuItem>()
+                {
+                   new MenuItem() { Name = "Ver Productos", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)Operations.VerProductos, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerProductos) },
+                   new MenuItem() { Name = "Nuevo Producto", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevoProducto, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevoProducto) },
+
                 }
             });
             model.ItemsInMenu.Add(new MenuItem()
@@ -92,8 +119,11 @@ namespace CatalogManagement.Code
                 InnerItems = new List<MenuItem>()
                 {
                     new MenuItem() { Name = "Reporte de Gasto", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)Operations.VerReporteGastos, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerReporteGastos) },
+                    new MenuItem() { Name = "Reporte de Compras", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)Operations.VerReporteCompras, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerReporteCompras) },
+
 
                 }
+
             });
         }
 
@@ -760,7 +790,7 @@ namespace CatalogManagement.Code
                                 position: model.GetValuePropertieString("Position"),
                                 shortName: model.GetValuePropertieString("ShortName"),
                                 login: model.GetValuePropertieString("Login"),
-                                password: HashSecurity.GeneratePasswordHash(model.GetValuePropertieString("Password"), CryptographyFormat.SHA1),
+                                password: Security.Encrypt(model.GetValuePropertieString("Password")),
                                 status: model.GetValuePropertieInteger("Status"));
 
                             result = resUserUpd != null && resUserUpd.First() > 0;
@@ -785,7 +815,7 @@ namespace CatalogManagement.Code
                                 position: model.GetValuePropertieString("Position"),
                                 shortName: model.GetValuePropertieString("ShortName"),
                                 login: model.GetValuePropertieString("Login"),
-                                password: HashSecurity.GeneratePasswordHash(model.GetValuePropertieString("Password"), CryptographyFormat.SHA1),
+                                password: Security.Encrypt(model.GetValuePropertieString("Password")),
                                 status: model.GetValuePropertieInteger("Status"));
 
                             result = resUserIns > 0;
@@ -1101,7 +1131,7 @@ namespace CatalogManagement.Code
                                         row = new Row();
                                         row.Columns = new List<Column>();
                                         row.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = item.Fecha.ToString("dd MMMM yyyy hh:mm tt"), ID = item.IdGasto.ToString() });
-                                        row.Columns.Add(new Column() { ColumnHeader = "Id", Value = item.IdGasto.ToString(), ID = item.IdGasto.ToString() });
+                                        //   row.Columns.Add(new Column() { ColumnHeader = "Id", Value = item.IdGasto.ToString(), ID = item.IdGasto.ToString() });
                                         row.Columns.Add(new Column() { ColumnHeader = "Descripción", Value = item.Descripcion.ToString(), ID = item.IdGasto.ToString() });
                                         row.Columns.Add(new Column() { ColumnHeader = "Tipo de Gasto", Value = item.TipoGasto.Descripcion, ID = item.IdGasto.ToString() });
                                         row.Columns.Add(new Column() { ColumnHeader = "Cantidad", Value = item.Cantidad.ToString("c2"), ID = item.IdGasto.ToString() });
@@ -1113,9 +1143,9 @@ namespace CatalogManagement.Code
                                     model.Totales = new Row();
                                     model.Totales.Columns = new List<Column>();
                                     model.Totales.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = string.Empty });
-                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Id", Value = string.Empty });
-                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Descripción", Value = "Total:" });
-                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Tipo de Gasto", Value = string.Empty });
+                                    // model.Totales.Columns.Add(new Column() { ColumnHeader = "Id", Value = string.Empty });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Descripción", Value = string.Empty });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Tipo de Gasto", Value = "Total:" });
                                     model.Totales.Columns.Add(new Column() { ColumnHeader = "Cantidad", Value = total.ToString("c2"), });
 
 

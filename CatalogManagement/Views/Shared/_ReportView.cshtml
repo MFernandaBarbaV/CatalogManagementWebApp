@@ -5,7 +5,7 @@
 }
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-@if (Model == null || Model.Rows == null)
+@if (Model == null || Model.Filters == null)
 {
     <div class="alert alert-danger">
         @if (string.IsNullOrEmpty(ViewBag.ErrorMessage))

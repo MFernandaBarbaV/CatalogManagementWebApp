@@ -42,7 +42,7 @@ namespace CatalogManagement.Models.Entities
 
         //Reportes
         VerReporteGastos = 22,
-        NuevoReporte = 23,
+        VerReporteCompras = 23,
         EditarReportes = 24,
         EliminarReportes = 25,      
         ImprimirReportes = 26,
@@ -64,6 +64,11 @@ namespace CatalogManagement.Models.Entities
         VerTipoGasto = 38,
         EditarTipoGasto = 39,
         NuevoTipoGasto = 40,
+
+        VerVentas = 41,
+        NuevaVenta = 42,
+        VerProductos = 43,
+        NuevoProducto = 44,
     }
 
  

@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>UsersDataBase</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{b3f64164-4bed-48c2-a8df-3a2d189ebe41}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>UsersDataBase</RootNamespace>
+    <AssemblyName>UsersDataBase</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\dProfileOperations.sql" />
+    <Build Include="dbo\Tables\dUserProfiles.sql" />
+    <Build Include="dbo\Tables\mAccessLog.sql" />
+    <Build Include="dbo\Tables\mAccessTemplates.sql" />
+    <Build Include="dbo\Tables\mApplications.sql" />
+    <Build Include="dbo\Tables\mOperations.sql" />
+    <Build Include="dbo\Tables\mProfiles.sql" />
+    <Build Include="dbo\Tables\mStatus.sql" />
+    <Build Include="dbo\Tables\mStatusTypes.sql" />
+    <Build Include="dbo\Tables\mUsers.sql" />
+    <Build Include="dbo\Stored Procedures\Configuration_GetForExport.sql" />
+    <Build Include="dbo\Stored Procedures\Delegation_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\Sessions_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\spdProfileOperations_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\spdProfileOperations_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\spdUserDelegations_GetByUserID.sql" />
+    <Build Include="dbo\Stored Procedures\spdUserProfiles_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\spdUserProfiles_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spdUserProfiles_GetByUserID.sql" />
+    <Build Include="dbo\Stored Procedures\spdUserProfiles_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_GetAccessReport.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_GetAccessReportN.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_GetByFkProfileID.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_GetByFkUserID.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_GetByID.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_GetByProfileName.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_GetByUserLogin.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_GetByUserName.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_GetLikeByProfileName.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_GetLikeByUserLogin.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_GetLikeByUserName.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessLog_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessTemplates_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessTemplates_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessTemplates_GetByID.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessTemplates_GetByName.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessTemplates_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\spmAccessTemplates_Update.sql" />
+    <Build Include="dbo\Stored Procedures\spmApplications_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\spmApplications_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spmApplications_GetAllWithOperations.sql" />
+    <Build Include="dbo\Stored Procedures\spmApplications_GetAllWithOperationsAndProfiles.sql" />
+    <Build Include="dbo\Stored Procedures\spmApplications_GetAllWithProfiles.sql" />
+    <Build Include="dbo\Stored Procedures\spmApplications_GetByID.sql" />
+    <Build Include="dbo\Stored Procedures\spmApplications_GetByIDWithProfiles.sql" />
+    <Build Include="dbo\Stored Procedures\spmApplications_GetByName.sql" />
+    <Build Include="dbo\Stored Procedures\spmApplications_GetByType.sql" />
+    <Build Include="dbo\Stored Procedures\spmApplications_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\spmApplications_Update.sql" />
+    <Build Include="dbo\Stored Procedures\spmOperations_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\spmOperations_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spmOperations_GetByApplicationID.sql" />
+    <Build Include="dbo\Stored Procedures\spmOperations_GetByID.sql" />
+    <Build Include="dbo\Stored Procedures\spmOperations_GetByName.sql" />
+    <Build Include="dbo\Stored Procedures\spmOperations_GetByNameAndApplicationID.sql" />
+    <Build Include="dbo\Stored Procedures\spmOperations_GetByProfileID.sql" />
+    <Build Include="dbo\Stored Procedures\spmOperations_GetLikeByName.sql" />
+    <Build Include="dbo\Stored Procedures\spmOperations_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\spmOperations_Update.sql" />
+    <Build Include="dbo\Stored Procedures\spmProfiles_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\spmProfiles_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spmProfiles_GetAllWithOperations.sql" />
+    <Build Include="dbo\Stored Procedures\spmProfiles_GetByApplicationID.sql" />
+    <Build Include="dbo\Stored Procedures\spmProfiles_GetByID.sql" />
+    <Build Include="dbo\Stored Procedures\spmProfiles_GetByName.sql" />
+    <Build Include="dbo\Stored Procedures\spmProfiles_GetByNameAndApplicationID.sql" />
+    <Build Include="dbo\Stored Procedures\spmProfiles_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\spmProfiles_Update.sql" />
+    <Build Include="dbo\Stored Procedures\spmStatus_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\spmStatus_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spmStatus_GetByID.sql" />
+    <Build Include="dbo\Stored Procedures\spmStatus_GetByType.sql" />
+    <Build Include="dbo\Stored Procedures\spmStatus_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\spmStatus_Update.sql" />
+    <Build Include="dbo\Stored Procedures\spmStatusType_GetByID.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_ChangePasswordAtFirstSession.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_Delete.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_DoLogin.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_DoLogout.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_GetAll.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_GetAllWithProfiles.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_GetByApplication.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_GetByApplicationAndUser.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_GetByID.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_GetLikeByEmail.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_GetLikeByLastName.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_GetLikeByLogin.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_GetLikeByName.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_GetLikeByOrganization.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_GetLikeByPosition.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_GetNameBySmartCardID.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\spmUser_Update.sql" />
+    <Build Include="dbo\Stored Procedures\spmUsers_GetByEmailOnly.sql" />
+    <Build Include="dbo\Stored Procedures\spResetUserPasswordByEmail.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment1.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\CreateScriptFromDB.sql" />
+  </ItemGroup>
+</Project>

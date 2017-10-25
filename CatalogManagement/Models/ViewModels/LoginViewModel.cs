@@ -1,4 +1,5 @@
-﻿using CatalogManagement.DBModels;
+﻿using CatalogManagement.Code;
+using CatalogManagement.DBModels;
 using CatalogManagement.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using WP.Security.Hash;
 
 namespace CatalogManagement.Models.ViewModels
 {
@@ -33,7 +33,7 @@ namespace CatalogManagement.Models.ViewModels
                 string pwEncripted = string.Empty;
                 //UserName = "Administrador";
                 //Password = "321321321";
-                pwEncripted = HashSecurity.GeneratePasswordHash(Password, CryptographyFormat.SHA1);
+                pwEncripted = Security.Encrypt(Password);
                 using (CatalogManagementDBModel db = new CatalogManagementDBModel())
                 {
                     var result = db.spmUser_DoLogin(UserName, pwEncripted);
@@ -47,6 +47,12 @@ namespace CatalogManagement.Models.ViewModels
                     foreach (var item in result)
                     {
                         user = item;
+                    }
+
+                    if(user == null)
+                    {
+                        errorMessage = "Usuario o contraseña incorrecto";
+                        return null;  
                     }
 
 
