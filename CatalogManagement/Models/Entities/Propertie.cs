@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -46,6 +47,11 @@ namespace CatalogManagement.Models.Entities
 
         public bool IsDissabled { get { return !IsEnabled; } }
 
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]   
+        public decimal DecimalValue { get; internal set; }
+
+        public List<Propertie> InnerProperties { get; set; }
+
         public Propertie()
         {
             ClassIcon = faIconss.pencil;
@@ -57,7 +63,8 @@ namespace CatalogManagement.Models.Entities
     public enum PropertieType
     {
         TextBox, ComboBox, CheckBox, Password, ConfirmPassword,
-        Date
+        Date, Money, InnerPropertie,
+        Line
     }
 
     public static class faIconss
@@ -76,6 +83,8 @@ namespace CatalogManagement.Models.Entities
         public static string hand =         "fa fa-hand-o-up";
         public static string money = "fa fa-money";
         public static string filter = "fa fa-filter";
+        public static string bookmark = "fa fa-bookmark-o";
+        public static string shopping = "fa fa-shopping-cart ";
     }
     
 }

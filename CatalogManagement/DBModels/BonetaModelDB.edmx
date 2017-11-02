@@ -32,7 +32,7 @@
           <Property Name="IdCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdProveedor" Type="int" Nullable="false" />
           <Property Name="IdOperador" Type="int" Nullable="false" />
-          <Property Name="FechaCompra" Type="datetime" Nullable="false" />
+          <Property Name="FechaCompra" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Total" Type="money" Nullable="false" />
         </EntityType>
         <EntityType Name="CompraDetalle">
@@ -160,8 +160,8 @@
           <Property Name="Multiplicador" Type="money" Nullable="false" />
           <Property Name="CantidadPiezas" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'PuntoDeVenta.dbo.TipoPrecioPorProducto' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PuntoDeVenta.dbo.TipoPrecioPorProducto' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TipoPrecioPorProducto">
           <Key>
             <PropertyRef Name="IdProducto" />
@@ -215,6 +215,30 @@ advertencia 6002: La tabla o vista 'PuntoDeVenta.dbo.TipoPrecioPorProducto' no t
           <Property Name="PrecioUnitario" Type="money" Nullable="false" />
           <Property Name="PrecioTotal" Type="money" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Compra_Operador">
+          <End Role="Operador" Type="Self.Operador" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operador">
+              <PropertyRef Name="IdOperador" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="IdOperador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_Proveedor">
+          <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="1" />
+          <End Role="Compra" Type="Self.Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CompraDetalle_Compra">
           <End Role="Compra" Type="Self.Compra" Multiplicity="1" />
           <End Role="CompraDetalle" Type="Self.CompraDetalle" Multiplicity="*" />
@@ -452,7 +476,7 @@ advertencia 6002: La tabla o vista 'PuntoDeVenta.dbo.TipoPrecioPorProducto' no t
         <Function Name="CompraAgregar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdProveedor" Type="int" Mode="In" />
           <Parameter Name="IdOperador" Type="int" Mode="In" />
-          <Parameter Name="FechaCompra" Type="datetime" Mode="In" />
+          <Parameter Name="FechaCompra" Type="datetime2" Mode="In" />
           <Parameter Name="Total" Type="money" Mode="In" />
           <Parameter Name="IdCompra" Type="int" Mode="InOut" />
         </Function>
@@ -538,6 +562,7 @@ advertencia 6002: La tabla o vista 'PuntoDeVenta.dbo.TipoPrecioPorProducto' no t
           <Parameter Name="EsFactura" Type="bit" Mode="In" />
           <Parameter Name="Total" Type="money" Mode="In" />
           <Parameter Name="GuardadoTemporal" Type="bit" Mode="In" />
+          <Parameter Name="Fecha" Type="datetime" Mode="In" />
           <Parameter Name="IdVenta" Type="int" Mode="InOut" />
         </Function>
         <Function Name="VentaDetalleAgregar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -575,6 +600,14 @@ advertencia 6002: La tabla o vista 'PuntoDeVenta.dbo.TipoPrecioPorProducto' no t
     [TipoPrecioPorProducto].[SeUsa] AS [SeUsa]
     FROM [dbo].[TipoPrecioPorProducto] AS [TipoPrecioPorProducto]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_Compra_Operador" Association="Self.FK_Compra_Operador">
+            <End Role="Operador" EntitySet="Operador" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_Proveedor" Association="Self.FK_Compra_Proveedor">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
           <AssociationSet Name="FK_CompraDetalle_Compra" Association="Self.FK_CompraDetalle_Compra">
             <End Role="Compra" EntitySet="Compra" />
             <End Role="CompraDetalle" EntitySet="CompraDetalle" />
@@ -680,9 +713,11 @@ advertencia 6002: La tabla o vista 'PuntoDeVenta.dbo.TipoPrecioPorProducto' no t
           <Property Name="IdCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdProveedor" Type="Int32" Nullable="false" />
           <Property Name="IdOperador" Type="Int32" Nullable="false" />
-          <Property Name="FechaCompra" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaCompra" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="CompraDetalle" Relationship="Self.FK_CompraDetalle_Compra" FromRole="Compra" ToRole="CompraDetalle" />
+          <NavigationProperty Name="Operador" Relationship="PuntoDeVentaModel.FK_Compra_Operador" FromRole="Compra" ToRole="Operador" />
+          <NavigationProperty Name="Proveedor" Relationship="PuntoDeVentaModel.FK_Compra_Proveedor" FromRole="Compra" ToRole="Proveedor" />
         </EntityType>
         <EntityType Name="CompraDetalle">
           <Key>
@@ -742,6 +777,7 @@ advertencia 6002: La tabla o vista 'PuntoDeVenta.dbo.TipoPrecioPorProducto' no t
           <Property Name="Contraseña" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Venta" Relationship="Self.FK_Venta_Operador" FromRole="Operador" ToRole="Venta" />
+          <NavigationProperty Name="Compra" Relationship="PuntoDeVentaModel.FK_Compra_Operador" FromRole="Operador" ToRole="Compra" />
         </EntityType>
         <EntityType Name="Producto">
           <Key>
@@ -782,6 +818,7 @@ advertencia 6002: La tabla o vista 'PuntoDeVenta.dbo.TipoPrecioPorProducto' no t
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DiasCredito" Type="Byte" />
           <NavigationProperty Name="Producto" Relationship="Self.FK_Producto_Proveedor" FromRole="Proveedor" ToRole="Producto" />
+          <NavigationProperty Name="Compra" Relationship="PuntoDeVentaModel.FK_Compra_Proveedor" FromRole="Proveedor" ToRole="Compra" />
         </EntityType>
         <EntityType Name="SubTipoProducto">
           <Key>
@@ -1274,6 +1311,7 @@ advertencia 6002: La tabla o vista 'PuntoDeVenta.dbo.TipoPrecioPorProducto' no t
             <Parameter Name="EsFactura" Mode="In" Type="Boolean" />
             <Parameter Name="Total" Mode="In" Type="Decimal" />
             <Parameter Name="GuardadoTemporal" Mode="In" Type="Boolean" />
+            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
             <Parameter Name="IdVenta" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="VentaDetalleAgregar" ReturnType="Collection(Decimal)">
@@ -1289,6 +1327,14 @@ advertencia 6002: La tabla o vista 'PuntoDeVenta.dbo.TipoPrecioPorProducto' no t
           <AssociationSet Name="FK_Gastos_Gastos" Association="PuntoDeVentaModel.FK_Gastos_Gastos">
             <End Role="TipoGasto" EntitySet="TipoGasto" />
             <End Role="Gastos" EntitySet="Gastos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_Operador" Association="PuntoDeVentaModel.FK_Compra_Operador">
+            <End Role="Operador" EntitySet="Operador" />
+            <End Role="Compra" EntitySet="Compra" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Compra_Proveedor" Association="PuntoDeVentaModel.FK_Compra_Proveedor">
+            <End Role="Proveedor" EntitySet="Proveedor" />
+            <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="ClientesObtener_Result">
@@ -1410,6 +1456,30 @@ advertencia 6002: La tabla o vista 'PuntoDeVenta.dbo.TipoPrecioPorProducto' no t
             </Principal>
             <Dependent Role="Gastos">
               <PropertyRef Name="IdTipoGasto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_Operador">
+          <End Type="PuntoDeVentaModel.Operador" Role="Operador" Multiplicity="1" />
+          <End Type="PuntoDeVentaModel.Compra" Role="Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operador">
+              <PropertyRef Name="IdOperador" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="IdOperador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Compra_Proveedor">
+          <End Type="PuntoDeVentaModel.Proveedor" Role="Proveedor" Multiplicity="1" />
+          <End Type="PuntoDeVentaModel.Compra" Role="Compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proveedor">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="Compra">
+              <PropertyRef Name="IdProveedor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

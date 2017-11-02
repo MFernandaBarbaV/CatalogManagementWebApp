@@ -42,6 +42,8 @@
         <EntityTypeShape EntityType="PuntoDeVentaModel.Gastos" Width="1.5" PointX="10.625" PointY="9.875" />
         <EntityTypeShape EntityType="PuntoDeVentaModel.TipoGasto" Width="1.5" PointX="8.375" PointY="10.125" />
         <AssociationConnector Association="PuntoDeVentaModel.FK_Gastos_Gastos" />
+        <AssociationConnector Association="PuntoDeVentaModel.FK_Compra_Operador" />
+        <AssociationConnector Association="PuntoDeVentaModel.FK_Compra_Proveedor" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

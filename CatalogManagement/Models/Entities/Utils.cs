@@ -15,6 +15,9 @@ namespace CatalogManagement.Models.Entities
 
         public static readonly string ErrorOnlyNumber = "El campo solo acepta valores numéricos";
 
+        public static readonly string Money = @"\d+(?:.\d{1,2})?";
+
+        public static string ErrorMoney = "El campo solo acepta valores numéricos";
 
         public static string GenerateRegex(bool aphabeticLower, bool alphabeticUpper, bool numbers, bool spaces, int minLenght, int maxLenght, bool accent, bool specialChars, ref string messageValidation)
         {

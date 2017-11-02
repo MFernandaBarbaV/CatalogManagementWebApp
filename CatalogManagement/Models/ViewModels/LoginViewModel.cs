@@ -49,10 +49,10 @@ namespace CatalogManagement.Models.ViewModels
                         user = item;
                     }
 
-                    if(user == null)
+                    if (user == null)
                     {
                         errorMessage = "Usuario o contraseña incorrecto";
-                        return null;  
+                        return null;
                     }
 
 
@@ -62,6 +62,7 @@ namespace CatalogManagement.Models.ViewModels
 
                     var sysUser = new SystemUser()
                     {
+                        SystemUserId = user.UserID,
                         FirstName = user.Name,
                         LastName = user.LastName,
                         Operations = operations,
@@ -90,9 +91,20 @@ namespace CatalogManagement.Models.ViewModels
 
         }
 
-        public static bool Logout(int userId, string userName, string password)
+        public static bool Logout(int userId)
         {
-            return true;
+            try
+            {
+                using (CatalogManagementDBModel db = new CatalogManagementDBModel())
+                {
+                    db.spmUser_DoLogout(userId);
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

@@ -1,83 +1,11 @@
-﻿  
-
-SET IDENTITY_INSERT [dbo].[Venta] ON
-
-MERGE INTO [dbo].[Venta] AS Target
-USING (VALUES
-	(1,1,1,getdate(),0,0,10,1)
-
-) AS Source ([IdVenta],[IdCliente],[IdOperador],[FechaVenta],[Descuento],[EsFactura],[Total],[GuardadoTemporal])
-ON (Target.[IdVenta] = Source.[IdVenta])
-WHEN MATCHED AND (
-	NULLIF(Source.[IdCliente], Target.[IdCliente]) IS NOT NULL OR NULLIF(Target.[IdCliente], Source.[IdCliente]) IS NOT NULL OR 
-	NULLIF(Source.[IdOperador], Target.[IdOperador]) IS NOT NULL OR NULLIF(Target.[IdOperador], Source.[IdOperador]) IS NOT NULL OR 
-	NULLIF(Source.[FechaVenta], Target.[FechaVenta]) IS NOT NULL OR NULLIF(Target.[FechaVenta], Source.[FechaVenta]) IS NOT NULL OR 
-	NULLIF(Source.[Descuento], Target.[Descuento]) IS NOT NULL OR NULLIF(Target.[Descuento], Source.[Descuento]) IS NOT NULL OR 
-	NULLIF(Source.[EsFactura], Target.[EsFactura]) IS NOT NULL OR NULLIF(Target.[EsFactura], Source.[EsFactura]) IS NOT NULL OR 
-	NULLIF(Source.[Total], Target.[Total]) IS NOT NULL OR NULLIF(Target.[Total], Source.[Total]) IS NOT NULL OR 
-	NULLIF(Source.[GuardadoTemporal], Target.[GuardadoTemporal]) IS NOT NULL OR NULLIF(Target.[GuardadoTemporal], Source.[GuardadoTemporal]) IS NOT NULL) THEN
- UPDATE SET
-  [IdCliente] = Source.[IdCliente], 
-  [IdOperador] = Source.[IdOperador], 
-  [FechaVenta] = Source.[FechaVenta], 
-  [Descuento] = Source.[Descuento], 
-  [EsFactura] = Source.[EsFactura], 
-  [Total] = Source.[Total], 
-  [GuardadoTemporal] = Source.[GuardadoTemporal]
-WHEN NOT MATCHED BY TARGET THEN
- INSERT([IdVenta],[IdCliente],[IdOperador],[FechaVenta],[Descuento],[EsFactura],[Total],[GuardadoTemporal])
- VALUES(Source.[IdVenta],Source.[IdCliente],Source.[IdOperador],Source.[FechaVenta],Source.[Descuento],Source.[EsFactura],Source.[Total],Source.[GuardadoTemporal])
-WHEN NOT MATCHED BY SOURCE THEN 
- DELETE;
-SET IDENTITY_INSERT [dbo].[Venta] OFF
-GO
-
-
-
-
-SET IDENTITY_INSERT [dbo].[VentaDetalle] ON
-
-MERGE INTO [dbo].[VentaDetalle] AS Target
-USING (VALUES
-	(1,1,1,1,1,1,1,1)
-) AS Source ([IdVentaDetalle],[IdVenta],[IdProducto],[IdUnidad],[IdTipoPrecio],[Cantidad],[PrecioUnitario],[PrecioTotal])
-ON (Target.[IdVentaDetalle] = Source.[IdVentaDetalle])
-WHEN MATCHED AND (
-	NULLIF(Source.[IdVenta], Target.[IdVenta]) IS NOT NULL OR NULLIF(Target.[IdVenta], Source.[IdVenta]) IS NOT NULL OR 
-	NULLIF(Source.[IdProducto], Target.[IdProducto]) IS NOT NULL OR NULLIF(Target.[IdProducto], Source.[IdProducto]) IS NOT NULL OR 
-	NULLIF(Source.[IdUnidad], Target.[IdUnidad]) IS NOT NULL OR NULLIF(Target.[IdUnidad], Source.[IdUnidad]) IS NOT NULL OR 
-	NULLIF(Source.[IdTipoPrecio], Target.[IdTipoPrecio]) IS NOT NULL OR NULLIF(Target.[IdTipoPrecio], Source.[IdTipoPrecio]) IS NOT NULL OR 
-	NULLIF(Source.[Cantidad], Target.[Cantidad]) IS NOT NULL OR NULLIF(Target.[Cantidad], Source.[Cantidad]) IS NOT NULL OR 
-	NULLIF(Source.[PrecioUnitario], Target.[PrecioUnitario]) IS NOT NULL OR NULLIF(Target.[PrecioUnitario], Source.[PrecioUnitario]) IS NOT NULL OR 
-	NULLIF(Source.[PrecioTotal], Target.[PrecioTotal]) IS NOT NULL OR NULLIF(Target.[PrecioTotal], Source.[PrecioTotal]) IS NOT NULL) THEN
- UPDATE SET
-  [IdVenta] = Source.[IdVenta], 
-  [IdProducto] = Source.[IdProducto], 
-  [IdUnidad] = Source.[IdUnidad], 
-  [IdTipoPrecio] = Source.[IdTipoPrecio], 
-  [Cantidad] = Source.[Cantidad], 
-  [PrecioUnitario] = Source.[PrecioUnitario], 
-  [PrecioTotal] = Source.[PrecioTotal]
-WHEN NOT MATCHED BY TARGET THEN
- INSERT([IdVentaDetalle],[IdVenta],[IdProducto],[IdUnidad],[IdTipoPrecio],[Cantidad],[PrecioUnitario],[PrecioTotal])
- VALUES(Source.[IdVentaDetalle],Source.[IdVenta],Source.[IdProducto],Source.[IdUnidad],Source.[IdTipoPrecio],Source.[Cantidad],Source.[PrecioUnitario],Source.[PrecioTotal])
-WHEN NOT MATCHED BY SOURCE THEN 
- DELETE
-;
-SET IDENTITY_INSERT [dbo].[VentaDetalle] OFF
-GO
-
-
-
- 
-
+﻿
 SET IDENTITY_INSERT [dbo].[Clientes] ON
 
 MERGE INTO [dbo].[Clientes] AS Target
 USING (VALUES
-  (1,N'Venta de Mostrador',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'Venta de Mostrador  ')
- ,(2,N'María Fernanda',N'Barba',N'Velázquez',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,N'María Fernanda Barba Velázquez')
-) AS Source ([IdCliente],[NombreCliente],[ApellidoPaternoCliente],[ApellidoMaternoCliente],[Email],[RFC],[CalleDomicilioFiscal],[NumeroInteriorDomicilioFiscal],[NumeroExteriorDomicilioFiscal],[ColoniaDomicilioFiscal],[CodigoPostalDomicilioFiscal],[CiudadDomicilioFiscal],[EstadoDomicilioFiscal],[Telefono],[NombreCompleto])
+  (1,N'Venta de Mostrador',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'')
+ ,(2,N'María Fernanda',N'Barba',N'Velázquez',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL)
+) AS Source ([IdCliente],[NombreCliente],[ApellidoPaternoCliente],[ApellidoMaternoCliente],[Email],[RFC],[CalleDomicilioFiscal],[NumeroInteriorDomicilioFiscal],[NumeroExteriorDomicilioFiscal],[ColoniaDomicilioFiscal],[CodigoPostalDomicilioFiscal],[CiudadDomicilioFiscal],[EstadoDomicilioFiscal],[Telefono])
 ON (Target.[IdCliente] = Source.[IdCliente])
 WHEN MATCHED AND (
 	NULLIF(Source.[NombreCliente], Target.[NombreCliente]) IS NOT NULL OR NULLIF(Target.[NombreCliente], Source.[NombreCliente]) IS NOT NULL OR 
@@ -92,8 +20,7 @@ WHEN MATCHED AND (
 	NULLIF(Source.[CodigoPostalDomicilioFiscal], Target.[CodigoPostalDomicilioFiscal]) IS NOT NULL OR NULLIF(Target.[CodigoPostalDomicilioFiscal], Source.[CodigoPostalDomicilioFiscal]) IS NOT NULL OR 
 	NULLIF(Source.[CiudadDomicilioFiscal], Target.[CiudadDomicilioFiscal]) IS NOT NULL OR NULLIF(Target.[CiudadDomicilioFiscal], Source.[CiudadDomicilioFiscal]) IS NOT NULL OR 
 	NULLIF(Source.[EstadoDomicilioFiscal], Target.[EstadoDomicilioFiscal]) IS NOT NULL OR NULLIF(Target.[EstadoDomicilioFiscal], Source.[EstadoDomicilioFiscal]) IS NOT NULL OR 
-	NULLIF(Source.[Telefono], Target.[Telefono]) IS NOT NULL OR NULLIF(Target.[Telefono], Source.[Telefono]) IS NOT NULL OR 
-	NULLIF(Source.[NombreCompleto], Target.[NombreCompleto]) IS NOT NULL OR NULLIF(Target.[NombreCompleto], Source.[NombreCompleto]) IS NOT NULL) THEN
+	NULLIF(Source.[Telefono], Target.[Telefono]) IS NOT NULL OR NULLIF(Target.[Telefono], Source.[Telefono]) IS NOT NULL) THEN
  UPDATE SET
   [NombreCliente] = Source.[NombreCliente], 
   [ApellidoPaternoCliente] = Source.[ApellidoPaternoCliente], 
@@ -107,11 +34,10 @@ WHEN MATCHED AND (
   [CodigoPostalDomicilioFiscal] = Source.[CodigoPostalDomicilioFiscal], 
   [CiudadDomicilioFiscal] = Source.[CiudadDomicilioFiscal], 
   [EstadoDomicilioFiscal] = Source.[EstadoDomicilioFiscal], 
-  [Telefono] = Source.[Telefono], 
-  [NombreCompleto] = Source.[NombreCompleto]
+  [Telefono] = Source.[Telefono]
 WHEN NOT MATCHED BY TARGET THEN
- INSERT([IdCliente],[NombreCliente],[ApellidoPaternoCliente],[ApellidoMaternoCliente],[Email],[RFC],[CalleDomicilioFiscal],[NumeroInteriorDomicilioFiscal],[NumeroExteriorDomicilioFiscal],[ColoniaDomicilioFiscal],[CodigoPostalDomicilioFiscal],[CiudadDomicilioFiscal],[EstadoDomicilioFiscal],[Telefono],[NombreCompleto])
- VALUES(Source.[IdCliente],Source.[NombreCliente],Source.[ApellidoPaternoCliente],Source.[ApellidoMaternoCliente],Source.[Email],Source.[RFC],Source.[CalleDomicilioFiscal],Source.[NumeroInteriorDomicilioFiscal],Source.[NumeroExteriorDomicilioFiscal],Source.[ColoniaDomicilioFiscal],Source.[CodigoPostalDomicilioFiscal],Source.[CiudadDomicilioFiscal],Source.[EstadoDomicilioFiscal],Source.[Telefono],Source.[NombreCompleto])
+ INSERT([IdCliente],[NombreCliente],[ApellidoPaternoCliente],[ApellidoMaternoCliente],[Email],[RFC],[CalleDomicilioFiscal],[NumeroInteriorDomicilioFiscal],[NumeroExteriorDomicilioFiscal],[ColoniaDomicilioFiscal],[CodigoPostalDomicilioFiscal],[CiudadDomicilioFiscal],[EstadoDomicilioFiscal],[Telefono])
+ VALUES(Source.[IdCliente],Source.[NombreCliente],Source.[ApellidoPaternoCliente],Source.[ApellidoMaternoCliente],Source.[Email],Source.[RFC],Source.[CalleDomicilioFiscal],Source.[NumeroInteriorDomicilioFiscal],Source.[NumeroExteriorDomicilioFiscal],Source.[ColoniaDomicilioFiscal],Source.[CodigoPostalDomicilioFiscal],Source.[CiudadDomicilioFiscal],Source.[EstadoDomicilioFiscal],Source.[Telefono])
 WHEN NOT MATCHED BY SOURCE THEN 
  DELETE
 ;
@@ -121,38 +47,29 @@ GO
 
 
  
+ SET IDENTITY_INSERT [dbo].[TipoGasto] ON
 
-  
-
-SET IDENTITY_INSERT [dbo].[Compra] ON
-
-MERGE INTO [dbo].[Compra] AS Target
+MERGE INTO [dbo].[TipoGasto] AS Target
 USING (VALUES
-	(1,1,1,getdate(),1)
-) AS Source ([IdCompra],[IdProveedor],[IdOperador],[FechaCompra],[Total])
-ON (Target.[IdCompra] = Source.[IdCompra])
+  (1,N'Renta')
+ ,(2,N'Papelería')
+ ,(3,N'Sueldos')
+ ,(4,N'Gasolina')
+) AS Source ([IdTipoGasto],[Descripcion])
+ON (Target.[IdTipoGasto] = Source.[IdTipoGasto])
 WHEN MATCHED AND (
-	NULLIF(Source.[IdProveedor], Target.[IdProveedor]) IS NOT NULL OR NULLIF(Target.[IdProveedor], Source.[IdProveedor]) IS NOT NULL OR 
-	NULLIF(Source.[IdOperador], Target.[IdOperador]) IS NOT NULL OR NULLIF(Target.[IdOperador], Source.[IdOperador]) IS NOT NULL OR 
-	NULLIF(Source.[FechaCompra], Target.[FechaCompra]) IS NOT NULL OR NULLIF(Target.[FechaCompra], Source.[FechaCompra]) IS NOT NULL OR 
-	NULLIF(Source.[Total], Target.[Total]) IS NOT NULL OR NULLIF(Target.[Total], Source.[Total]) IS NOT NULL) THEN
+	NULLIF(Source.[Descripcion], Target.[Descripcion]) IS NOT NULL OR NULLIF(Target.[Descripcion], Source.[Descripcion]) IS NOT NULL) THEN
  UPDATE SET
-  [IdProveedor] = Source.[IdProveedor], 
-  [IdOperador] = Source.[IdOperador], 
-  [FechaCompra] = Source.[FechaCompra], 
-  [Total] = Source.[Total]
+  [Descripcion] = Source.[Descripcion]
 WHEN NOT MATCHED BY TARGET THEN
- INSERT([IdCompra],[IdProveedor],[IdOperador],[FechaCompra],[Total])
- VALUES(Source.[IdCompra],Source.[IdProveedor],Source.[IdOperador],Source.[FechaCompra],Source.[Total])
+ INSERT([IdTipoGasto],[Descripcion])
+ VALUES(Source.[IdTipoGasto],Source.[Descripcion])
 WHEN NOT MATCHED BY SOURCE THEN 
  DELETE
 ;
 GO 
-SET IDENTITY_INSERT [dbo].[Compra] OFF
+SET IDENTITY_INSERT [dbo].[TipoGasto] OFF
 GO
-
-
- 
 
   
 
@@ -188,106 +105,6 @@ SET IDENTITY_INSERT [dbo].[Gastos] OFF
 GO
 
 
- 
-  
-
-SET IDENTITY_INSERT [dbo].[TipoGasto] ON
-
-MERGE INTO [dbo].[TipoGasto] AS Target
-USING (VALUES
-  (1,N'Renta')
- ,(2,N'Papelería')
- ,(3,N'Sueldos')
- ,(4,N'Gasolina')
-) AS Source ([IdTipoGasto],[Descripcion])
-ON (Target.[IdTipoGasto] = Source.[IdTipoGasto])
-WHEN MATCHED AND (
-	NULLIF(Source.[Descripcion], Target.[Descripcion]) IS NOT NULL OR NULLIF(Target.[Descripcion], Source.[Descripcion]) IS NOT NULL) THEN
- UPDATE SET
-  [Descripcion] = Source.[Descripcion]
-WHEN NOT MATCHED BY TARGET THEN
- INSERT([IdTipoGasto],[Descripcion])
- VALUES(Source.[IdTipoGasto],Source.[Descripcion])
-WHEN NOT MATCHED BY SOURCE THEN 
- DELETE
-;
-GO 
-SET IDENTITY_INSERT [dbo].[TipoGasto] OFF
-GO
-
-
- 
-  
-
-MERGE INTO [dbo].[TipoPrecioPorProducto] AS Target
-USING (VALUES
-	(1,1,10,1,1)
-) AS Source ([IdProducto],[IdTipoPrecio],[Precio],[SeUsa],[ID])
-ON (Target.[ID] = Source.[ID])
-WHEN MATCHED AND (
-	NULLIF(Source.[IdProducto], Target.[IdProducto]) IS NOT NULL OR NULLIF(Target.[IdProducto], Source.[IdProducto]) IS NOT NULL OR 
-	NULLIF(Source.[IdTipoPrecio], Target.[IdTipoPrecio]) IS NOT NULL OR NULLIF(Target.[IdTipoPrecio], Source.[IdTipoPrecio]) IS NOT NULL OR 
-	NULLIF(Source.[Precio], Target.[Precio]) IS NOT NULL OR NULLIF(Target.[Precio], Source.[Precio]) IS NOT NULL OR 
-	NULLIF(Source.[SeUsa], Target.[SeUsa]) IS NOT NULL OR NULLIF(Target.[SeUsa], Source.[SeUsa]) IS NOT NULL) THEN
- UPDATE SET
-  [IdProducto] = Source.[IdProducto], 
-  [IdTipoPrecio] = Source.[IdTipoPrecio], 
-  [Precio] = Source.[Precio], 
-  [SeUsa] = Source.[SeUsa]
-WHEN NOT MATCHED BY TARGET THEN
- INSERT([IdProducto],[IdTipoPrecio],[Precio],[SeUsa],[ID])
- VALUES(Source.[IdProducto],Source.[IdTipoPrecio],Source.[Precio],Source.[SeUsa],Source.[ID])
-WHEN NOT MATCHED BY SOURCE THEN 
- DELETE
-;
-GO
-
- 
-  
-
-SET IDENTITY_INSERT [dbo].[CompraDetalle] ON
-
-MERGE INTO [dbo].[CompraDetalle] AS Target
-USING (VALUES
-	(1,1,1,1,1,1,1,1,1,1,1)
-) AS Source ([IdCompraDetalle],[IdCompra],[IdProducto],[IdUnidad],[Cantidad],[CostoUnitario],[CostoTotal],[Existencia],[Lote],[GananciaDeLote],[PrecioVenta])
-ON (Target.[IdCompraDetalle] = Source.[IdCompraDetalle])
-WHEN MATCHED AND (
-	NULLIF(Source.[IdCompra], Target.[IdCompra]) IS NOT NULL OR NULLIF(Target.[IdCompra], Source.[IdCompra]) IS NOT NULL OR 
-	NULLIF(Source.[IdProducto], Target.[IdProducto]) IS NOT NULL OR NULLIF(Target.[IdProducto], Source.[IdProducto]) IS NOT NULL OR 
-	NULLIF(Source.[IdUnidad], Target.[IdUnidad]) IS NOT NULL OR NULLIF(Target.[IdUnidad], Source.[IdUnidad]) IS NOT NULL OR 
-	NULLIF(Source.[Cantidad], Target.[Cantidad]) IS NOT NULL OR NULLIF(Target.[Cantidad], Source.[Cantidad]) IS NOT NULL OR 
-	NULLIF(Source.[CostoUnitario], Target.[CostoUnitario]) IS NOT NULL OR NULLIF(Target.[CostoUnitario], Source.[CostoUnitario]) IS NOT NULL OR 
-	NULLIF(Source.[CostoTotal], Target.[CostoTotal]) IS NOT NULL OR NULLIF(Target.[CostoTotal], Source.[CostoTotal]) IS NOT NULL OR 
-	NULLIF(Source.[Existencia], Target.[Existencia]) IS NOT NULL OR NULLIF(Target.[Existencia], Source.[Existencia]) IS NOT NULL OR 
-	NULLIF(Source.[Lote], Target.[Lote]) IS NOT NULL OR NULLIF(Target.[Lote], Source.[Lote]) IS NOT NULL OR 
-	NULLIF(Source.[GananciaDeLote], Target.[GananciaDeLote]) IS NOT NULL OR NULLIF(Target.[GananciaDeLote], Source.[GananciaDeLote]) IS NOT NULL OR 
-	NULLIF(Source.[PrecioVenta], Target.[PrecioVenta]) IS NOT NULL OR NULLIF(Target.[PrecioVenta], Source.[PrecioVenta]) IS NOT NULL) THEN
- UPDATE SET
-  [IdCompra] = Source.[IdCompra], 
-  [IdProducto] = Source.[IdProducto], 
-  [IdUnidad] = Source.[IdUnidad], 
-  [Cantidad] = Source.[Cantidad], 
-  [CostoUnitario] = Source.[CostoUnitario], 
-  [CostoTotal] = Source.[CostoTotal], 
-  [Existencia] = Source.[Existencia], 
-  [Lote] = Source.[Lote], 
-  [GananciaDeLote] = Source.[GananciaDeLote], 
-  [PrecioVenta] = Source.[PrecioVenta]
-WHEN NOT MATCHED BY TARGET THEN
- INSERT([IdCompraDetalle],[IdCompra],[IdProducto],[IdUnidad],[Cantidad],[CostoUnitario],[CostoTotal],[Existencia],[Lote],[GananciaDeLote],[PrecioVenta])
- VALUES(Source.[IdCompraDetalle],Source.[IdCompra],Source.[IdProducto],Source.[IdUnidad],Source.[Cantidad],Source.[CostoUnitario],Source.[CostoTotal],Source.[Existencia],Source.[Lote],Source.[GananciaDeLote],Source.[PrecioVenta])
-WHEN NOT MATCHED BY SOURCE THEN 
- DELETE
-;
-GO 
-SET IDENTITY_INSERT [dbo].[CompraDetalle] OFF
-GO
-
-
- 
-
-  
 
 SET IDENTITY_INSERT [dbo].[Unidad] ON
 
@@ -513,6 +330,40 @@ SET IDENTITY_INSERT [dbo].[Talla] OFF
 GO
 
 
+
+SET IDENTITY_INSERT [dbo].[TipoProducto] ON
+
+MERGE INTO [dbo].[TipoProducto] AS Target
+USING (VALUES
+  (1,N'(NO SELECCIONADA)             ')
+ ,(2,N'CALZÓN')
+ ,(3,N'CALCETÍN')
+ ,(4,N'CAMISETA')
+ ,(5,N'TOP/BRASIER')
+ ,(6,N'BEBÉ')
+ ,(7,N'PRENDA GENERICA')
+ ,(8,N'GUANTE')
+ ,(9,N'PANTALON')
+ ,(10,N'MALLA')
+ ,(11,N'SHORT')
+ ,(12,N'FONDO')
+ ,(13,N'OTRO')
+ ,(14,N'FAJA')
+) AS Source ([IdTipoProducto],[Descripcion])
+ON (Target.[IdTipoProducto] = Source.[IdTipoProducto])
+WHEN MATCHED AND (
+	NULLIF(Source.[Descripcion], Target.[Descripcion]) IS NOT NULL OR NULLIF(Target.[Descripcion], Source.[Descripcion]) IS NOT NULL) THEN
+ UPDATE SET
+  [Descripcion] = Source.[Descripcion]
+WHEN NOT MATCHED BY TARGET THEN
+ INSERT([IdTipoProducto],[Descripcion])
+ VALUES(Source.[IdTipoProducto],Source.[Descripcion])
+WHEN NOT MATCHED BY SOURCE THEN 
+ DELETE
+;
+GO 
+SET IDENTITY_INSERT [dbo].[TipoProducto] OFF
+GO
 
 
 SET IDENTITY_INSERT [dbo].[Producto] ON
@@ -802,40 +653,6 @@ GO
 
 
 
-SET IDENTITY_INSERT [dbo].[TipoProducto] ON
-
-MERGE INTO [dbo].[TipoProducto] AS Target
-USING (VALUES
-  (1,N'(NO SELECCIONADA)             ')
- ,(2,N'CALZÓN')
- ,(3,N'CALCETÍN')
- ,(4,N'CAMISETA')
- ,(5,N'TOP/BRASIER')
- ,(6,N'BEBÉ')
- ,(7,N'PRENDA GENERICA')
- ,(8,N'GUANTE')
- ,(9,N'PANTALON')
- ,(10,N'MALLA')
- ,(11,N'SHORT')
- ,(12,N'FONDO')
- ,(13,N'OTRO')
- ,(14,N'FAJA')
-) AS Source ([IdTipoProducto],[Descripcion])
-ON (Target.[IdTipoProducto] = Source.[IdTipoProducto])
-WHEN MATCHED AND (
-	NULLIF(Source.[Descripcion], Target.[Descripcion]) IS NOT NULL OR NULLIF(Target.[Descripcion], Source.[Descripcion]) IS NOT NULL) THEN
- UPDATE SET
-  [Descripcion] = Source.[Descripcion]
-WHEN NOT MATCHED BY TARGET THEN
- INSERT([IdTipoProducto],[Descripcion])
- VALUES(Source.[IdTipoProducto],Source.[Descripcion])
-WHEN NOT MATCHED BY SOURCE THEN 
- DELETE
-;
-GO 
-SET IDENTITY_INSERT [dbo].[TipoProducto] OFF
-GO
-
 
 
 
@@ -869,7 +686,7 @@ SET IDENTITY_INSERT [dbo].[Operador] ON
 
 MERGE INTO [dbo].[Operador] AS Target
 USING (VALUES
-  (2,N'Axel',N'Murguia',N'Castañeda',N'3313325731',N'Los Angeles 283',NULL,NULL,N'321321321',N'Axel')
+  (1,N'Axel',N'Murguia',N'Castañeda',N'3313325731',N'Los Angeles 283',NULL,NULL,N'321321321',N'Axel')
 ) AS Source ([IdOperador],[Nombre],[ApellidoPaterno],[ApellidoMaterno],[Telefono],[Direccion],[HoraInicio],[HoraFinal],[Contraseña],[Usuario])
 ON (Target.[IdOperador] = Source.[IdOperador])
 WHEN MATCHED AND (

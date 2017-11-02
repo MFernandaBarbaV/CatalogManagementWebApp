@@ -12,7 +12,7 @@ CREATE PROCEDURE [dbo].[ProductoModificar]
 		,@IdMarca int
 		,@IdProveedor int
 		,@IdTalla int
-		,@IdUnidad int
+		,@IdUnidad int = null
 		,@IdGenero int
 		,@Imagen image = null,
 		@IdProducto int
@@ -33,8 +33,8 @@ BEGIN
 		  ,[IdMarca] = @IdMarca
 		  ,[IdProveedor] = @IdProveedor
 		  ,[IdTalla] = @IdTalla
-		  ,[IdUnidad] = @IdUnidad
-		  ,[Imagen] = @Imagen
+		 -- ,[IdUnidad] = @IdUnidad
+		 -- ,[Imagen] = @Imagen
 		  ,[IdGenero] = @IdGenero
 	 WHERE IdProducto = @IdProducto
 END

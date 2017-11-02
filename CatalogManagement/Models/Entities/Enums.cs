@@ -8,7 +8,7 @@ namespace CatalogManagement.Models.Entities
     public enum Operations : int
     {
         IniciodeSesión = 0,
-        CerrarCesionUsuario = 1,
+        CerrarSesionUsuario = 1,
         
         //Usuario
         VerUsuarios = 2,
@@ -55,6 +55,7 @@ namespace CatalogManagement.Models.Entities
 
         //Punto de venta
         NuevaCompra = 31,
+     
         NuevoGasto = 32,
         VerCompras = 33,
         VerGastos = 34,
@@ -69,6 +70,12 @@ namespace CatalogManagement.Models.Entities
         NuevaVenta = 42,
         VerProductos = 43,
         NuevoProducto = 44,
+        EditarCompra = 45,
+        EliminarCompra = 46,
+        VerValance = 47,
+        VerReporteVentas = 48,
+        EditarVenta = 49,
+        EditarProducto = 50,
     }
 
  

@@ -21,6 +21,17 @@ namespace CatalogManagement.Code
 
             model.ItemsInMenu.Add(new MenuItem()
             {
+                Name = "Sesión",
+                Span = faIconss.user,
+                IsDropBox = true,
+                InnerItems = new List<MenuItem>()
+                {
+                    new MenuItem() { Name = "Cerrar sesión" , Controller = "Account", Action = "Logout" },
+               }
+            });
+
+            model.ItemsInMenu.Add(new MenuItem()
+            {
                 Name = "Aplicaciones",
                 Span = faIconss.application,
                 IsDropBox = true,
@@ -72,20 +83,17 @@ namespace CatalogManagement.Code
             model.ItemsInMenu.Add(new MenuItem()
             {
                 Name = "Gastos",
-                Span = faIconss.money,
+                Span = faIconss.shopping,
                 IsDropBox = true,
                 InnerItems = new List<MenuItem>()
                 {
-                   new MenuItem() { Name = "Ver Gastos", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)Operations.VerGastos, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerGastos) },
-                   new MenuItem() { Name = "Nuevo Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevoGasto, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevoGasto) },
-                   new MenuItem() { Name = "Ver Tipo de Gasto", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)Operations.VerTipoGasto, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerTipoGasto) },
-                   new MenuItem() { Name = "Nuevo Tipo de Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevoTipoGasto, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevoTipoGasto) },
-
-                   new MenuItem() { Name = "Ver Compras", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)Operations.VerCompras, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerCompras) },
-                   new MenuItem() { Name = "Nueva Compra", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevaCompra, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevaCompra) },
+                  new MenuItem() { Name = "Nuevo Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevoGasto, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevoGasto) },
+                  new MenuItem() { Name = "Nuevo Tipo de Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevoTipoGasto, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevoTipoGasto) },
+                    new MenuItem() { Name = "Nueva Compra", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevaCompra, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevaCompra) },
 
                 }
             });
+
             model.ItemsInMenu.Add(new MenuItem()
             {
                 Name = "Ventas",
@@ -93,16 +101,15 @@ namespace CatalogManagement.Code
                 IsDropBox = true,
                 InnerItems = new List<MenuItem>()
                 {
-                   new MenuItem() { Name = "Ver Ventas", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)Operations.VerVentas, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerVentas) },
                    new MenuItem() { Name = "Nueva Venta", Controller = "Catalog", Action = "NewItem", OperationId = (int)Operations.NuevaVenta, IsEnabled = loggedUser.ContainsOperation((int)Operations.NuevaVenta) },
-                 
+
                 }
             });
 
             model.ItemsInMenu.Add(new MenuItem()
             {
                 Name = "Catalogos",
-                Span = faIconss.money,
+                Span = faIconss.bookmark,
                 IsDropBox = true,
                 InnerItems = new List<MenuItem>()
                 {
@@ -111,6 +118,7 @@ namespace CatalogManagement.Code
 
                 }
             });
+
             model.ItemsInMenu.Add(new MenuItem()
             {
                 Name = "Reportes",
@@ -120,6 +128,8 @@ namespace CatalogManagement.Code
                 {
                     new MenuItem() { Name = "Reporte de Gasto", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)Operations.VerReporteGastos, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerReporteGastos) },
                     new MenuItem() { Name = "Reporte de Compras", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)Operations.VerReporteCompras, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerReporteCompras) },
+                     new MenuItem() { Name = "Reporte de Ventas", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)Operations.VerReporteVentas, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerReporteVentas) },
+                    new MenuItem() { Name = "Valance", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)Operations.VerValance, IsEnabled = loggedUser.ContainsOperation((int)Operations.VerValance) },
 
 
                 }
@@ -183,7 +193,7 @@ namespace CatalogManagement.Code
                                         ButtonAction = "CloseUserSesion",
                                         ButtonController = "Catalog",
                                         ButtonDissabled = !item.IsActiveSession,
-                                        ButtonOperationId = (int)Operations.CerrarCesionUsuario
+                                        ButtonOperationId = (int)Operations.CerrarSesionUsuario
                                     });
 
                                     model.Rows.Add(row);
@@ -307,6 +317,44 @@ namespace CatalogManagement.Code
 
                                     model.Rows.Add(row);
                                 }
+                                #endregion
+                                break;
+                            case Operations.VerCompras:
+                                #region Compras
+                                model.SetAttributes("Compras", (Operations)operationId);
+                                foreach (var item in db2.Compra)
+                                {
+                                    row = new Row();
+                                    row.Columns = new List<Column>();
+                                    row.Columns.Add(new Column() { ColumnHeader = "Id", Value = item.IdCompra.ToString(), ID = item.IdCompra.ToString() });
+                                    row.Columns.Add(new Column() { ColumnHeader = "FechaCompra", Value = item.FechaCompra.ToString() });
+                                    row.Columns.Add(new Column() { ColumnHeader = "Total", Value = item.Total.ToString() });
+                                    row.Columns.Add(new Column() { ColumnHeader = "", Value = item.IdCompra.ToString(), ID = item.IdCompra.ToString(), Type = ColumnType.Button, ButtonText = "Editar Compra", ButtonAction = "LoadItemData", ButtonController = "Catalog", ButtonOperationId = (int)Operations.EditarCompra });
+                                    row.Columns.Add(new Column() { ColumnHeader = "", Value = item.IdCompra.ToString(), ID = item.IdCompra.ToString(), Type = ColumnType.Button, ButtonText = "Eliminar Compra", ButtonAction = "DeleteItem", ButtonController = "Catalog", ButtonOperationId = (int)Operations.EliminarCompra });
+
+                                    model.Rows.Add(row);
+                                }
+                                #endregion
+                                break;
+                            case Operations.VerProductos:
+                                #region VerProductos
+
+                                model.SetAttributes("Productos", (Operations)operationId);
+                                foreach (var item in db2.Producto)
+                                {
+                                    row = new Row();
+                                    row.Columns = new List<Column>();
+                                    row.Columns.Add(new Column() { ColumnHeader = "IdProducto", Value = item.IdProducto.ToString(), ID = item.IdProducto.ToString() });
+                                    row.Columns.Add(new Column() { ColumnHeader = "Codigo", Value = item.Codigo.ToString(), ID = item.IdProducto.ToString() });
+                                    row.Columns.Add(new Column() { ColumnHeader = "Descripcion", Value = item.Descripcion.ToString(), ID = item.IdProducto.ToString() });
+                                    row.Columns.Add(new Column() { ColumnHeader = "Marca", Value = item.Marca.Descripcion.ToString(), ID = item.IdProducto.ToString() });
+                                    row.Columns.Add(new Column() { ColumnHeader = "Tipo Producto", Value = item.TipoProducto.Descripcion.ToString(), ID = item.IdProducto.ToString() });
+                                    row.Columns.Add(new Column() { ColumnHeader = "Sub Tipo Producto", Value = item.SubTipoProducto.Descripcion.ToString(), ID = item.IdProducto.ToString() });
+                                    row.Columns.Add(new Column() { ColumnHeader = "Cantidad", Value = item.Cantidad.ToString(), ID = item.IdProducto.ToString() });
+                                    row.Columns.Add(new Column() { ColumnHeader = "Editar", ID = item.IdProducto.ToString(), Type = ColumnType.Button, ButtonOperationId = (int)Operations.EditarProducto, ButtonText = "Editar", ButtonAction = "LoadItemData", ButtonController = "Catalog" });
+                                    model.Rows.Add(row);
+                                }
+
                                 #endregion
                                 break;
                             default:
@@ -643,6 +691,201 @@ namespace CatalogManagement.Code
                                 }
                                 #endregion
                                 break;
+                            case Operations.NuevaCompra:
+                            case Operations.EditarCompra:
+                                #region Compras
+                                {
+                                    Compra result = null;
+
+                                    Dictionary<int, string> proveedores = new Dictionary<int, string>();
+                                    proveedores.Add(0, "--Seleccionar--");
+                                    foreach (var item in db2.Proveedor)
+                                    {
+                                        proveedores.Add(item.IdProveedor, item.NombreProveedor);
+                                    }
+
+                                    Dictionary<int, string> productos = new Dictionary<int, string>();
+                                    productos.Add(0, "--Seleccionar--");
+                                    foreach (var item in db2.Producto)
+                                    {
+                                        productos.Add(item.IdProducto, item.Descripcion);
+                                    }
+
+                                    Dictionary<int, string> unidades = new Dictionary<int, string>();
+                                    unidades.Add(0, "--Seleccionar--");
+                                    foreach (var item in db2.Unidad)
+                                    {
+                                        unidades.Add(item.IdUnidad, item.Descripcion);
+                                    }
+
+                                    if (itemId == 0)//Nuevo
+                                    {
+                                        result = new Compra();
+                                        result.FechaCompra = DateTime.Now;
+                                        result.CompraDetalle = new List<CompraDetalle>();
+                                        result.CompraDetalle.Add(new CompraDetalle());
+
+
+                                        model.SetAttributes(itemId, "Nueva Compra", "Guardar", "New", "Catalog", (Operations)operationId, Operations.VerCompras);
+
+                                    }
+                                    else // Editar
+                                    {
+                                        result = db2.Compra.Where(us => us.IdCompra == itemId).FirstOrDefault();
+                                        model.SetAttributes(itemId, "Editar Compra", "Guardar", "Edit", "Catalog", (Operations)operationId, Operations.VerCompras);
+                                    }
+
+                                    if (result != null)
+                                    {
+                                        model.Properties = new List<Propertie>();
+
+                                        model.Properties.Add(new Propertie() { Id = "Fecha", Label = "Fecha", DateValue = DateTime.Now, Type = PropertieType.Date, IsEnabled = false });
+
+                                        model.Properties.Add(new Propertie() { Id = "IdProveedor", Label = "Proveedor", MultipleValues = proveedores, Type = PropertieType.ComboBox, Value = result.IdProveedor.ToString() });
+                                        //  model.Properties.Add(new Propertie() { Type = PropertieType.Line });
+
+                                        foreach (var detalle in result.CompraDetalle)
+                                        {
+                                            model.Properties.Add(new Propertie() { Id = "IdProducto", Type = PropertieType.ComboBox, MultipleValues = productos, Label = "Producto", Value = detalle.IdProducto.ToString(), });
+                                            model.Properties.Add(new Propertie() { Id = "IdUnidad", Type = PropertieType.ComboBox, MultipleValues = unidades, Label = "Unidad", Value = detalle.IdUnidad.ToString() });
+                                            model.Properties.Add(new Propertie() { Id = "Cantidad", Type = PropertieType.TextBox, Label = "Cantidad", Value = detalle.Cantidad.ToString() });
+                                            model.Properties.Add(new Propertie() { Id = "CostoUnitario", Label = "Precio Unitario", Type = PropertieType.Money, ClassIcon = faIconss.money, DecimalValue = detalle.CostoUnitario });
+                                            //    model.Properties.Add(new Propertie() { Id = "CostoTotal", Label = "Precio Total", Type = PropertieType.Money, ClassIcon = faIconss.money, DecimalValue = detalle.CostoTotal });
+                                            //  model.Properties.Add(new Propertie() { Id = "PrecioVenta", Label = "Precio de Venta", Type = PropertieType.Money, ClassIcon = faIconss.money, DecimalValue = detalle.PrecioVenta });
+
+                                        }
+
+                                        //   model.Properties.Add(new Propertie() { Type = PropertieType.Line });
+                                        //  model.Properties.Add(new Propertie() { Id = "Total", Label = "Total", Type = PropertieType.Money, ClassIcon = faIconss.money, DecimalValue = result.Total, RegEx = Utils.Money, ErrorMessage = Utils.ErrorMoney });
+
+
+
+                                    }
+                                }
+                                #endregion
+                                break;
+                            case Operations.NuevaVenta:
+                            case Operations.EditarVenta:
+                                #region Ventas
+                                {
+                                    Venta result = null;
+
+                                    Dictionary<int, string> clientes = new Dictionary<int, string>();
+                                    clientes.Add(0, "--Seleccionar--");
+                                    foreach (var item in db2.Clientes)
+                                    {
+                                        clientes.Add(item.IdCliente, item.NombreCliente);
+                                    }
+
+                                    if (itemId == 0)//Nuevo
+                                    {
+                                        result = new Venta();
+                                        result.FechaVenta = DateTime.Now;
+
+                                        model.SetAttributes(itemId, "Nueva Venta", "Guardar", "New", "Catalog", (Operations)operationId, Operations.VerCompras);
+
+                                    }
+                                    else // Editar
+                                    {
+                                        result = db2.Venta.Where(us => us.IdVenta == itemId).FirstOrDefault();
+                                        model.SetAttributes(itemId, "Editar Venta", "Guardar", "Edit", "Catalog", (Operations)operationId, Operations.VerCompras);
+                                    }
+
+                                    if (result != null)
+                                    {
+                                        model.Properties = new List<Propertie>();
+
+                                        model.Properties.Add(new Propertie() { Id = "Fecha", Label = "Fecha", DateValue = DateTime.Now, Type = PropertieType.Date });
+                                        model.Properties.Add(new Propertie() { Id = "Cliente", Label = "Cliente", MultipleValues = clientes, Type = PropertieType.ComboBox });
+                                        model.Properties.Add(new Propertie() { Id = "Venta", Label = "Venta", DecimalValue = result.Total, Type = PropertieType.Money, ClassIcon = faIconss.money });
+                                    }
+                                }
+
+                                #endregion
+                                break;
+                            case Operations.NuevoProducto:
+                            case Operations.EditarProducto:
+                                #region Productos
+                                {
+                                    Producto result = null;
+                                    
+                                    if (itemId == 0)//Nuevo
+                                    {
+                                        result = new Producto();
+
+                                        model.SetAttributes(itemId, "Nuevo Producto", "Guardar", "New", "Catalog", (Operations)operationId, Operations.VerProductos);
+
+                                    }
+                                    else // Editar
+                                    {
+                                        result = db2.Producto.Where(us => us.IdProducto == itemId).FirstOrDefault();
+                                        model.SetAttributes(itemId, "Editar Producto", "Guardar", "Edit", "Catalog", (Operations)operationId, Operations.VerProductos);
+                                    }
+
+                                    if (result != null)
+                                    {
+
+                                    //    Cantidad = model.GetValuePropertieInteger("Cantidad"),                                  
+                                    //IdUnidad = model.GetValuePropertieInteger("IdUnidad"),
+
+                                        model.Properties = new List<Propertie>();
+
+                                        model.Properties.Add(new Propertie() { Id = "Codigo", Label = "Codigo", Value = result.Codigo, Type = PropertieType.TextBox });
+                                        model.Properties.Add(new Propertie() { Id = "Descripcion", Label = "Descripcion", Value = result.Descripcion, Type = PropertieType.TextBox });
+
+                                        Dictionary<int, string> genero = new Dictionary<int, string>();
+                                        genero.Add(0, "--Seleccionar--");
+                                        foreach (var item in db2.Genero)
+                                        {
+                                            genero.Add(item.IdGenero, item.Descripcion);
+                                        }
+                                        model.Properties.Add(new Propertie() { Id = "IdGenero", Label = "Genero", Type = PropertieType.ComboBox, MultipleValues = genero, Value = result.IdGenero.ToString() });
+
+                                        Dictionary<int, string> marcas = new Dictionary<int, string>();
+                                        marcas.Add(0, "--Seleccionar--");
+                                        foreach (var item in db2.Marca)
+                                        {
+                                            marcas.Add(item.IdMarca, item.Descripcion);
+                                        }
+                                        model.Properties.Add(new Propertie() { Id = "IdMarca", Label = "Marca", Type = PropertieType.ComboBox, MultipleValues = marcas, Value = result.IdMarca.ToString() });
+
+                                        Dictionary<int, string> proveedores = new Dictionary<int, string>();
+                                        proveedores.Add(0, "--Seleccionar--");
+                                        foreach (var item in db2.Proveedor)
+                                        {
+                                            proveedores.Add(item.IdProveedor, item.NombreProveedor);
+                                        }
+                                        model.Properties.Add(new Propertie() { Id = "IdProveedor", Label = "Proveedor", Type = PropertieType.ComboBox, MultipleValues = proveedores, Value = result.IdProveedor.ToString() });
+
+                                        Dictionary<int, string> tipo = new Dictionary<int, string>();
+                                        tipo.Add(0, "--Seleccionar--");
+                                        foreach (var item in db2.TipoProducto)
+                                        {
+                                            tipo.Add(item.IdTipoProducto, item.Descripcion);
+                                        }
+                                        model.Properties.Add(new Propertie() { Id = "IdTipoProducto", Label = "Tipo de Producto", Type = PropertieType.ComboBox, MultipleValues = tipo, Value = result.IdTipoProducto.ToString() });
+
+                                        Dictionary<int, string> subtipo = new Dictionary<int, string>();
+                                        subtipo.Add(0, "--Seleccionar--");
+                                        foreach (var item in db2.SubTipoProducto)
+                                        {
+                                            subtipo.Add(item.IdSubTipoProducto, item.Descripcion);
+                                        }
+                                        model.Properties.Add(new Propertie() { Id = "IdSubTipoProducto", Label = "Sub-Tipo de Producto", Type = PropertieType.ComboBox, MultipleValues = subtipo, Value = result.IdSubTipoProducto.ToString() });
+
+                                        Dictionary<int, string> tallas = new Dictionary<int, string>();
+                                        tallas.Add(0, "--Seleccionar--");
+                                        foreach (var item in db2.Talla)
+                                        {
+                                            tallas.Add(item.IdTalla, item.Descripcion);
+                                        }
+                                        model.Properties.Add(new Propertie() { Id = "IdTalla", Label = "Talla", Type = PropertieType.ComboBox, MultipleValues = tallas, Value = result.IdTalla.ToString() });
+
+                                    }
+                                }
+
+                                #endregion
+                                break;
                             default:
                                 errorMessage = "Modulo no implementado en Configure.LoadItemData: " + ((Operations)operationId).ToString("g");
                                 break;
@@ -761,7 +1004,7 @@ namespace CatalogManagement.Code
         /// <summary>
         /// Método para guardar la información de un elemento
         /// </summary>
-        public static bool SaveItem(ItemViewModel model, ref string errorMessage)
+        public static bool SaveItem(ItemViewModel model, ref string errorMessage, int userId)
         {
             try
             {
@@ -957,6 +1200,107 @@ namespace CatalogManagement.Code
                             result = true;
                             #endregion
                             break;
+                        case Operations.NuevaCompra:
+                            #region Compra 
+                            param = new System.Data.Entity.Core.Objects.ObjectParameter("idCompra", typeof(int));
+
+                            var compra = new Compra()
+                            {
+                                IdProveedor = model.GetValuePropertieInteger("IdProveedor"),
+                                FechaCompra = model.GetValuePropertieDateTime("Fecha"),
+                                Total = model.GetValuePropertieDecimal("CostoUnitario") * model.GetValuePropertieInteger("Cantidad"),
+                                IdOperador = 1
+                            };
+
+                            var resultCompraAgregar = db2.CompraAgregar(compra.IdProveedor, compra.IdOperador, compra.FechaCompra, compra.Total, param);
+
+                            var compraDetalle = new CompraDetalle()
+                            {
+                                IdCompra = (int)resultCompraAgregar.First(),
+                                IdUnidad = model.GetValuePropertieInteger("IdUnidad"),
+                                Cantidad = model.GetValuePropertieInteger("Cantidad"),
+                                CostoUnitario = model.GetValuePropertieDecimal("CostoUnitario"),
+                                CostoTotal = model.GetValuePropertieDecimal("CostoUnitario") * model.GetValuePropertieInteger("Cantidad"),
+                                PrecioVenta = 0,
+                                IdProducto = model.GetValuePropertieInteger("IdProducto")
+                            };
+
+                            db2.CompraDetalle.Add(compraDetalle);
+                            db2.SaveChanges();
+
+                            result = true;
+                            #endregion
+                            break;
+                        case Operations.NuevaVenta:
+                            //  case Operations.EditarVenta:
+                            #region Venta 
+                            param = new System.Data.Entity.Core.Objects.ObjectParameter("idVenta", typeof(int));
+
+                            var venta = new Venta()
+                            {
+                                FechaVenta = model.GetValuePropertieDateTime("Fecha"),
+                                IdCliente = model.GetValuePropertieInteger("Cliente"),
+                                Total = model.GetValuePropertieDecimal("Venta")
+                            };
+
+                            var resultVentaAgregar = db2.VentaAgregar(venta.IdCliente, userId, 0, false, venta.Total, false, venta.FechaVenta, param);
+
+                            db2.SaveChanges();
+
+                            result = true;
+                            #endregion
+                            break;
+                        case Operations.NuevoProducto:
+                            #region Producto 
+                            {
+                                param = new System.Data.Entity.Core.Objects.ObjectParameter("idVenta", typeof(int));
+
+                                var producto = new Producto()
+                                {
+                                    Codigo = model.GetValuePropertieString("Codigo"),
+                                    Descripcion = model.GetValuePropertieString("Descripcion"),
+                                    IdGenero = model.GetValuePropertieInteger("IdGenero"),
+                                    IdMarca = model.GetValuePropertieInteger("IdMarca"),
+                                    IdProveedor = model.GetValuePropertieInteger("IdProveedor"),
+                                    IdSubTipoProducto = model.GetValuePropertieInteger("IdSubTipoProducto"),
+                                    IdTalla = model.GetValuePropertieInteger("IdTalla"),
+                                    IdTipoProducto = model.GetValuePropertieInteger("IdTipoProducto")
+                                };
+
+                                var resultProductoAgregar = db2.ProductoAgregar(producto.Descripcion, producto.Codigo, producto.IdTipoProducto, producto.IdSubTipoProducto, producto.IdMarca, producto.IdProveedor, 0, producto.IdGenero, null, producto.PrecioVenta);
+
+                                db2.SaveChanges();
+
+                                result = true;
+                            }
+                            #endregion
+                            break;
+                        case Operations.EditarProducto:
+                            #region Producto
+                            {
+                                param = new System.Data.Entity.Core.Objects.ObjectParameter("idVenta", typeof(int));
+
+                                var producto = new Producto()
+                                {
+                                    Codigo = model.GetValuePropertieString("Codigo"),
+                                    Descripcion = model.GetValuePropertieString("Descripcion"),
+                                    IdGenero = model.GetValuePropertieInteger("IdGenero"),
+                                    IdProducto = model.ItemId,
+                                    IdMarca = model.GetValuePropertieInteger("IdMarca"),
+                                    IdProveedor = model.GetValuePropertieInteger("IdProveedor"),
+                                    IdSubTipoProducto = model.GetValuePropertieInteger("IdSubTipoProducto"),
+                                    IdTalla = model.GetValuePropertieInteger("IdTalla"),
+                                    IdTipoProducto = model.GetValuePropertieInteger("IdTipoProducto")
+                                };
+
+                                var resultProductoAgregar = db2.ProductoModificar(producto.Descripcion, producto.Codigo, producto.IdTipoProducto, producto.IdSubTipoProducto, producto.IdMarca, producto.IdProveedor, 0, producto.IdUnidad, producto.IdGenero, null, producto.IdProducto);
+
+                                db2.SaveChanges();
+
+                                result = true;
+                            }
+                            #endregion
+                            break;
                         default:
                             errorMessage = "Modulo no implementado en Configure.SaveItem: " + ((Operations)model.OperationIdAction).ToString("g");
                             break;
@@ -1035,7 +1379,6 @@ namespace CatalogManagement.Code
                             #endregion
                             break;
                         case Operations.AsignarOperaciónaPerfil:
-
                             #region AsignarOperaciónaPerfil
 
                             using (var dbContextTransaction = db.Database.BeginTransaction())
@@ -1079,7 +1422,6 @@ namespace CatalogManagement.Code
                             }
 
                             #endregion
-
                             break;
                         default:
                             errorMessage = "Modulo no implementado en Configure.SaveRelation: " + ((Operations)model.OperationIdAction).ToString("g");
@@ -1111,10 +1453,11 @@ namespace CatalogManagement.Code
                 {
                     using (var db2 = new PuntoDeVentaEntities())
                     {
-
                         switch ((Operations)operationId)
                         {
                             case Operations.VerReporteGastos:
+                                #region Ver Reporte de Gastos
+
                                 model.SetAttributes("Gastos", "Ver", "ViewReport", "Catalog", (Operations)operationId, (Operations)operationId);
                                 if (applyFilters)
                                 {
@@ -1164,10 +1507,204 @@ namespace CatalogManagement.Code
                                 model.Filters.Add(new Filter() { Type = FilterType.Date, Id = "FechaF", Description = "Fecha fin:", DateValue = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)) });
                                 model.Filters.Add(new Filter() { Type = FilterType.Combo, Id = "Tipo", Description = "Tipo de gasto:", MultipleValues = tipoGasto });
 
+                                #endregion
+                                break;
+                            case Operations.VerReporteCompras:
+                                #region Ver Reporte de Compras
+                                model.SetAttributes("Compras", "Ver", "ViewReport", "Catalog", (Operations)operationId, (Operations)operationId);
+                                if (applyFilters)
+                                {
+                                    decimal total = 0;
+
+                                    model.Rows = new List<Row>();
+
+                                    DateTime minDate = model.Filters[0].DateValue.Date;
+                                    DateTime maxDate = model.Filters[1].DateValue.Date;
+                                    List<int> productoss = (model.Filters[2].selectedMultipleValues == null) ? new List<int>() : model.Filters[2].selectedMultipleValues.Where(t => t != 0).ToList();
+                                    List<int> proveedoress = (model.Filters[3].selectedMultipleValues == null) ? new List<int>() : model.Filters[3].selectedMultipleValues.Where(t => t != 0).ToList();
+
+                                    foreach (var item in db2.Compra.Where(g => g.FechaCompra >= minDate && g.FechaCompra <= maxDate && g.CompraDetalle.FirstOrDefault() != null
+                                    && (proveedoress.Contains(g.IdProveedor) || proveedoress.Count == 0) && (productoss.Contains(g.CompraDetalle.FirstOrDefault().IdProducto) || productoss.Count == 0)))
+                                    {
+                                        row = new Row();
+                                        row.Columns = new List<Column>();
+                                        row.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = item.FechaCompra.ToString("dd MMMM yyyy hh:mm tt"), ID = item.IdCompra.ToString() });
+                                        //   row.Columns.Add(new Column() { ColumnHeader = "Id", Value = item.IdGasto.ToString(), ID = item.IdGasto.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Proveedor", Value = item.Proveedor.NombreProveedor.ToString(), ID = item.IdCompra.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Cantidad", Value = item.CompraDetalle.First().Cantidad.ToString(), ID = item.IdCompra.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Producto", Value = item.CompraDetalle.First().Producto.Descripcion, ID = item.IdCompra.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Precio", Value = item.Total.ToString("c2"), ID = item.IdCompra.ToString() });
+
+                                        model.Rows.Add(row);
+
+                                        total += item.Total;
+                                    }
+                                    model.Totales = new Row();
+                                    model.Totales.Columns = new List<Column>();
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = string.Empty });
+                                    // model.Totales.Columns.Add(new Column() { ColumnHeader = "Id", Value = string.Empty });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Proveedor", Value = string.Empty });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Producto", Value = string.Empty });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Cantidad", Value = "Total:" });
+
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Precio", Value = total.ToString("c2"), });
+
+
+                                }
+
+
+                                Dictionary<int, string> productos = new Dictionary<int, string>();
+                                productos.Add(0, "-Todos-");
+                                foreach (var item in db2.Producto)
+                                {
+                                    productos.Add(item.IdProducto, item.Descripcion);
+                                }
+                                Dictionary<int, string> proveeores = new Dictionary<int, string>();
+                                proveeores.Add(0, "-Todos-");
+                                foreach (var item in db2.Proveedor)
+                                {
+                                    proveeores.Add(item.IdProveedor, item.NombreProveedor);
+                                }
+
+                                model.Filters = new List<Filter>();
+                                model.Filters.Add(new Filter() { Type = FilterType.Date, Id = "FechaI", Description = "Fecha inicio:", DateValue = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1) });
+                                model.Filters.Add(new Filter() { Type = FilterType.Date, Id = "FechaF", Description = "Fecha fin:", DateValue = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)) });
+                                model.Filters.Add(new Filter() { Type = FilterType.Combo, Id = "Producto", Description = "Producto:", MultipleValues = productos });
+                                model.Filters.Add(new Filter() { Type = FilterType.Combo, Id = "Proveedor", Description = "Proveedor:", MultipleValues = proveeores });
+                                #endregion
+                                break;
+                            case Operations.VerReporteVentas:
+                                #region Ver Reporte de Ventas
+                                model.SetAttributes("Ventas", "Ver", "ViewReport", "Catalog", (Operations)operationId, (Operations)operationId);
+                                if (applyFilters)
+                                {
+                                    decimal total = 0;
+                                    model.Rows = new List<Row>();
+
+                                    DateTime minDate = model.Filters[0].DateValue.Date;
+                                    DateTime maxDate = model.Filters[1].DateValue.Date;
+                                    List<int> clientess = (model.Filters[2].selectedMultipleValues == null) ? new List<int>() : model.Filters[2].selectedMultipleValues.Where(t => t != 0).ToList();
+                                    List<int> vendedores = (model.Filters[3].selectedMultipleValues == null) ? new List<int>() : model.Filters[3].selectedMultipleValues.Where(t => t != 0).ToList();
+
+                                    foreach (var item in db2.Venta.Where(g => g.FechaVenta >= minDate && g.FechaVenta <= maxDate
+                                        && (clientess.Contains(g.IdCliente) || clientess.Count == 0) && (vendedores.Contains(g.IdOperador) || vendedores.Count == 0)))
+
+                                    {
+                                        row = new Row();
+                                        row.Columns = new List<Column>();
+                                        row.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = item.FechaVenta.ToString("dd MMMM yyyy hh:mm tt"), ID = item.IdVenta.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Cliente", Value = item.Clientes.NombreCompleto, ID = item.IdVenta.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Vendedor", Value = item.Operador.Nombre, ID = item.IdVenta.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Venta", Value = item.Total.ToString("c2"), ID = item.IdVenta.ToString() });
+
+                                        model.Rows.Add(row);
+
+                                        total += item.Total;
+                                    }
+                                    model.Totales = new Row();
+                                    model.Totales.Columns = new List<Column>();
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = string.Empty });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Cliente", Value = string.Empty });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Vendedor", Value = "Total:" });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Venta", Value = total.ToString("c2"), });
+                                }
+
+                                Dictionary<int, string> clientes = new Dictionary<int, string>();
+                                clientes.Add(0, "-Todos-");
+                                foreach (var item in db2.Clientes)
+                                {
+                                    clientes.Add(item.IdCliente, item.NombreCompleto);
+                                }
+                                Dictionary<int, string> vendedoress = new Dictionary<int, string>();
+                                vendedoress.Add(0, "-Todos-");
+                                foreach (var item in db2.Operador)
+                                {
+                                    vendedoress.Add(item.IdOperador, item.Nombre);
+                                }
+
+                                model.Filters = new List<Filter>();
+                                model.Filters.Add(new Filter() { Type = FilterType.Date, Id = "FechaI", Description = "Fecha inicio:", DateValue = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1) });
+                                model.Filters.Add(new Filter() { Type = FilterType.Date, Id = "FechaF", Description = "Fecha fin:", DateValue = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)) });
+                                model.Filters.Add(new Filter() { Type = FilterType.Combo, Id = "Cliente", Description = "Cliente:", MultipleValues = clientes });
+                                model.Filters.Add(new Filter() { Type = FilterType.Combo, Id = "Vendedor", Description = "Vendedor:", MultipleValues = vendedoress });
+
+                                #endregion
+                                break;
+                            case Operations.VerValance:
+                                #region Ver Valance
+                                model.SetAttributes("Valance", "Ver", "ViewReport", "Catalog", (Operations)operationId, (Operations)operationId);
+                                if (applyFilters)
+                                {
+                                    decimal totalEntrada = 0, totalSalida = 0;
+
+                                    model.Rows = new List<Row>();
+
+                                    DateTime minDate = model.Filters[0].DateValue.Date;
+                                    DateTime maxDate = model.Filters[1].DateValue.Date;
+
+                                    foreach (var item in db2.Venta.Where(g => g.FechaVenta >= minDate && g.FechaVenta <= maxDate))
+                                    {
+                                        row = new Row();
+                                        row.Columns = new List<Column>();
+                                        row.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = item.FechaVenta.ToString("dd MMMM yyyy hh:mm tt"), ID = item.IdVenta.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Concepto", Value = "Venta", ID = item.IdVenta.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Detalles", Value = item.Clientes.NombreCompleto, ID = item.IdVenta.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Entrada", Value = item.Total.ToString("c2"), ID = item.IdVenta.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Salida", Value = 0.ToString("c2"), ID = item.IdVenta.ToString() });
+
+                                        model.Rows.Add(row);
+                                        totalEntrada += item.Total;
+                                    }
+
+                                    foreach (var item in db2.Gastos.Where(g => g.Fecha >= minDate && g.Fecha <= maxDate))
+                                    {
+                                        row = new Row();
+                                        row.Columns = new List<Column>();
+                                        row.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = item.Fecha.ToString("dd MMMM yyyy hh:mm tt"), ID = item.IdGasto.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Concepto", Value = "Gasto", ID = item.IdGasto.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Detalles", Value = item.Descripcion, ID = item.IdGasto.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Entrada", Value = 0.ToString("c2"), ID = item.IdGasto.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Salida", Value = item.Cantidad.ToString("c2"), ID = item.IdGasto.ToString() });
+
+                                        model.Rows.Add(row);
+                                        totalSalida += item.Cantidad;
+                                    }
+
+                                    foreach (var item in db2.Compra.Where(g => g.FechaCompra >= minDate && g.FechaCompra <= maxDate))
+                                    {
+                                        row = new Row();
+                                        row.Columns = new List<Column>();
+                                        row.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = item.FechaCompra.ToString("dd MMMM yyyy hh:mm tt"), ID = item.IdCompra.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Concepto", Value = "Compra", ID = item.IdCompra.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Detalles", Value = item.CompraDetalle.FirstOrDefault().Producto.Descripcion, ID = item.IdCompra.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Entrada", Value = 0.ToString("c2"), ID = item.IdCompra.ToString() });
+                                        row.Columns.Add(new Column() { ColumnHeader = "Salida", Value = item.Total.ToString("c2"), ID = item.IdCompra.ToString() });
+
+                                        model.Rows.Add(row);
+                                        totalSalida += item.Total;
+                                    }
+
+                                    model.Rows = model.Rows.OrderBy(i => i.Columns.FirstOrDefault().Value).ToList();
+
+                                    model.Totales = new Row();
+                                    model.Totales.Columns = new List<Column>();
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = string.Empty });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Concepto", Value = "Total" });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Detalles", Value = string.Empty });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Entrada", Value = totalEntrada.ToString("c2") });
+                                    model.Totales.Columns.Add(new Column() { ColumnHeader = "Salida", Value = totalSalida.ToString("c2"), });
+                                }
+
+
+
+                                model.Filters = new List<Filter>();
+                                model.Filters.Add(new Filter() { Type = FilterType.Date, Id = "FechaI", Description = "Fecha inicio:", DateValue = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1) });
+                                model.Filters.Add(new Filter() { Type = FilterType.Date, Id = "FechaF", Description = "Fecha fin:", DateValue = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)) });
+
+                                #endregion
                                 break;
                             default:
                                 errorMessage = "Modulo no implementado en Configure.LoadViewCatalog: " + ((Operations)operationId).ToString("g");
-
                                 break;
                         };
                     }

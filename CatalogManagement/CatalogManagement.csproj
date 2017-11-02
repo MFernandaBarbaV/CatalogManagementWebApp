@@ -636,6 +636,7 @@
     <Content Include="Views\Shared\_RelationView.cshtml" />
     <Content Include="Views\Catalog\Index.cshtml" />
     <Content Include="Views\Shared\_ReportView.cshtml" />
+    <Content Include="Views\Shared\_InnerPropertiesView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

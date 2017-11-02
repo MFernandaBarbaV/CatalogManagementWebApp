@@ -74,9 +74,16 @@ else
                     <label for="@Model.Properties[i].Label" class="control-label">@Model.Properties[i].Label</label>
 
                     @switch (Model.Properties[i].Type)
-                        {
+                    {
+                        case PropertieType.Line:
+                            <hr />
+                            break;
 
-                            case PropertieType.ComboBox:
+                        case PropertieType.InnerPropertie:
+                            Html.RenderPartial("_InnerPropertiesView", Model.Properties[i].InnerProperties);
+                            break;
+
+                        case PropertieType.ComboBox:
 
                             <div class="input-group icon-addon addon-md center-block col-lg-12 col-xs-12">
 
@@ -132,37 +139,43 @@ else
                         case PropertieType.CheckBox:
                             <div class="input-group icon-addon addon-md  col-lg-12 col-xs-12 ">
 
-                                    @Html.CheckBoxFor(m => m.Properties[i].BooleanValue, new
-                               {
-                                   @class = "form-control ",
-                                   @id = @Model.Properties[i].Label
-                               })
-                             
+                                @Html.CheckBoxFor(m => m.Properties[i].BooleanValue, new
+                           {
+                               @class = "form-control ",
+                               @id = @Model.Properties[i].Label
+                           })
+
                                 <label for="filter" class="@Model.Properties[i].ClassIcon" rel="tooltip" title="@Model.Properties[i].Label"></label>
-                                </div>
+                            </div>
                             break;
                         case PropertieType.Date:
-                            @*<div class="input-group icon-addon addon-md  col-lg-12 col-xs-12 ">*@
+                            <div>
 
-                                @*@Html.TextBoxFor(m => m.Properties[i].DateValue, new
-                               {
-                                    @type = "date",
-                                   @class = "form-control ",
-                                   @id = @Model.Properties[i].Label
-                               })*@
-                                <div>
+                                @Html.TextBoxFor(m => m.Properties[i].DateValue, "{0:d MMMM yyyy}", new
+                           {
 
-                                    @Html.TextBoxFor(m => m.Properties[i].DateValue, "{0:d MMMM yyyy}", new
-                               {
-                                  
                                @class = "form-control datepicker",
-                                   @id = Model.Properties[i].Id,
+                               @id = Model.Properties[i].Id,
 
-                               })
-                                </div>
+                           })
+                            </div>
 
-                                @*<label for="filter" class="@Model.Properties[i].ClassIcon" rel="tooltip" title="@Model.Properties[i].Label"></label>
-                            </div>*@
+                            break;
+                        case PropertieType.Money:
+
+                            <div class="input-group icon-addon addon-md center-block col-lg-12 col-xs-12">
+
+
+                                @Html.TextBoxFor(m => m.Properties[i].Value, new
+                           {
+                               @class = "form-control " + (Model.Properties[i].IsDissabled ? "Dissabled" : ""),
+                               @id = @Model.Properties[i].Label,
+                               @pattern = @Model.Properties[i].RegEx,
+                               @oninvalid = "this.setCustomValidity('" + @Model.Properties[i].ErrorMessage + "')",
+                               @oninput = "setCustomValidity('')"
+                           })
+                                <label for="filter" class="@Model.Properties[i].ClassIcon" rel="tooltip" title="@Model.Properties[i].Label"></label>
+                            </div>
                             break;
                         case PropertieType.TextBox:
                         default:

@@ -231,7 +231,7 @@ namespace CatalogManagement.Controllers
             }
             return ViewCatalog(((int)Operations.VerUsuarios).ToString());
         }
-
+            
         [Route("Edit/{OperationId}/{ItemId}")]
         public ActionResult LoadItemData(string OperationId, string ItemId)
         {
@@ -423,7 +423,7 @@ namespace CatalogManagement.Controllers
             string errorMessage = ViewBag.ErrorMessage;
 
 
-            if (Configure.SaveItem(model, ref errorMessage))
+            if (Configure.SaveItem(model, ref errorMessage,((SystemUser)Session[SessionVariables.SystemUser]).SystemUserId))
             {
                 ViewBag.SuccessMessage = "Se guardó correctamente";
             }
@@ -459,7 +459,7 @@ namespace CatalogManagement.Controllers
             string errorMessage = string.Empty;
 
 
-            if (Configure.SaveItem(model, ref errorMessage))
+            if (Configure.SaveItem(model, ref errorMessage, ((SystemUser)Session[SessionVariables.SystemUser]).SystemUserId))
             {
                 ViewBag.SuccessMessage = "Se editó correctamente";
             }

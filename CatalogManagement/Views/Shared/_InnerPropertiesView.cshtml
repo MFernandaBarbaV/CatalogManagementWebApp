@@ -1,0 +1,113 @@
+﻿
+@using CatalogManagement.Models.Entities
+@model IList<CatalogManagement.Models.Entities.Propertie>
+
+
+    @if (Model == null ||  Model.Count() == 0)
+    {
+        <div class="alert alert-danger">
+            @if (string.IsNullOrEmpty(ViewBag.ErrorMessage))
+            {
+            }
+            else
+            { <strong>@ViewBag.ErrorMessage</strong>}
+        </div>
+    }
+    else
+    {
+        for (int i = 0; i < Model.Count(); i++)
+        {
+                @Html.HiddenFor(m => Model[i].Id)
+                @Html.HiddenFor(m => m[i].Label)
+                @Html.HiddenFor(m => m[i].Type)
+
+            
+
+                <label for="@Model[i].Label" class="control-label">@Model[i].Label</label>
+
+                switch (Model[i].Type)
+                {
+                    case PropertieType.ComboBox:
+
+                        <div class="input-group icon-addon addon-md center-block col-lg-12 col-xs-12">
+
+                            @Html.DropDownListFor(m => m[i].ObjectValue, @Model[i].MultipleValues.Select(indx => new SelectListItem
+                   {
+                       Value = indx.Key.ToString(),
+                       Text = indx.Value.ToString(),
+
+                       Selected = "select" == indx.Key.ToString()
+                   }), new
+                   {
+                       @class = "form-control " + (Model[i].IsDissabled ? "Dissabled" : ""),
+                       @id = @Model[i].Label
+                   })
+                            <label for="filter" class="@Model[i].ClassIcon" rel="tooltip" title="@Model[i].Label"></label>
+                        </div>
+                        break;
+                 
+                 
+                    case PropertieType.CheckBox:
+                        <div class="input-group icon-addon addon-md  col-lg-12 col-xs-12 ">
+
+                            @Html.CheckBoxFor(m => m[i].BooleanValue, new
+                   {
+                       @class = "form-control ",
+                       @id = @Model[i].Label
+                   })
+
+                            <label for="filter" class="@Model[i].ClassIcon" rel="tooltip" title="@Model[i].Label"></label>
+                        </div>
+                        break;
+                    case PropertieType.Date:
+                        <div>
+
+                            @Html.TextBoxFor(m => m[i].DateValue, "{0:d MMMM yyyy}", new
+                   {
+
+                       @class = "form-control datepicker",
+                       @id = Model[i].Id,
+
+                   })
+                        </div>
+
+                        break;
+                    case PropertieType.Money:
+
+                        <div class="input-group icon-addon addon-md center-block col-lg-12 col-xs-12">
+
+
+                            @Html.TextBoxFor(m => m[i].Value, new
+                   {
+                       @class = "form-control " + (Model[i].IsDissabled ? "Dissabled" : ""),
+                       @id = @Model[i].Label,
+                       @pattern = @Model[i].RegEx,
+                       @oninvalid = "this.setCustomValidity('" + @Model[i].ErrorMessage + "')",
+                       @oninput = "setCustomValidity('')"
+                   })
+                            <label for="filter" class="@Model[i].ClassIcon" rel="tooltip" title="@Model[i].Label"></label>
+                        </div>
+                        break;
+                    case PropertieType.TextBox:
+                    default:
+                        <div class="input-group icon-addon addon-md center-block col-lg-12 col-xs-12">
+
+
+                            @Html.TextBoxFor(m => m[i].Value, new
+                   {
+                       @class = "form-control " + (Model[i].IsDissabled ? "Dissabled" : ""),
+                       @id = @Model[i].Label,
+                       @pattern = @Model[i].RegEx,
+                       @oninvalid = "this.setCustomValidity('" + @Model[i].ErrorMessage + "')",
+                       @oninput = "setCustomValidity('')"
+                   })
+                            <label for="filter" class="@Model[i].ClassIcon" rel="tooltip" title="@Model[i].Label"></label>
+                        </div>
+                        break;
+
+                }
+
+                <div class="help-block with-errors"></div>
+          
+        }
+    }

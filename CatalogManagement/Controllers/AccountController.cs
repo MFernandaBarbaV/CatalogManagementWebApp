@@ -46,6 +46,15 @@ namespace CatalogManagement.Controllers
 
         public ActionResult Logout()
         {
+            Models.Entities.SystemUser user = Session[SessionVariables.SystemUser] as Models.Entities.SystemUser;
+
+            if(user != null)
+            {
+                LoginViewModel.Logout(user.SystemUserId);
+                Session[SessionVariables.SystemUser] = null;
+            }
+
+        
             return View("Index");
         }
     }

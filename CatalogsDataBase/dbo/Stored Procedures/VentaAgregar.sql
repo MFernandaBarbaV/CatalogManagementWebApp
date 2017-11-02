@@ -2,7 +2,7 @@
 -- [dbo].[VentaAgregar] 1, 2, 0, 0, 100, 0
 -- =============================================
 CREATE PROCEDURE [dbo].[VentaAgregar] 
-	@IdCliente int = 1, @IdOperador int, @Descuento money = 0, @EsFactura bit = 0, @Total money, @GuardadoTemporal bit = 0
+	@IdCliente int = 1, @IdOperador int, @Descuento money = 0, @EsFactura bit = 0, @Total money, @GuardadoTemporal bit = 0, @Fecha datetime = null
 	,@IdVenta int output
 AS
 BEGIN
@@ -18,7 +18,7 @@ BEGIN
      VALUES
            (@IdCliente
            ,@IdOperador
-           ,getdate()
+           ,isnull(@Fecha, getdate())
            ,@Descuento
            ,@EsFactura
            ,@Total

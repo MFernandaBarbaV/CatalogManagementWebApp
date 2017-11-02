@@ -126,12 +126,48 @@ namespace CatalogManagement.Models.ViewModels
                 }
                 else if (prop.Type == PropertieType.TextBox)
                     return int.Parse(prop.Value);
+                else if(prop.Type == PropertieType.Money)
+                    return int.Parse(prop.Value);
                 else
                     return -1;
             }
             catch (Exception)
             {
                 return -1;
+            }
+        }
+
+        public decimal GetValuePropertieDecimal(string id)
+        {
+            try
+            {
+                if (Properties == null || Properties.Count == 0)
+                    return 0;
+
+                var prop = Properties.FirstOrDefault(p => p.Id.ToLower().Trim() == id.ToLower().Trim());
+
+                if (prop == null)
+                    return 0;
+
+                else if (prop.Type == PropertieType.ComboBox)
+                {
+                    if (prop.Value != null)
+                        return int.Parse(prop.Value);
+                    if (prop.ObjectValue.GetType() == typeof(System.String[]))
+                        return int.Parse(((String[])prop.ObjectValue)[0]);
+                    else
+                        return 0;
+                }
+                else if (prop.Type == PropertieType.TextBox)
+                    return int.Parse(prop.Value);
+                else if (prop.Type == PropertieType.Money)
+                    return int.Parse(prop.Value);
+                else
+                    return 0;
+            }
+            catch (Exception)
+            {
+                return 0;
             }
         }
 
