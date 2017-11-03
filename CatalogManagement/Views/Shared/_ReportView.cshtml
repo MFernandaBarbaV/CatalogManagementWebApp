@@ -124,11 +124,11 @@ else
                                     })*@
 
                                 @Html.ListBoxFor(m => m.Filters[i].selectedMultipleValues, new MultiSelectList(Model.Filters[i].MultipleValues, "Key", "Value"), new
-                                    {
-                                        @class = "form-control ",
-                                        @id = @Model.Filters[i].ColumnName,
-                                        @Multiple = "multiple"
-                                    })
+                           {
+                               @class = "form-control ",
+                               @id = @Model.Filters[i].ColumnName,
+                               @Multiple = "multiple"
+                           })
 
                             </div>
                         }
@@ -190,38 +190,41 @@ else
                         }
                     </tr>
                 }
-                @if (Model.Totales != null && Model.Totales.Columns != null && Model.Totales.Columns.Count > 0)
+                @if (Model.Totales != null && Model.Totales.Count > 0)
                 {
-
-                    <tr class="searchable hidden-xs">
-                        @foreach (var column in Model.Totales.Columns)
+                    foreach (var row in Model.Totales)
                         {
+                        <tr class="searchable hidden-xs">
+
+                            @foreach (var column in row.Columns)
+                            {
                             switch (column.Type)
                             {
-                                case CatalogManagement.Models.Entities.ColumnType.Button:
-                                    <td>
-                                        @using (Html.BeginForm(column.ButtonAction, column.ButtonController, new { OperationId = column.ButtonOperationId.ToString(), ItemId = column.ID.ToString() }, FormMethod.Post))
-                                    {
+                            case CatalogManagement.Models.Entities.ColumnType.Button:
+                            <td>
+                                @using (Html.BeginForm(column.ButtonAction, column.ButtonController, new { OperationId = column.ButtonOperationId.ToString(), ItemId = column.ID.ToString() }, FormMethod.Post))
+                                        {
                                             @Html.AntiForgeryToken()
                                             <input type="hidden" value="@column.ButtonOperationId" name="OperationId">
                                             <input type="hidden" value="@column.ID" name="ID">
                                             <button class="btn btn-primary" disabled="@column.ButtonDissabled">@column.ButtonText</button>
-                                        }
-                                    </td>
-                                    break;
-                                case CatalogManagement.Models.Entities.ColumnType.CheckBox:
-                                    <td>@column.Value</td>
-                                    break;
-                                case CatalogManagement.Models.Entities.ColumnType.Text:
-                                    <td>@column.Value</td>
-                                    break;
-                                default:
-                                    <td>@column.Value</td>
-                                    break;
+                                            }
+                            </td>
+                            break;
+                            case CatalogManagement.Models.Entities.ColumnType.CheckBox:
+                            <td>@column.Value</td>
+                            break;
+                            case CatalogManagement.Models.Entities.ColumnType.Text:
+                            <td>@column.Value</td>
+                            break;
+                            default:
+                            <td>@column.Value</td>
+                            break;
                             }
-                        }
-                    </tr>
+                            }
 
+                        </tr>
+                    }
                 }
             </tbody>
 
@@ -268,34 +271,36 @@ else
         <table class="table table-bordered table-hover visible-xs hidden-sm hidden-md hidden-lg table-condensed ">
 
             <tbody id="myTable">
-                @foreach (var column in Model.Totales.Columns)
+                @foreach (var row in Model.Totales)
+                {
+                    foreach (var column in row.Columns)
                     {
-                    <tr class="">
-                        <td class="col-xs-4">@column.ColumnHeader</td>
+                        <tr class="">
+                            <td class="col-xs-4">@column.ColumnHeader</td>
 
-                        @switch (column.Type)
-                        {
-                            case CatalogManagement.Models.Entities.ColumnType.Button:
-                                <td class="col-xs-8">
-                                    @using (Html.BeginForm(column.ButtonAction, column.ButtonController, new { OperationId = column.ButtonOperationId.ToString(), ItemId = column.ID.ToString() }, FormMethod.Post))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <input type="hidden" value="@column.ButtonOperationId" name="OperationId">
-                                        <input type="hidden" value="@column.ID" name="ID">
-                                        <button class="btn btn-primary" disabled="@column.ButtonDissabled">@column.ButtonText</button>
-                                    }
-                                </td>
-                                break;
-                            case CatalogManagement.Models.Entities.ColumnType.CheckBox:
-                            case CatalogManagement.Models.Entities.ColumnType.Text:
-                            default:
-                                <td class="col-xs-8">@column.Value</td>
-                                break;
-                        }
+                            @switch (column.Type)
+                            {
+                                case CatalogManagement.Models.Entities.ColumnType.Button:
+                                    <td class="col-xs-8">
+                                        @using (Html.BeginForm(column.ButtonAction, column.ButtonController, new { OperationId = column.ButtonOperationId.ToString(), ItemId = column.ID.ToString() }, FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" value="@column.ButtonOperationId" name="OperationId">
+                                            <input type="hidden" value="@column.ID" name="ID">
+                                            <button class="btn btn-primary" disabled="@column.ButtonDissabled">@column.ButtonText</button>
+                                        }
+                                    </td>
+                                    break;
+                                case CatalogManagement.Models.Entities.ColumnType.CheckBox:
+                                case CatalogManagement.Models.Entities.ColumnType.Text:
+                                default:
+                                    <td class="col-xs-8">@column.Value</td>
+                                    break;
+                            }
 
-                    </tr>
+                        </tr>
+                    }
                 }
-
             </tbody>
 
         </table>

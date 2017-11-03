@@ -19,7 +19,7 @@ namespace CatalogManagement.Models.ViewModels
         /// <summary>
         /// Características del modelo
         /// </summary>      
-        public void SetAttributes(int itemId, string title, string buttonText, string buttonAction, string buttonController, Operations operationIdAction, Operations operationIdToReturn)
+        public void SetAttributes(int itemId, string title, string buttonText, string buttonAction, string buttonController, OperationsEnum operationIdAction, OperationsEnum operationIdToReturn)
         {
             this.ItemId = itemId;
             this.Title = title;

@@ -6,10 +6,9 @@
 @if (Model == null || Model.Rows == null || Model.Rows.Count() == 0)
 {
     <div class="alert alert-danger">
-        @if (string.IsNullOrEmpty(ViewBag.ErrorMessage))
-        { }
-        else
-        { <strong>@ViewBag.ErrorMessage</strong>}
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {<strong>@ViewBag.ErrorMessage</strong> }
+
     </div>
 }
 else
@@ -48,6 +47,18 @@ else
     <div class="input-group icon-addon addon-md center-block filter visible-xs hidden-sm ">
         <input id="filterXS" type="text" class="form-control" placeholder="Filtrar">
         <label for="filterXS" class="@faIconss.search" rel="tooltip" title="Nombre de Usuario"></label>
+    </div>
+
+    <div class="input-group col-lg-12 col-md-12 col-xs-12 col-sm-12">
+        @if (Model.useNewItemButton)
+        {
+            using (Html.BeginForm(Model.ButtonAction, Model.ButtonController, new { OperationId=Model.operationNewItem }, FormMethod.Post, new { id = "myForm", data_toggle = "validator", OperationId = Model.operationNewItem.ToString() }))
+            {
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary PrettyButton" type="submit">@Model.ButtonText</button>
+                </div>
+            }
+        }
     </div>
 
     <table class="table table-bordered table-hover table-scrollable filterable hidden-xs visible-md visible-lg visible-sm ">

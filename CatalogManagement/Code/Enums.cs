@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CatalogManagement.Models.Entities
 {
-    public enum Operations : int
+    public enum OperationsEnum : int
     {
         IniciodeSesión = 0,
         CerrarSesionUsuario = 1,
@@ -72,7 +72,7 @@ namespace CatalogManagement.Models.Entities
         NuevoProducto = 44,
         EditarCompra = 45,
         EliminarCompra = 46,
-        VerValance = 47,
+        VerBalance = 47,
         VerReporteVentas = 48,
         EditarVenta = 49,
         EditarProducto = 50,

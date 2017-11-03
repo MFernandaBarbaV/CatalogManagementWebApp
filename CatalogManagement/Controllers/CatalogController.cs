@@ -68,7 +68,7 @@ namespace CatalogManagement.Controllers
 
                 Configure.LoadViewCatalog(ref model, operation, ref errorMessage);
 
-                ViewBag.ErrorMessage = errorMessage +  (Session[SessionVariables.ErrorMessage] == null ? "" : " " + Session[SessionVariables.ErrorMessage].ToString());
+                ViewBag.ErrorMessage = errorMessage + (Session[SessionVariables.ErrorMessage] == null ? "" : " " + Session[SessionVariables.ErrorMessage].ToString());
 
                 ViewBag.SuccessMessage = (Session[SessionVariables.SuccessMessage] == null ? "" : Session[SessionVariables.SuccessMessage].ToString());
 
@@ -108,7 +108,7 @@ namespace CatalogManagement.Controllers
                 ReportViewModel model = new ReportViewModel();
 
                 model.Rows = new List<Row>();
-              
+
                 int operation = 0;
 
                 if (!int.TryParse(OperationId, out operation))
@@ -157,7 +157,7 @@ namespace CatalogManagement.Controllers
 
                 #endregion
 
-              
+
 
                 int operation = 0;
 
@@ -209,7 +209,7 @@ namespace CatalogManagement.Controllers
             if (!int.TryParse(OperationId, out opId) || !int.TryParse(ItemId, out itmId))
             {
                 ViewBag.ErrorMessage = "No fue posible cerrar la cesión del usuario.";
-                return ViewCatalog(((int)Operations.VerUsuarios).ToString());
+                return ViewCatalog(((int)OperationsEnum.VerUsuarios).ToString());
             }
 
             using (CatalogManagementDBModel db = new CatalogManagementDBModel())
@@ -229,9 +229,9 @@ namespace CatalogManagement.Controllers
                     ViewBag.ErrorMessage = db.GetValidationErrors().First().ValidationErrors + " " + e.Message;
                 }
             }
-            return ViewCatalog(((int)Operations.VerUsuarios).ToString());
+            return ViewCatalog(((int)OperationsEnum.VerUsuarios).ToString());
         }
-            
+
         [Route("Edit/{OperationId}/{ItemId}")]
         public ActionResult LoadItemData(string OperationId, string ItemId)
         {
@@ -374,7 +374,7 @@ namespace CatalogManagement.Controllers
             if (!int.TryParse(OperationId, out opId) || !int.TryParse(ItemId, out itmId))
             {
                 ViewBag.ErrorMessage = "No fue posible cerrar la cesión del usuario.";
-                return ViewCatalog(((int)Operations.VerUsuarios).ToString());
+                return ViewCatalog(((int)OperationsEnum.VerUsuarios).ToString());
             }
 
             using (CatalogManagementDBModel db = new CatalogManagementDBModel())
@@ -394,7 +394,7 @@ namespace CatalogManagement.Controllers
                     ViewBag.ErrorMessage = db.GetValidationErrors().First().ValidationErrors + " " + e.Message;
                 }
             }
-            return ViewCatalog(((int)Operations.VerUsuarios).ToString());
+            return ViewCatalog(((int)OperationsEnum.VerUsuarios).ToString());
 
         }
 
@@ -423,13 +423,17 @@ namespace CatalogManagement.Controllers
             string errorMessage = ViewBag.ErrorMessage;
 
 
-            if (Configure.SaveItem(model, ref errorMessage,((SystemUser)Session[SessionVariables.SystemUser]).SystemUserId))
+            if (Configure.SaveItem(model, ref errorMessage, ((SystemUser)Session[SessionVariables.SystemUser]).SystemUserId))
             {
+                Session[SessionVariables.SuccessMessage] = "Se guardó correctamente";
                 ViewBag.SuccessMessage = "Se guardó correctamente";
             }
             else
             {
+                Session[SessionVariables.ErrorMessage] = errorMessage;
                 ViewBag.ErrorMessage = errorMessage;
+                Configure.LoadItemData(ref model, model.OperationIdAction, model.ItemId, ref errorMessage);
+                return PartialView("_ItemView", model);
             }
 
             return RedirectToAction("ViewCatalog", new { OperationId = model.OperationIdToReturn.ToString() });
@@ -504,5 +508,9 @@ namespace CatalogManagement.Controllers
 
             return RedirectToAction("ViewCatalog", new { OperationId = model.OperationIdToReturn.ToString() });
         }
+
+       
     }
+
+
 }

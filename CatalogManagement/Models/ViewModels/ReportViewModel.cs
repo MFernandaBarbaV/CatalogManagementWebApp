@@ -21,13 +21,13 @@ namespace CatalogManagement.Models.ViewModels
         /// <summary>
         /// Totales
         /// </summary>
-        public Row Totales { get; set; }
+        public List<Row> Totales { get; set; }
 
         /// <summary>
         /// Características del modelo
         /// </summary>      
         public void SetAttributes(string title, string buttonText, string buttonAction, string buttonController,
-            Operations operationIdAction, Operations operationIdToReturn)
+            OperationsEnum operationIdAction, OperationsEnum operationIdToReturn)
         {
             this.Title = title;
             this.OperationIdAction = (int)operationIdAction;

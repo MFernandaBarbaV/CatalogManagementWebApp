@@ -239,6 +239,18 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Code\ConfigureEntitie\AccessTemplates.cs" />
+    <Compile Include="Code\ConfigureEntitie\Application.cs" />
+    <Compile Include="Code\ConfigureEntitie\Balance.cs" />
+    <Compile Include="Code\ConfigureEntitie\Base.cs" />
+    <Compile Include="Code\ConfigureEntitie\Expenses.cs" />
+    <Compile Include="Code\ConfigureEntitie\ExpensesTypes.cs" />
+    <Compile Include="Code\ConfigureEntitie\Operations.cs" />
+    <Compile Include="Code\ConfigureEntitie\Products.cs" />
+    <Compile Include="Code\ConfigureEntitie\Profiles.cs" />
+    <Compile Include="Code\ConfigureEntitie\Purchases.cs" />
+    <Compile Include="Code\ConfigureEntitie\Sales.cs" />
+    <Compile Include="Code\ConfigureEntitie\Users.cs" />
     <Compile Include="Code\Security.cs" />
     <Compile Include="DBModels\BonetaModelDB.Context.cs">
       <AutoGen>True</AutoGen>
@@ -325,10 +337,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlExtensions.cs" />
-    <Compile Include="Models\Entities\Enums.cs" />
+    <Compile Include="Code\Enums.cs" />
     <Compile Include="Models\Entities\MenuItem.cs" />
     <Compile Include="Models\Entities\SystemUser.cs" />
-    <Compile Include="Models\Entities\Utils.cs" />
+    <Compile Include="Code\Utils.cs" />
     <Compile Include="Models\ViewModels\ItemViewModel.cs" />
     <Compile Include="Models\ViewModels\ListItemsViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />

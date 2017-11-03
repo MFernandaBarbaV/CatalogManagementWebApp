@@ -91,8 +91,7 @@ else
                            {
                                Value = indx.Key.ToString(),
                                Text = indx.Value.ToString(),
-
-                               Selected = "select" == indx.Key.ToString()
+                               Selected = indx.Key.ToString() == Model.Properties[i].Value.ToString()
                            }), new
                            {
                                @class = "form-control " + (Model.Properties[i].IsDissabled ? "Dissabled" : ""),
