@@ -3,9 +3,7 @@
 -- =============================================
 CREATE PROCEDURE [dbo].[ClienteAgregar]
 	-- Add the parameters for the stored procedure here
-	@NombreCliente nvarchar(100), 
-          @ApellidoPaternoCliente nvarchar(100), 
-          @ApellidoMaternoCliente nvarchar(100), 
+	@NombreCliente nvarchar(300), 
           @Email nvarchar(100), 
           @RFC nvarchar(100), 
           @CalleDomicilioFiscal nvarchar(100), 
@@ -24,9 +22,7 @@ BEGIN
 
     -- Insert statements for procedure here
 	INSERT INTO [dbo].[Clientes]
-           ([NombreCliente]
-           ,[ApellidoPaternoCliente]
-           ,[ApellidoMaternoCliente]         
+           ([NombreCliente]      
            ,[Email]
            ,[RFC]
            ,[CalleDomicilioFiscal]
@@ -38,10 +34,7 @@ BEGIN
            ,[EstadoDomicilioFiscal]
            ,[Telefono])
      VALUES
-           (@NombreCliente, 
-          @ApellidoPaternoCliente, 
-          @ApellidoMaternoCliente, 
-       
+           (@NombreCliente,        
           @Email, 
           @RFC, 
           @CalleDomicilioFiscal, 

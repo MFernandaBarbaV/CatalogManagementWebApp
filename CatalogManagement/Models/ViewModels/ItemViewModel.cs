@@ -1,6 +1,7 @@
 ﻿using CatalogManagement.Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -47,14 +48,15 @@ namespace CatalogManagement.Models.ViewModels
                 else if (prop.Type == PropertieType.ComboBox)
                     return prop.Value;
                 else if (prop.Type == PropertieType.Password)
-                    return prop.ObjectValue.ToString();
+                    return prop.Value;
                 else if (prop.Type == PropertieType.TextBox)
                     return prop.Value;
                 else
                     return string.Empty;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.WriteLine("GetValuePropertieString Exception: " + ex.Message);
                 return string.Empty;
             }
         }
@@ -73,8 +75,9 @@ namespace CatalogManagement.Models.ViewModels
 
                 return prop.DateValue;
             }
-            catch (Exception)
+            catch (Exception EX)
             {
+                Debug.WriteLine("GetValuePropertieInteger Exception: " + EX.Message);
                 return DateTime.MinValue;
             }
         }
@@ -97,8 +100,9 @@ namespace CatalogManagement.Models.ViewModels
                 else
                     return null;
             }
-            catch (Exception)
+            catch (Exception EX)
             {
+                Debug.WriteLine("GetValuePropertieInteger Exception: " + EX.Message);
                 return null;
             }
         }
@@ -117,10 +121,13 @@ namespace CatalogManagement.Models.ViewModels
 
                 else if (prop.Type == PropertieType.ComboBox)
                 {
-                    if (prop.Value != null)
-                        return int.Parse(prop.Value);
+                 
                     if (prop.ObjectValue.GetType() == typeof(System.String[]))
                         return int.Parse(((String[])prop.ObjectValue)[0]);
+                    if (prop.ObjectValue.GetType() == typeof(KeyValuePair<int,string>))
+                        return ((KeyValuePair<int, string>)prop.ObjectValue).Key;
+                    if (prop.Value != null)
+                        return int.Parse(prop.Value);
                     else
                         return -1;
                 }
@@ -131,8 +138,14 @@ namespace CatalogManagement.Models.ViewModels
                 else
                     return -1;
             }
-            catch (Exception)
+            catch(FormatException fe)
             {
+                Debug.WriteLine("Una de las propiedades no tiene Id.");
+                return -1;
+            }
+            catch (Exception EX)
+            {
+                Debug.WriteLine("GetValuePropertieInteger Exception: " + EX.Message);
                 return -1;
             }
         }
@@ -161,12 +174,13 @@ namespace CatalogManagement.Models.ViewModels
                 else if (prop.Type == PropertieType.TextBox)
                     return int.Parse(prop.Value);
                 else if (prop.Type == PropertieType.Money)
-                    return int.Parse(prop.Value);
+                    return decimal.Parse(prop.Value);
                 else
                     return 0;
             }
-            catch (Exception)
+            catch (Exception EX)
             {
+                Debug.WriteLine("GetValuePropertieInteger Exception: " + EX.Message);
                 return 0;
             }
         }
@@ -197,8 +211,9 @@ namespace CatalogManagement.Models.ViewModels
                 else
                     return 0;
             }
-            catch (Exception)
+            catch (Exception EX)
             {
+                Debug.WriteLine("GetValuePropertieInteger Exception: " + EX.Message);
                 return 0;
             }
         }

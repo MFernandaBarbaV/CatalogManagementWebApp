@@ -180,7 +180,7 @@ namespace CatalogManagement.Controllers
             }
             catch (Exception e)
             {
-                ViewBag.ErrorMessage = e.Message;
+                ViewBag.ErrorMessage = e.Message + " " + (e.InnerException==null?string.Empty:e.InnerException.Message)+" " + e.StackTrace;
                 return PartialView("_ReportView", null);
             }
         }
@@ -212,14 +212,14 @@ namespace CatalogManagement.Controllers
                 return ViewCatalog(((int)OperationsEnum.VerUsuarios).ToString());
             }
 
-            using (CatalogManagementDBModel db = new CatalogManagementDBModel())
+            using (CatalogManagementDBEntities db = new CatalogManagementDBEntities())
             {
                 try
                 {
 
-                    mUsers user = db.mUsers.First(usr => usr.UserID == itmId);
+                   Users user = db.Users.First(usr => usr.UserID == itmId);
                     user.IsActiveSession = false;
-                    db.mUsers.Attach(user);
+                    db.Users.Attach(user);
                     db.Entry(user).Property(x => x.IsActiveSession).IsModified = true;
                     db.SaveChanges();
 
@@ -377,14 +377,14 @@ namespace CatalogManagement.Controllers
                 return ViewCatalog(((int)OperationsEnum.VerUsuarios).ToString());
             }
 
-            using (CatalogManagementDBModel db = new CatalogManagementDBModel())
+            using (CatalogManagementDBEntities db = new CatalogManagementDBEntities())
             {
                 try
                 {
 
-                    mUsers user = db.mUsers.First(usr => usr.UserID == itmId);
+                    Users user = db.Users.First(usr => usr.UserID == itmId);
                     user.IsActiveSession = false;
-                    db.mUsers.Attach(user);
+                    db.Users.Attach(user);
                     db.Entry(user).Property(x => x.IsActiveSession).IsModified = true;
                     db.SaveChanges();
 
@@ -423,7 +423,7 @@ namespace CatalogManagement.Controllers
             string errorMessage = ViewBag.ErrorMessage;
 
 
-            if (Configure.SaveItem(model, ref errorMessage, ((SystemUser)Session[SessionVariables.SystemUser]).SystemUserId))
+            if (Configure.SaveItem(ref model, ref errorMessage, ((SystemUser)Session[SessionVariables.SystemUser]).SystemUserId))
             {
                 Session[SessionVariables.SuccessMessage] = "Se guardó correctamente";
                 ViewBag.SuccessMessage = "Se guardó correctamente";
@@ -463,7 +463,7 @@ namespace CatalogManagement.Controllers
             string errorMessage = string.Empty;
 
 
-            if (Configure.SaveItem(model, ref errorMessage, ((SystemUser)Session[SessionVariables.SystemUser]).SystemUserId))
+            if (Configure.SaveItem(ref model, ref errorMessage, ((SystemUser)Session[SessionVariables.SystemUser]).SystemUserId))
             {
                 ViewBag.SuccessMessage = "Se editó correctamente";
             }

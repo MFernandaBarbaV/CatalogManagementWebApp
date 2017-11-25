@@ -100,13 +100,7 @@ namespace CatalogManagement.Code
             randomBytes = Encoding.ASCII.GetBytes("ABC/123*456_789.DEF?J!#%%&/(%".Substring(0, Keysize / 8));
 
             return randomBytes;
-
-            using (var rngCsp = new RNGCryptoServiceProvider())
-            {
-                // Fill the array with cryptographically secure random bytes.
-                rngCsp.GetBytes(randomBytes);
-            }
-            return randomBytes;
+            
         }
 
         public static string Encrypt(string text)

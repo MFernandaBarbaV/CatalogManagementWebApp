@@ -7,18 +7,21 @@ CREATE PROCEDURE [dbo].[CompraDetalleAgregar]
 	@CostoUnitario money, @CostoTotal money
 AS
 BEGIN
-	DECLARE @IdLote int = 1
+	DECLARE @IdLote int 
+	set @IdLote= 1
 
 	SELECT @IdLote = max([Lote]) + 1 FROM [dbo].[CompraDetalle] WHERE IdProducto = @IdProducto
 		
 		--si la cantidad actual es negativa, se lo tengo que restar al nuevo lote
-	DECLARE @CantidadFaltante int = 0
+	DECLARE @CantidadFaltante int
+	set @CantidadFaltante = 0
 	if exists (select cantidad from dbo.Producto where idproducto = @idproducto and Cantidad < 0)
 	begin
-		set	@CantidadFaltante = (select cantidad from dbo.Producto where idproducto = @idproducto)
+		set	@CantidadFaltante = (select Cantidad from dbo.Producto where idproducto = @idproducto)
 	end
 
-	declare @CantidadPorUnidad int = (select Cantidad from dbo.Unidad where IdUnidad = @IdUnidad)
+	declare @CantidadPorUnidad int 
+	set @CantidadPorUnidad= (select Cantidad from dbo.Unidad where IdUnidad = @IdUnidad)
 
 	INSERT INTO [dbo].[CompraDetalle]
            ([IdCompra]

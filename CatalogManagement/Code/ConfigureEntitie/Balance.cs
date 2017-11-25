@@ -11,7 +11,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
     {
         internal static void GetReport(ref ReportViewModel model, int operationId, bool applyFilters, ref string errorMessage)
         {
-            using (var db2 = new PuntoDeVentaEntities())
+            using (var db2 = new CatalogManagementDBEntities() )
             {
                 model.SetAttributes("Balance", "Ver", "ViewReport", "Catalog", (OperationsEnum)operationId, (OperationsEnum)operationId);
                 if (applyFilters)
@@ -29,7 +29,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
                         row.Columns = new List<Column>();
                         row.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = item.FechaVenta.ToString("dd MMMM yyyy hh:mm tt"), ID = item.IdVenta.ToString() });
                         row.Columns.Add(new Column() { ColumnHeader = "Concepto", Value = "Venta", ID = item.IdVenta.ToString() });
-                        row.Columns.Add(new Column() { ColumnHeader = "Detalles", Value = item.Clientes.NombreCompleto, ID = item.IdVenta.ToString() });
+                        row.Columns.Add(new Column() { ColumnHeader = "Detalles", Value = item.Clientes.NombreCliente, ID = item.IdVenta.ToString() });
                         row.Columns.Add(new Column() { ColumnHeader = "Entrada", Value = item.Total.ToString("c2"), ID = item.IdVenta.ToString() });
                         row.Columns.Add(new Column() { ColumnHeader = "Salida", Value = 0.ToString("c2"), ID = item.IdVenta.ToString() });
 

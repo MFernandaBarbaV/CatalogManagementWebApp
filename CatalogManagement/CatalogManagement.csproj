@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -15,8 +13,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CatalogManagement</RootNamespace>
     <AssemblyName>CatalogManagement</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -24,7 +22,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,56 +41,49 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.4.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.4.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.4.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AI.Web, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AI.Web, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.4.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AI.WindowsServer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.4.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.4.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -101,23 +93,20 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +148,26 @@
     <Content Include="Content\Images\logowerneralpha.png" />
     <Content Include="Content\MenuBar.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="DBModels\CatalogManagmentModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CatalogManagmentModel.edmx</DependentUpon>
+      <LastGenOutput>CatalogManagmentModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBModels\CatalogManagmentModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CatalogManagmentModel.edmx</DependentUpon>
+      <LastGenOutput>CatalogManagmentModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBModels\SUPERTICKETModelDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SUPERTICKETModelDB.edmx</DependentUpon>
+      <LastGenOutput>SUPERTICKETModelDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBModels\SUPERTICKETModelDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SUPERTICKETModelDB.edmx</DependentUpon>
+      <LastGenOutput>SUPERTICKETModelDB.cs</LastGenOutput>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="ScriptsSQL\InitUsers.sql" />
     <Content Include="Scripts\bootstrap.js" />
@@ -182,45 +191,31 @@
     <Content Include="Content\Fonts\Dosis\Dosis-Regular.ttf" />
     <Content Include="Content\Fonts\Dosis\Dosis-SemiBold.ttf" />
     <Content Include="Content\Fonts\Dosis\Dosis.zip" />
-    <EntityDeploy Include="DBModels\ModelDB.edmx">
+    <EntityDeploy Include="DBModels\SUPERTICKETModelDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>SUPERTICKETModelDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DBModels\ModelDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDB.edmx</DependentUpon>
-      <LastGenOutput>ModelDB.Context.cs</LastGenOutput>
+    <Content Include="DBModels\SUPERTICKETModelDB.edmx.diagram">
+      <DependentUpon>SUPERTICKETModelDB.edmx</DependentUpon>
     </Content>
-    <Content Include="DBModels\ModelDB.edmx.diagram">
-      <DependentUpon>ModelDB.edmx</DependentUpon>
-    </Content>
-    <Content Include="DBModels\ModelDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDB.edmx</DependentUpon>
-      <LastGenOutput>ModelDB.cs</LastGenOutput>
-    </Content>
-    <EntityDeploy Include="DBModels\BonetaModelDB.edmx">
+    <EntityDeploy Include="DBModels\CatalogManagmentModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BonetaModelDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>CatalogManagmentModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DBModels\BonetaModelDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BonetaModelDB.edmx</DependentUpon>
-      <LastGenOutput>BonetaModelDB.Context.cs</LastGenOutput>
+    <Content Include="DBModels\CatalogManagmentModel.edmx.diagram">
+      <DependentUpon>CatalogManagmentModel.edmx</DependentUpon>
     </Content>
-    <Content Include="DBModels\BonetaModelDB.edmx.diagram">
-      <DependentUpon>BonetaModelDB.edmx</DependentUpon>
-    </Content>
-    <Content Include="DBModels\BonetaModelDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BonetaModelDB.edmx</DependentUpon>
-      <LastGenOutput>BonetaModelDB.cs</LastGenOutput>
-    </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.2.1.js" />
+    <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.2.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -234,98 +229,185 @@
     <Content Include="Scripts\TablePagination.js" />
     <Content Include="Scripts\validator.js" />
     <Content Include="Scripts\validator.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Code\ConfigureEntitie\AccessTemplates.cs" />
-    <Compile Include="Code\ConfigureEntitie\Application.cs" />
+    <Compile Include="Code\Configure.cs" />
     <Compile Include="Code\ConfigureEntitie\Balance.cs" />
     <Compile Include="Code\ConfigureEntitie\Base.cs" />
+    <Compile Include="Code\ConfigureEntitie\Brands.cs" />
+    <Compile Include="Code\ConfigureEntitie\Clients.cs" />
     <Compile Include="Code\ConfigureEntitie\Expenses.cs" />
     <Compile Include="Code\ConfigureEntitie\ExpensesTypes.cs" />
     <Compile Include="Code\ConfigureEntitie\Operations.cs" />
     <Compile Include="Code\ConfigureEntitie\Products.cs" />
-    <Compile Include="Code\ConfigureEntitie\Profiles.cs" />
+    <Compile Include="Code\ConfigureEntitie\ProductTypes.cs" />
+    <Compile Include="Code\ConfigureEntitie\Providers.cs" />
     <Compile Include="Code\ConfigureEntitie\Purchases.cs" />
     <Compile Include="Code\ConfigureEntitie\Sales.cs" />
+    <Compile Include="Code\ConfigureEntitie\SUPERTICKET.cs" />
     <Compile Include="Code\ConfigureEntitie\Users.cs" />
+    <Compile Include="Code\Enums.cs" />
     <Compile Include="Code\Security.cs" />
-    <Compile Include="DBModels\BonetaModelDB.Context.cs">
+    <Compile Include="Code\SessionVariables.cs" />
+    <Compile Include="Code\Utils.cs" />
+    <Compile Include="Code\Validation.cs" />
+    <Compile Include="DBModels\CatalogManagmentModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BonetaModelDB.Context.tt</DependentUpon>
+      <DependentUpon>CatalogManagmentModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\BonetaModelDB.cs">
+    <Compile Include="DBModels\CatalogManagmentModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\BonetaModelDB.Designer.cs">
+    <Compile Include="DBModels\CatalogManagmentModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BonetaModelDB.edmx</DependentUpon>
+      <DependentUpon>CatalogManagmentModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="DBModels\Clientes.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\ClientesObtener_Result.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Code\Configure.cs" />
-    <Compile Include="Code\SessionVariables.cs" />
-    <Compile Include="Code\Validation.cs" />
-    <Compile Include="DBModels\Compra.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\CompraDetalle.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\Configuracion.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
+    <Compile Include="DBModels\clientesSUPERTICKET.cs">
+      <DependentUpon>SUPERTICKETModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DBModels\dUserProfiles.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
+    <Compile Include="DBModels\Compra.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\CompraDetalle.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Configuracion.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\doc_detalle.cs">
+      <DependentUpon>SUPERTICKETModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\doc_general.cs">
+      <DependentUpon>SUPERTICKETModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\doc_pagos.cs">
+      <DependentUpon>SUPERTICKETModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\formas_pago.cs">
+      <DependentUpon>SUPERTICKETModelDB.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\Gastos.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\Genero.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\mAccessLog.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\mAccessTemplates.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\mApplications.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
+    <Compile Include="DBModels\Log.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\Marca.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\MarcasObtener_Result.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\ModelDB.Context.cs">
+    <Compile Include="DBModels\Operador.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Operations.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\personal.cs">
+      <DependentUpon>SUPERTICKETModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Producto.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\ProductosObtenerPorCodigo_Result.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\ProductosObtener_Result.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Proveedor.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\ProveedorObtener_Result.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\spUser_DoLogin_Result.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Status.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\SubTipoProducto.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\SubTipoProductoObtener_Result.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\SUPERTICKETModelDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDB.Context.tt</DependentUpon>
+      <DependentUpon>SUPERTICKETModelDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\ModelDB.cs">
+    <Compile Include="DBModels\SUPERTICKETModelDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDB.tt</DependentUpon>
+      <DependentUpon>SUPERTICKETModelDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\ModelDB.Designer.cs">
+    <Compile Include="DBModels\SUPERTICKETModelDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDB.edmx</DependentUpon>
+      <DependentUpon>SUPERTICKETModelDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Talla.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\TallasObtener_Result.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\TipoGasto.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\TipoPrecio.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\TipoPrecioObtenerPorIdProducto_Result.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\TipoPrecioPorProducto.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\TipoProducto.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\TipoProductoObtener_Result.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Unidad.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\UnidadesObtener_Result.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Users.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Venta.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\VentaDetalle.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Column.cs" />
     <Compile Include="Models\Entities\Propertie.cs" />
@@ -337,270 +419,22 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HtmlExtensions.cs" />
-    <Compile Include="Code\Enums.cs" />
     <Compile Include="Models\Entities\MenuItem.cs" />
     <Compile Include="Models\Entities\SystemUser.cs" />
-    <Compile Include="Code\Utils.cs" />
     <Compile Include="Models\ViewModels\ItemViewModel.cs" />
     <Compile Include="Models\ViewModels\ListItemsViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\MenuViewModel.cs" />
-    <Compile Include="DBModels\mOperations.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\mProfiles.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\mStatus.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\mStatusTypes.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\mUsers.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\Operador.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\Producto.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\ProductosObtenerPorCodigo_Result.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\ProductosObtener_Result.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DBModels\Proveedor.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\ProveedorObtener_Result.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spdUserProfiles_GetAll_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spdUserProfiles_GetByUserID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessLog_Delete_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessLog_GetAccessReportN_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessLog_GetAccessReport_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessLog_GetAll_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessLog_GetByFkProfileID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessLog_GetByFkUserID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessLog_GetByID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessLog_GetByProfileName_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessLog_GetByUserLogin_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessLog_GetByUserName_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessLog_GetLikeByProfileName_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessLog_GetLikeByUserLogin_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessLog_GetLikeByUserName_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessTemplates_GetAll_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessTemplates_GetByID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmAccessTemplates_GetByName_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmApplications_GetAllWithOperationsAndProfiles_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmApplications_GetAllWithOperations_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmApplications_GetAllWithProfiles_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmApplications_GetAll_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmApplications_GetByIDWithProfiles_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmApplications_GetByID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmApplications_GetByName_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmApplications_GetByType_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmOperations_GetAll_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmOperations_GetByApplicationID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmOperations_GetByID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmOperations_GetByNameAndApplicationID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmOperations_GetByName_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmOperations_GetByProfileID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmOperations_GetLikeByName_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmProfiles_GetAllWithOperations_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmProfiles_GetAll_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmProfiles_GetByApplicationID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmProfiles_GetByID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmProfiles_GetByNameAndApplicationID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmProfiles_GetByName_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmStatusType_GetByID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmStatus_GetAll_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmStatus_GetByID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmStatus_GetByType_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmStatus_Insert_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmStatus_Update_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmUsers_GetByEmailOnly_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmUser_DoLogin_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmUser_GetAllWithProfiles_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmUser_GetAll_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmUser_GetByApplicationAndUser_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmUser_GetByApplication_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmUser_GetByID_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmUser_GetLikeByEmail_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmUser_GetLikeByLastName_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmUser_GetLikeByLogin_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmUser_GetLikeByName_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmUser_GetLikeByOrganization_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\spmUser_GetLikeByPosition_Result.cs">
-      <DependentUpon>ModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\SubTipoProducto.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\SubTipoProductoObtener_Result.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\Talla.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\TallasObtener_Result.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\TipoGasto.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\TipoPrecio.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\TipoPrecioObtenerPorIdProducto_Result.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\TipoPrecioPorProducto.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\TipoProducto.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\TipoProductoObtener_Result.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\Unidad.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\UnidadesObtener_Result.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\Venta.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DBModels\VentaDetalle.cs">
-      <DependentUpon>BonetaModelDB.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
@@ -642,7 +476,6 @@
     <Content Include="Content\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\font-awesome\scss\_variables.scss" />
     <Content Include="Views\Shared\_ListItemsView.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_ItemView.cshtml" />
     <Content Include="Views\Shared\_RedirectToLogin.cshtml" />
     <Content Include="Views\Shared\_RelationView.cshtml" />
@@ -676,27 +509,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50963</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50964/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

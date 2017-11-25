@@ -16,7 +16,9 @@ namespace CatalogManagement.Code.Tests
         {
             try
             {
-                string text = "321321321";
+               
+
+                string text = "moto";
                 string result = Security.Encrypt(text);
                 string result2 = Security.Decrypt(result);
 

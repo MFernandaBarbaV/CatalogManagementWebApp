@@ -26,9 +26,9 @@ namespace CatalogManagement.DBModels
         public System.DateTime FechaCompra { get; set; }
         public decimal Total { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CompraDetalle> CompraDetalle { get; set; }
         public virtual Operador Operador { get; set; }
         public virtual Proveedor Proveedor { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CompraDetalle> CompraDetalle { get; set; }
     }
 }

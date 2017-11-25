@@ -11,11 +11,11 @@ namespace CatalogManagement.Code.ConfigureEntitie
     {
         internal static void GetExpensesTypesCatalog(ref ListItemsViewModel model, int operationId, ref string errorMessage)
         {
-            using (var db2 = new PuntoDeVentaEntities())
+            using (var db2 = new CatalogManagementDBEntities())
             {
                 #region VerTipoGasto
 
-                model.SetAttributes("Tipo de Gasto", (OperationsEnum)operationId,  OperationsEnum.NuevoTipoGasto );
+                model.SetAttributes("Tipo de Gasto", (OperationsEnum)operationId, OperationsEnum.NuevoTipoGasto);
                 foreach (var item in db2.TipoGasto)
                 {
                     row = new Row();
@@ -32,7 +32,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
 
         internal static void GetData(ref ItemViewModel model, int operationId, int itemId, ref string errorMessage)
         {
-            using (var db2 = new PuntoDeVentaEntities())
+            using (var db2 = new CatalogManagementDBEntities())
             {
                 #region TipoGasto
                 {
@@ -53,7 +53,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
                     if (resultGasto != null)
                     {
                         model.Properties = new List<Propertie>();
-                        model.Properties.Add(new Propertie() { Id = "Descripcion", Label = "Tipo Gasto", Value = resultGasto.Descripcion, RegEx = Utils.GenerateRegex(true, true, false, true, 1, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
+                        model.Properties.Add(new Propertie(50) { Id = "Descripcion", Label = "Tipo Gasto", Value = resultGasto.Descripcion, RegEx = Utils.GenerateRegex(true, true, false, true, 1, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
                     }
                 }
                 #endregion
@@ -64,7 +64,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
         {
             try
             {
-                using (var db2 = new PuntoDeVentaEntities())
+                using (var db2 = new CatalogManagementDBEntities())
                 {
                     var tipoGasto = db2.TipoGasto.FirstOrDefault(m => m.IdTipoGasto == model.ItemId);
 
@@ -86,29 +86,19 @@ namespace CatalogManagement.Code.ConfigureEntitie
             }
         }
 
-        internal static bool New(ItemViewModel model, int userId, ref string errorMessage)
+        internal static bool New(ItemViewModel model, int userId, ref string errorMessage, out int id)
         {
-            try
+            using (var db2 = new CatalogManagementDBEntities())
             {
-                using (var db2 = new PuntoDeVentaEntities())
+                var obj = new TipoGasto()
                 {
-                    db2.TipoGasto.Add(new TipoGasto()
-                    {
-                        Descripcion = model.GetValuePropertieString("Descripcion"),
-                    });
-                    db2.SaveChanges();
-
-                    return true;
-                }
+                    Descripcion = model.GetValuePropertieString("Descripcion"),
+                };
+                db2.TipoGasto.Add(obj);
+                db2.SaveChanges();
+                id = obj.IdTipoGasto;
+                return true;
             }
-            catch (Exception ex)
-            {
-                errorMessage = ex.Message;
-                return false;
-            }
-
-
-
         }
     }
 }

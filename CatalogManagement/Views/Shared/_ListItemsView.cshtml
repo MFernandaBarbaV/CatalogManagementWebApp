@@ -50,9 +50,9 @@ else
     </div>
 
     <div class="input-group col-lg-12 col-md-12 col-xs-12 col-sm-12">
-        @if (Model.useNewItemButton)
+        @if (Model.UseNewItemButton)
         {
-            using (Html.BeginForm(Model.ButtonAction, Model.ButtonController, new { OperationId=Model.operationNewItem }, FormMethod.Post, new { id = "myForm", data_toggle = "validator", OperationId = Model.operationNewItem.ToString() }))
+            using (Html.BeginForm(Model.ButtonAction, Model.ButtonController, new { OperationId=Model.OperationNewItem }, FormMethod.Post, new { id = "myForm", data_toggle = "validator", OperationId = Model.OperationNewItem.ToString() }))
             {
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary PrettyButton" type="submit">@Model.ButtonText</button>

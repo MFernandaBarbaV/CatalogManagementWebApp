@@ -27,7 +27,7 @@ BEGIN
 		p.IdProveedor,
 		g.IdGenero,
 		g.Descripcion as Genero
-	from [dbo].[producto] p
+	from [dbo].[Producto] p
 	LEFT join [dbo].Marca m on m.IdMarca = p.IdMarca
 	LEFT join [dbo].Talla t on t.IdTalla = p.IdTalla
 	LEFT join [dbo].TipoProducto tp on tp.IdTipoProducto = p.IdTipoProducto

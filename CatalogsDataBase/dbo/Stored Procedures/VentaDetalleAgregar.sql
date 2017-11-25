@@ -6,13 +6,15 @@ CREATE PROCEDURE [dbo].[VentaDetalleAgregar]
 AS
 BEGIN
 
-	DECLARE @CantidadPorUnidad int = (select Cantidad from dbo.Unidad where IdUnidad = @IdUnidad)
+	DECLARE @CantidadPorUnidad int
+	set @CantidadPorUnidad = (select Cantidad from dbo.Unidad where IdUnidad = @IdUnidad)
 	PRINT 'Cantidad por unidad'
 	PRINT @CantidadPorUnidad
 
 	DECLARE @IdCompra int, 
-			@ExistenciaEnElLote int = 0, 
-			@CantidadPendiente int = @Cantidad * @CantidadPorUnidad
+			@ExistenciaEnElLote int , 
+			@CantidadPendiente int 
+			set @CantidadPendiente = @Cantidad * @CantidadPorUnidad
 		
 	PRINT 'Cantidad pendiente 1'
 	PRINT @CantidadPendiente

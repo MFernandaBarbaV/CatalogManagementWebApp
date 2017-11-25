@@ -11,7 +11,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
     {
         internal static void GetProductsCatalog(ref ListItemsViewModel model, int operationId, ref string errorMessage)
         {
-            using (var db2 = new PuntoDeVentaEntities())
+            using (var db2 = new CatalogManagementDBEntities())
             {
                 model.SetAttributes("Productos", (OperationsEnum)operationId, OperationsEnum.NuevoProducto);
                 foreach (var item in db2.Producto)
@@ -35,7 +35,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
         internal static void GetData(ref ItemViewModel model, int operationId, int itemId, ref string errorMessage)
         {
             var modelBackup = model;
-            using (var db2 = new PuntoDeVentaEntities())
+            using (var db2 = new CatalogManagementDBEntities())
             {
                 Producto result = null;
 
@@ -69,8 +69,8 @@ namespace CatalogManagement.Code.ConfigureEntitie
 
                     model.Properties = new List<Propertie>();
 
-                    model.Properties.Add(new Propertie() { Id = "Codigo", Label = "Codigo", Value = result.Codigo, Type = PropertieType.TextBox });
-                    model.Properties.Add(new Propertie() { Id = "Descripcion", Label = "Descripcion", Value = result.Descripcion, Type = PropertieType.TextBox });
+                    model.Properties.Add(new Propertie(50) { Id = "Codigo", Label = "Codigo", Value = result.Codigo, Type = PropertieType.TextBox });
+                    model.Properties.Add(new Propertie(500) { Id = "Descripcion", Label = "Descripcion", Value = result.Descripcion, Type = PropertieType.TextBox });
 
                     Dictionary<int, string> genero = new Dictionary<int, string>();
                     genero.Add(0, "--Seleccionar--");
@@ -118,7 +118,11 @@ namespace CatalogManagement.Code.ConfigureEntitie
                     {
                         tallas.Add(item.IdTalla, item.Descripcion);
                     }
-                    model.Properties.Add(new Propertie() { Id = "IdTalla", Label = "Talla", Type = PropertieType.ComboBox, MultipleValues = tallas, Value = result.IdTalla.ToString() });
+                    model.Properties.Add(new Propertie() { Id = "IdTalla", Label = "Talla", Type = PropertieType.ComboBox, MultipleValues = tallas, ObjectValue = new KeyValuePair<int, string>(result.IdTalla, tallas[result.IdTalla]) });
+
+                }
+                else
+                {
 
                 }
 
@@ -129,7 +133,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
         {
             try
             {
-                using (var db2 = new PuntoDeVentaEntities())
+                using (var db2 = new CatalogManagementDBEntities())
                 {
                     param = new System.Data.Entity.Core.Objects.ObjectParameter("idVenta", typeof(int));
 
@@ -160,9 +164,9 @@ namespace CatalogManagement.Code.ConfigureEntitie
 
         }
 
-        internal static bool New(ItemViewModel model, int userId, ref string errorMessage)
+        internal static bool New(ItemViewModel model, int userId, ref string errorMessage, out int id)
         {
-            using (var db2 = new PuntoDeVentaEntities())
+            using (var db2 = new CatalogManagementDBEntities())
             {
                 param = new System.Data.Entity.Core.Objects.ObjectParameter("idVenta", typeof(int));
 
@@ -179,7 +183,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
                 };
 
                 var resultProductoAgregar = db2.ProductoAgregar(producto.Descripcion, producto.Codigo, producto.IdTipoProducto, producto.IdSubTipoProducto, producto.IdMarca, producto.IdProveedor, 0, producto.IdGenero, null, producto.PrecioVenta);
-
+                id = resultProductoAgregar.First().Value;
                 db2.SaveChanges();
 
                 return true;

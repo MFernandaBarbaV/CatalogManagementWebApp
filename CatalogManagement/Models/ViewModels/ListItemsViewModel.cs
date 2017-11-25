@@ -11,9 +11,9 @@ namespace CatalogManagement.Models.ViewModels
     /// </summary>
     public class ListItemsViewModel : ViewTemplate
     {
-        public int operationNewItem { get; set; }
+        public int OperationNewItem { get; set; }
 
-        public bool useNewItemButton { get; set; }
+        public bool UseNewItemButton { get; set; }
 
         /// <summary>
         /// Elementos del listado
@@ -29,7 +29,7 @@ namespace CatalogManagement.Models.ViewModels
         {
             this.Title = title;
             this.OperationIdAction = (int)operation;
-            this.useNewItemButton = false;
+            this.UseNewItemButton = false;
         }
 
 
@@ -41,10 +41,15 @@ namespace CatalogManagement.Models.ViewModels
             this.Title = title;
             this.OperationIdAction = (int)operation;
             this.ButtonText = "Nuevo";
-            this.operationNewItem = (int)operationNewItem;
-            this.useNewItemButton = true;
+            this.OperationNewItem = (int)operationNewItem;
+            this.UseNewItemButton = true;
             this.ButtonAction = "NewItem";
             this.ButtonController = "Catalog";
+        }
+
+        public ListItemsViewModel()
+        {
+            Rows = new List<Row>();
         }
        
     }

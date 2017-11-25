@@ -15,7 +15,7 @@ namespace CatalogManagement.Models.Entities
         public string RoleName { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public List<mOperations> Operations { get; set; }
+        public List<Operations> Operations { get; set; }
 
         public bool ContainsOperation(int operationId)
         {

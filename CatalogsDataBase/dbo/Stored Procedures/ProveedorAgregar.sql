@@ -3,7 +3,12 @@
 -- =============================================
 CREATE PROCEDURE [dbo].[ProveedorAgregar]
 	-- Add the parameters for the stored procedure here
-	@NombreProveedor nvarchar(100), @Telefono nvarchar(50)
+	@NombreProveedor nvarchar(350), 
+	@Telefono nvarchar(50),
+	@Email nvarchar(50), 
+	@Dirección nvarchar(350), 
+	@DiasCredito tinyint,
+	@InformacionBancaria nvarchar(350)
 AS
 BEGIN
 
@@ -15,10 +20,10 @@ IF EXISTS( SELECT * FROM [dbo].[Proveedor] WHERE [NombreProveedor] = @NombreProv
 
 	INSERT INTO [dbo].[Proveedor]
            ([NombreProveedor]
-           ,[Telefono])
+           ,[Telefono], [Email], [Dirección], [DiasCredito], [InformacionBancaria] )
      VALUES
            (@NombreProveedor
-           ,@Telefono)
+           ,@Telefono, @Email, @Dirección, @DiasCredito, @InformacionBancaria)
 
 	SELECT cast(SCOPE_IDENTITY() as int) AS IdProveedor
 END

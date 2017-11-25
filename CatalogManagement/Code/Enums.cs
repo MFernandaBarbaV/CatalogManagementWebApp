@@ -15,47 +15,20 @@ namespace CatalogManagement.Models.Entities
         EditarUsuarios = 3,
         NuevoUsuario = 4,
         EliminarUsuarios = 5,
-
-        //Aplicacion
-        VerAplicaciones = 6,
-        NuevaAplicación = 7,
-        EditarAplicaciones = 8,
-        EliminarAplicaciones = 9,
-
+              
         //Operaciones
-        VerOperaciones = 10,
-        NuevaOperación = 11,
-        EditarOperaciones = 12,
-        EliminarOperaciones = 13,
-
-        //Perfiles
-        VerPerfiles = 14,
-        NuevoPerfil = 15,
-        EditarPerfiles = 16,
-        EliminarPerfiles = 17,      
-
-        //Plantilla de accesso
-        VerPlantillasdeAcceso = 18,
-        NuevaPlantilladeAcceso = 19,
-        EditarPlantillasdeAcceso = 20,
-        EliminarPlantillasdeAcceso = 21,
-
+        VerOperaciones = 10,    
+        
         //Reportes
         VerReporteGastos = 22,
         VerReporteCompras = 23,
-        EditarReportes = 24,
-        EliminarReportes = 25,      
-        ImprimirReportes = 26,
 
         //Relacional
-        AsignarOperaciónaPerfil = 27,
-        AsignarReporteaUsuario = 28,      
-        AsignarReporteaPerfil = 29,   
-        AsignarPerfilaUsuario = 30,
+        AsignarOperaciónaUsuario = 27,
+        AsignarReporteaUsuario = 28, 
 
         //Punto de venta
-        NuevaCompra = 31,
-     
+        NuevaCompra = 31,     
         NuevoGasto = 32,
         VerCompras = 33,
         VerGastos = 34,
@@ -70,12 +43,29 @@ namespace CatalogManagement.Models.Entities
         NuevaVenta = 42,
         VerProductos = 43,
         NuevoProducto = 44,
-        EditarCompra = 45,
+     
         EliminarCompra = 46,
         VerBalance = 47,
         VerReporteVentas = 48,
-        EditarVenta = 49,
+       
         EditarProducto = 50,
+        VerProveedores = 51,
+        VerClientes = 52,
+        VerMarcas = 53,
+        VerTipoProducto = 54,
+        VerTallas = 55,
+        EditarProveedor = 56,
+        NuevoProveedor = 57,
+        EditarCliente = 58,
+        NuevoCliente = 59,
+        EditarMarca = 60,
+        NuevaMarca = 61,
+        EditarTipoProducto = 62,
+        NuevoTipoProducto = 63,
+        VerReporteGananciaTicketSUPERTICKET = 64,
+        VerReporteGananciaProductoSUPERTICKET = 65,
+        VerReporteVentasMesSUPERTICKET = 66,
+        VerReporteVentasSUPERTICKET = 67
     }
 
  

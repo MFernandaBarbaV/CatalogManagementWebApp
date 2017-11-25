@@ -60,16 +60,25 @@ namespace CatalogManagement.Models.ViewModels
       //  public Dictionary<int, string> MultipleValues { get; set; }
 
         public IEnumerable<KeyValuePair<int,string>> MultipleValues { get; set; }
+        public IEnumerable<KeyValuePair<string, string>> MultipleValues2 { get; set; }
 
         public IEnumerable<int> selectedMultipleValues { get; set; }
+        public IEnumerable<string> selectedMultipleValues2 { get; set; }
 
         public bool IsNulleable { get; set; }
 
         public string ClassIcon { get; set; }
+        public Filter()
+        {
+            selectedMultipleValues = new List<int>();
+            selectedMultipleValues2 = new List<string>();
+            MultipleValues = new Dictionary<int, string>();
+            MultipleValues2 = new Dictionary<string, string>();
+        }
     }
 
     public enum FilterType
     {
-        Text, Date, Number, Combo
+        Text, Date, Number, Combo, Combo2
     }
 }

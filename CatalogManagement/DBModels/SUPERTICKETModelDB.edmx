@@ -1,0 +1,979 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SUPERTICKET.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="idinterno" />
+          </Key>
+          <Property Name="idinterno" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="idreg" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usado" Type="char" MaxLength="1" />
+          <Property Name="fechamod" Type="datetime" />
+          <Property Name="clave_usuario" Type="char" MaxLength="10" />
+          <Property Name="clave_sucursal" Type="char" MaxLength="20" />
+          <Property Name="clave" Type="char" MaxLength="10" />
+          <Property Name="nombre" Type="varchar" MaxLength="200" />
+          <Property Name="paterno" Type="varchar" MaxLength="50" />
+          <Property Name="comercial" Type="varchar" MaxLength="100" />
+          <Property Name="direccion" Type="varchar" MaxLength="100" />
+          <Property Name="numext" Type="char" MaxLength="20" />
+          <Property Name="numint" Type="char" MaxLength="20" />
+          <Property Name="ubicacion" Type="varchar" MaxLength="100" />
+          <Property Name="colonia" Type="varchar" MaxLength="50" />
+          <Property Name="delegacion" Type="varchar" MaxLength="50" />
+          <Property Name="poblacion" Type="varchar" MaxLength="50" />
+          <Property Name="entfed" Type="varchar" MaxLength="50" />
+          <Property Name="pais" Type="varchar" MaxLength="50" />
+          <Property Name="cp" Type="char" MaxLength="10" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" />
+          <Property Name="fax" Type="varchar" MaxLength="50" />
+          <Property Name="rfc" Type="varchar" MaxLength="20" />
+          <Property Name="curp" Type="varchar" MaxLength="20" />
+          <Property Name="web" Type="varchar" MaxLength="100" />
+          <Property Name="email" Type="varchar" MaxLength="250" />
+          <Property Name="observacion" Type="varchar" MaxLength="100" />
+          <Property Name="diascred" Type="numeric" Precision="3" Scale="0" />
+          <Property Name="p_descuento1" Type="numeric" Precision="7" Scale="3" />
+          <Property Name="p_descuento2" Type="numeric" Precision="7" Scale="3" />
+          <Property Name="p_descuento3" Type="numeric" Precision="7" Scale="3" />
+          <Property Name="limitecredito" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="p_interes" Type="numeric" Precision="7" Scale="3" />
+          <Property Name="bloquear" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="idtipocliente" Type="char" MaxLength="10" />
+          <Property Name="idzona" Type="char" MaxLength="10" />
+          <Property Name="diarevision" Type="char" MaxLength="3" />
+          <Property Name="horarevision" Type="char" MaxLength="10" />
+          <Property Name="diapagos" Type="char" MaxLength="3" />
+          <Property Name="horapagos" Type="char" MaxLength="10" />
+          <Property Name="idlistaprecio" Type="char" MaxLength="10" />
+          <Property Name="idpersonal" Type="char" MaxLength="10" />
+          <Property Name="Banco" Type="varchar" MaxLength="100" />
+          <Property Name="Cuenta_Banco" Type="varchar" MaxLength="100" />
+          <Property Name="clabe_banco" Type="varchar" MaxLength="50" />
+          <Property Name="claverelacionada" Type="varchar" MaxLength="30" />
+          <Property Name="subcuenta" Type="varchar" MaxLength="40" />
+          <Property Name="foto" Type="varchar" MaxLength="30" />
+          <Property Name="firma" Type="varchar" MaxLength="30" />
+          <Property Name="saldo_cxc" Type="numeric" Precision="14" Scale="2" />
+          <Property Name="Ventas" Type="numeric" Precision="14" Scale="2" />
+          <Property Name="f_ult_venta" Type="datetime" />
+          <Property Name="f_alta" Type="datetime" />
+          <Property Name="puntos" Type="numeric" Precision="14" Scale="2" />
+          <Property Name="cumpleanos" Type="char" MaxLength="5" />
+          <Property Name="campo_n_1" Type="numeric" Precision="14" Scale="2" />
+          <Property Name="campo_n_2" Type="numeric" Precision="14" Scale="2" />
+          <Property Name="campo_n_3" Type="numeric" Precision="14" Scale="2" />
+          <Property Name="campo_t_1" Type="varchar" MaxLength="20" />
+          <Property Name="campo_t_2" Type="varchar" MaxLength="20" />
+          <Property Name="campo_t_3" Type="varchar" MaxLength="20" />
+          <Property Name="CANCELADO" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="metodo_pago" Type="varchar" MaxLength="100" />
+          <Property Name="idFormaPago" Type="char" MaxLength="10" />
+          <Property Name="Limite_Venta" Type="numeric" Precision="11" Scale="2" />
+        </EntityType>
+        <EntityType Name="doc_detalle">
+          <Key>
+            <PropertyRef Name="idinterno" />
+          </Key>
+          <Property Name="idinterno" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="idreg" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechamod" Type="datetime" />
+          <Property Name="clave_usuario" Type="char" MaxLength="10" />
+          <Property Name="clave_sucursal" Type="char" MaxLength="20" />
+          <Property Name="tipodocto" Type="char" MaxLength="10" />
+          <Property Name="folio" Type="int" />
+          <Property Name="iddocgeneral" Type="char" MaxLength="10" />
+          <Property Name="claveartic" Type="char" MaxLength="25" />
+          <Property Name="idarticulo" Type="char" MaxLength="10" />
+          <Property Name="idsecundaria" Type="char" MaxLength="10" />
+          <Property Name="multiplicador" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="clase" Type="char" MaxLength="1" />
+          <Property Name="AfectaPedido" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="descripcion" Type="varchar" MaxLength="250" />
+          <Property Name="presentacion" Type="char" MaxLength="20" />
+          <Property Name="id_presentacion" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="factorconversion" Type="numeric" Precision="10" Scale="4" />
+          <Property Name="cantidad" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="Existencia" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="cant_fisico" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="precio" Type="numeric" Precision="18" Scale="6" />
+          <Property Name="precioneto" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="ImporteNeto" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="p_descuento" Type="numeric" Precision="18" Scale="6" />
+          <Property Name="descuento" Type="numeric" Precision="18" Scale="6" />
+          <Property Name="precio_cat" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="puntos" Type="numeric" Precision="11" Scale="2" />
+          <Property Name="idlistaprecio" Type="char" MaxLength="10" />
+          <Property Name="costo" Type="numeric" Precision="13" Scale="4" />
+          <Property Name="p_ieps" Type="numeric" Precision="9" Scale="6" />
+          <Property Name="p_iva" Type="numeric" Precision="9" Scale="6" />
+          <Property Name="p_impuesto2" Type="numeric" Precision="9" Scale="6" />
+          <Property Name="idmoneda" Type="char" MaxLength="10" />
+          <Property Name="cotizacion" Type="numeric" Precision="10" Scale="4" />
+          <Property Name="idoferta" Type="char" MaxLength="10" />
+          <Property Name="idkit" Type="char" MaxLength="10" />
+          <Property Name="idalmacen" Type="char" MaxLength="10" />
+          <Property Name="idalmacen_entra" Type="char" MaxLength="10" />
+          <Property Name="idaduana" Type="char" MaxLength="10" />
+          <Property Name="idlote" Type="char" MaxLength="10" />
+          <Property Name="secuencia" Type="int" />
+          <Property Name="foto" Type="varchar" MaxLength="200" />
+          <Property Name="cancelado" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="servicio" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="partida" Type="int" />
+          <Property Name="peso" Type="numeric" Precision="15" Scale="4" />
+          <Property Name="p_max_descto" Type="numeric" Precision="5" Scale="2" />
+          <Property Name="mensaje_oferta" Type="char" MaxLength="30" />
+          <Property Name="kit" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="p_ish" Type="numeric" Precision="9" Scale="6" />
+          <Property Name="ImporteSinImpuesto" Type="numeric" Precision="18" Scale="4" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6005: The data type 'sql_variant' is currently not supported for the target Entity Framework version; the column 'cadena' in the table 'BONETA2017Nov.dbo.doc_general' was excluded.
+warning 6005: The data type 'sql_variant' is currently not supported for the target Entity Framework version; the column 'sellodigit' in the table 'BONETA2017Nov.dbo.doc_general' was excluded.
+warning 6005: The data type 'sql_variant' is currently not supported for the target Entity Framework version; the column 'sellosat' in the table 'BONETA2017Nov.dbo.doc_general' was excluded.-->
+        <EntityType Name="doc_general">
+          <Key>
+            <PropertyRef Name="idinterno" />
+          </Key>
+          <Property Name="idinterno" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="idreg" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usado" Type="char" MaxLength="1" />
+          <Property Name="fechamod" Type="datetime" />
+          <Property Name="clave_usuario" Type="char" MaxLength="10" />
+          <Property Name="clave_sucursal" Type="char" MaxLength="20" />
+          <Property Name="iddocorigen" Type="char" MaxLength="10" />
+          <Property Name="iddocdestino" Type="char" MaxLength="10" />
+          <Property Name="clase" Type="char" MaxLength="1" />
+          <Property Name="tipodocto" Type="char" MaxLength="10" />
+          <Property Name="FOLIO" Type="int" />
+          <Property Name="serie" Type="char" MaxLength="10" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="hora" Type="char" MaxLength="10" />
+          <Property Name="f_vencimiento" Type="datetime" />
+          <Property Name="idterminal" Type="char" MaxLength="10" />
+          <Property Name="sucursal" Type="char" MaxLength="3" />
+          <Property Name="idcortecaja" Type="char" MaxLength="10" />
+          <Property Name="turno" Type="char" MaxLength="1" />
+          <Property Name="idvendedor" Type="char" MaxLength="10" />
+          <Property Name="idcliente" Type="char" MaxLength="10" />
+          <Property Name="idproveedor" Type="char" MaxLength="10" />
+          <Property Name="doctoproveedor" Type="char" MaxLength="10" />
+          <Property Name="fechadocto" Type="datetime" />
+          <Property Name="idconceptodocto" Type="char" MaxLength="10" />
+          <Property Name="peso" Type="numeric" Precision="10" Scale="4" />
+          <Property Name="idmoneda" Type="char" MaxLength="10" />
+          <Property Name="clavemoneda" Type="char" MaxLength="3" />
+          <Property Name="cotizacion" Type="numeric" Precision="10" Scale="4" />
+          <Property Name="subtotal" Type="numeric" Precision="13" Scale="4" />
+          <Property Name="p_descto1" Type="numeric" Precision="7" Scale="4" />
+          <Property Name="p_descto2" Type="numeric" Precision="7" Scale="4" />
+          <Property Name="p_descto3" Type="numeric" Precision="7" Scale="4" />
+          <Property Name="descuento1" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="descuento2" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="descuento3" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="ieps" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="iva" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="iva11" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="iva16" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="impuesto2" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="retencion" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="TOTAL" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="PUNTOS" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="ahorro" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="impreso" Type="numeric" Precision="3" Scale="0" />
+          <Property Name="diasvigente" Type="numeric" Precision="4" Scale="0" />
+          <Property Name="valorpagado" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="valorporcobrar" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="AFECTADO" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="IDALMACEN" Type="char" MaxLength="10" />
+          <Property Name="idFactGlobal" Type="char" MaxLength="10" />
+          <Property Name="observacion" Type="varchar" MaxLength="50" />
+          <Property Name="iva_incluido" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="idE_Cert" Type="char" MaxLength="10" />
+          <Property Name="idE_Folio" Type="char" MaxLength="10" />
+          <Property Name="cfd_generado" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="reporte_sat" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="reporte_sat_canc" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="archivo_xml" Type="varchar" MaxLength="50" />
+          <Property Name="poliza" Type="varchar" MaxLength="20" />
+          <Property Name="cancelado" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="TotalSinDesc" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="CambioCliente" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="SumaPagos" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="DescuentoConIva" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="folio_cfdi" Type="int" />
+          <Property Name="uuid" Type="varchar" MaxLength="50" />
+          <Property Name="cbb" Type="varchar" MaxLength="200" />
+          <Property Name="fechatimbrado" Type="datetime" />
+          <Property Name="certificado" Type="varchar" MaxLength="30" />
+          <Property Name="idrecibe" Type="char" MaxLength="10" />
+          <Property Name="IMPORTAR" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="idClieSuc" Type="char" MaxLength="10" />
+          <Property Name="CanceladoEnSat" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="RetencionIEPS" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="ISH" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="Retencion5Millar" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="ImpresoOriginal" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="ComisionPagada" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="ComisionLiquidada" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="partidas" Type="int" />
+          <Property Name="p_ieps" Type="numeric" Precision="9" Scale="6" />
+        </EntityType>
+        <EntityType Name="doc_pagos">
+          <Key>
+            <PropertyRef Name="idinterno" />
+          </Key>
+          <Property Name="idinterno" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="idreg" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipodocto" Type="char" MaxLength="10" />
+          <Property Name="iddocto" Type="char" MaxLength="10" />
+          <Property Name="idformapago" Type="char" MaxLength="10" />
+          <Property Name="descripcion" Type="char" MaxLength="50" />
+          <Property Name="tipo" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="abrircajon" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="ayuda" Type="char" MaxLength="30" />
+          <Property Name="foto" Type="char" MaxLength="20" />
+          <Property Name="descripcion_moneda" Type="char" MaxLength="20" />
+          <Property Name="cotizacion" Type="numeric" Precision="13" Scale="6" />
+          <Property Name="valor" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="obs" Type="varchar" MaxLength="50" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="metodo_pago" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="formas_pago">
+          <Key>
+            <PropertyRef Name="idinterno" />
+          </Key>
+          <Property Name="idinterno" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="idreg" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechamod" Type="datetime" />
+          <Property Name="clave_usuario" Type="char" MaxLength="10" />
+          <Property Name="clave_sucursal" Type="char" MaxLength="20" />
+          <Property Name="clave" Type="char" MaxLength="20" />
+          <Property Name="descripcion" Type="char" MaxLength="50" />
+          <Property Name="idmoneda" Type="char" MaxLength="10" />
+          <Property Name="tipo" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="foto" Type="char" MaxLength="30" />
+          <Property Name="abrir_cajon" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="ayuda" Type="char" MaxLength="50" />
+          <Property Name="secuencia" Type="numeric" Precision="2" Scale="0" />
+        </EntityType>
+        <EntityType Name="personal">
+          <Key>
+            <PropertyRef Name="idinterno" />
+          </Key>
+          <Property Name="idinterno" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="idreg" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usado" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="fechamod" Type="datetime" />
+          <Property Name="clave_usuario" Type="char" MaxLength="10" />
+          <Property Name="clave_sucursal" Type="char" MaxLength="20" />
+          <Property Name="clave" Type="char" MaxLength="10" />
+          <Property Name="contrasena" Type="varchar" MaxLength="50" />
+          <Property Name="delegar" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="perfil" Type="char" MaxLength="20" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="direccion" Type="varchar" MaxLength="50" />
+          <Property Name="cp" Type="char" MaxLength="10" />
+          <Property Name="sector" Type="varchar" MaxLength="50" />
+          <Property Name="colonia" Type="varchar" MaxLength="50" />
+          <Property Name="poblacion" Type="varchar" MaxLength="50" />
+          <Property Name="entfed" Type="varchar" MaxLength="50" />
+          <Property Name="pais" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="30" />
+          <Property Name="celular" Type="varchar" MaxLength="30" />
+          <Property Name="rfc" Type="char" MaxLength="20" />
+          <Property Name="curp" Type="char" MaxLength="20" />
+          <Property Name="imss" Type="char" MaxLength="20" />
+          <Property Name="f_nacimiento" Type="datetime" />
+          <Property Name="clavenomina" Type="char" MaxLength="10" />
+          <Property Name="f_alta" Type="datetime" />
+          <Property Name="banco" Type="char" MaxLength="20" />
+          <Property Name="cuentabanco" Type="char" MaxLength="20" />
+          <Property Name="clabe" Type="char" MaxLength="20" />
+          <Property Name="f_baja" Type="datetime" />
+          <Property Name="f_antiguedad" Type="datetime" />
+          <Property Name="sueldo" Type="numeric" Precision="8" Scale="2" />
+          <Property Name="p_comision" Type="numeric" Precision="7" Scale="4" />
+          <Property Name="puesto" Type="varchar" MaxLength="30" />
+          <Property Name="claveacceso" Type="char" MaxLength="20" />
+          <Property Name="idnivelacceso" Type="char" MaxLength="10" />
+          <Property Name="Nacionalidad" Type="varchar" MaxLength="30" />
+          <Property Name="Documentacion" Type="varchar" MaxLength="50" />
+          <Property Name="foto" Type="varchar" MaxLength="20" />
+          <Property Name="nota" Type="varchar" MaxLength="200" />
+          <Property Name="subcuenta" Type="varchar" MaxLength="40" />
+          <Property Name="cancelado" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="email" Type="char" MaxLength="100" />
+          <Property Name="Venta_minima" Type="numeric" Precision="14" Scale="2" />
+        </EntityType>
+        <EntityContainer Name="SUPERTICKETStoreContainer">
+          <EntitySet Name="clientes" EntityType="Self.clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="doc_detalle" EntityType="Self.doc_detalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="doc_general" EntityType="Self.doc_general" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="doc_pagos" EntityType="Self.doc_pagos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="formas_pago" EntityType="Self.formas_pago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="personal" EntityType="Self.personal" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SUPERTICKET" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="doc_detalle">
+          <Key>
+            <PropertyRef Name="idinterno" />
+          </Key>
+          <Property Name="idinterno" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="idreg" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechamod" Type="DateTime" Precision="3" />
+          <Property Name="clave_usuario" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="clave_sucursal" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="tipodocto" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="folio" Type="Int32" />
+          <Property Name="iddocgeneral" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="claveartic" Type="String" MaxLength="25" FixedLength="true" Unicode="false" />
+          <Property Name="idarticulo" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idsecundaria" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="multiplicador" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="clase" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="AfectaPedido" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="presentacion" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="id_presentacion" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="factorconversion" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="cantidad" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Existencia" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="cant_fisico" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="precio" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="precioneto" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="ImporteNeto" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="p_descuento" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="descuento" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="precio_cat" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="puntos" Type="Decimal" Precision="11" Scale="2" />
+          <Property Name="idlistaprecio" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="costo" Type="Decimal" Precision="13" Scale="4" />
+          <Property Name="p_ieps" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="p_iva" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="p_impuesto2" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="idmoneda" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="cotizacion" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="idoferta" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idkit" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idalmacen" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idalmacen_entra" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idaduana" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idlote" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="secuencia" Type="Int32" />
+          <Property Name="foto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="cancelado" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="servicio" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="partida" Type="Int32" />
+          <Property Name="peso" Type="Decimal" Precision="15" Scale="4" />
+          <Property Name="p_max_descto" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="mensaje_oferta" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="kit" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="p_ish" Type="Decimal" Precision="9" Scale="6" />
+          <Property Name="ImporteSinImpuesto" Type="Decimal" Precision="18" Scale="4" />
+        </EntityType>
+        <EntityType Name="doc_general">
+          <Key>
+            <PropertyRef Name="idinterno" />
+          </Key>
+          <Property Name="idinterno" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="idreg" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usado" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="fechamod" Type="DateTime" Precision="3" />
+          <Property Name="clave_usuario" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="clave_sucursal" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="iddocorigen" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="iddocdestino" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="clase" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="tipodocto" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="FOLIO" Type="Int32" />
+          <Property Name="serie" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="hora" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="f_vencimiento" Type="DateTime" Precision="3" />
+          <Property Name="idterminal" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="sucursal" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="idcortecaja" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="turno" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="idvendedor" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idcliente" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idproveedor" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="doctoproveedor" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="fechadocto" Type="DateTime" Precision="3" />
+          <Property Name="idconceptodocto" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="peso" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="idmoneda" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="clavemoneda" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="cotizacion" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="subtotal" Type="Decimal" Precision="13" Scale="4" />
+          <Property Name="p_descto1" Type="Decimal" Precision="7" Scale="4" />
+          <Property Name="p_descto2" Type="Decimal" Precision="7" Scale="4" />
+          <Property Name="p_descto3" Type="Decimal" Precision="7" Scale="4" />
+          <Property Name="descuento1" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="descuento2" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="descuento3" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="ieps" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="iva" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="iva11" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="iva16" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="impuesto2" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="retencion" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="TOTAL" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="PUNTOS" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="ahorro" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="impreso" Type="Decimal" Precision="3" Scale="0" />
+          <Property Name="diasvigente" Type="Decimal" Precision="4" Scale="0" />
+          <Property Name="valorpagado" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="valorporcobrar" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="AFECTADO" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="IDALMACEN" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idFactGlobal" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="observacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="iva_incluido" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="idE_Cert" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idE_Folio" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="cfd_generado" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="reporte_sat" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="reporte_sat_canc" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="archivo_xml" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="poliza" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cancelado" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="TotalSinDesc" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="CambioCliente" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="SumaPagos" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="DescuentoConIva" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="folio_cfdi" Type="Int32" />
+          <Property Name="uuid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cbb" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="fechatimbrado" Type="DateTime" Precision="3" />
+          <Property Name="certificado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idrecibe" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="IMPORTAR" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="idClieSuc" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="CanceladoEnSat" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="RetencionIEPS" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="ISH" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="Retencion5Millar" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="ImpresoOriginal" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="ComisionPagada" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="ComisionLiquidada" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="partidas" Type="Int32" />
+          <Property Name="p_ieps" Type="Decimal" Precision="9" Scale="6" />
+        </EntityType>
+        <EntityType Name="doc_pagos">
+          <Key>
+            <PropertyRef Name="idinterno" />
+          </Key>
+          <Property Name="idinterno" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="idreg" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipodocto" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="iddocto" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idformapago" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="tipo" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="abrircajon" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="ayuda" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="foto" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="descripcion_moneda" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="cotizacion" Type="Decimal" Precision="13" Scale="6" />
+          <Property Name="valor" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="obs" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="metodo_pago" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="SUPERTICKETEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="doc_detalle" EntityType="Self.doc_detalle" />
+          <EntitySet Name="doc_general" EntityType="Self.doc_general" />
+          <EntitySet Name="doc_pagos" EntityType="Self.doc_pagos" />
+          <EntitySet Name="clientesSUPERTICKET" EntityType="SUPERTICKET.clientesSUPERTICKET" />
+          <EntitySet Name="personal" EntityType="SUPERTICKET.personal" />
+          <EntitySet Name="formas_pago" EntityType="SUPERTICKET.formas_pago" />
+        </EntityContainer>
+        <EntityType Name="clientesSUPERTICKET">
+          <Key>
+            <PropertyRef Name="idinterno" />
+          </Key>
+          <Property Name="idinterno" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idreg" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usado" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="fechamod" Type="DateTime" Precision="3" />
+          <Property Name="clave_usuario" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="clave_sucursal" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="clave" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="paterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="comercial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="numext" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="numint" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="ubicacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="colonia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="delegacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="poblacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="entfed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cp" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fax" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rfc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="curp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="web" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="observacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="diascred" Type="Decimal" Precision="3" Scale="0" />
+          <Property Name="p_descuento1" Type="Decimal" Precision="7" Scale="3" />
+          <Property Name="p_descuento2" Type="Decimal" Precision="7" Scale="3" />
+          <Property Name="p_descuento3" Type="Decimal" Precision="7" Scale="3" />
+          <Property Name="limitecredito" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="p_interes" Type="Decimal" Precision="7" Scale="3" />
+          <Property Name="bloquear" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="idtipocliente" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idzona" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="diarevision" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="horarevision" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="diapagos" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="horapagos" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idlistaprecio" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idpersonal" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Banco" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Cuenta_Banco" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="clabe_banco" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="claverelacionada" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="subcuenta" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="foto" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="firma" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="saldo_cxc" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="Ventas" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="f_ult_venta" Type="DateTime" Precision="3" />
+          <Property Name="f_alta" Type="DateTime" Precision="3" />
+          <Property Name="puntos" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="cumpleanos" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="campo_n_1" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="campo_n_2" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="campo_n_3" Type="Decimal" Precision="14" Scale="2" />
+          <Property Name="campo_t_1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="campo_t_2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="campo_t_3" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CANCELADO" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="metodo_pago" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="idFormaPago" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Limite_Venta" Type="Decimal" Precision="11" Scale="2" />
+        </EntityType>
+        <EntityType Name="personal">
+          <Key>
+            <PropertyRef Name="idinterno" />
+          </Key>
+          <Property Name="idinterno" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idreg" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usado" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="fechamod" Type="DateTime" Precision="3" />
+          <Property Name="clave_usuario" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="clave_sucursal" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="clave" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="contrasena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="delegar" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="perfil" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cp" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="sector" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="colonia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="poblacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="entfed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="celular" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="rfc" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="curp" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="imss" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="f_nacimiento" Type="DateTime" Precision="3" />
+          <Property Name="clavenomina" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="f_alta" Type="DateTime" Precision="3" />
+          <Property Name="banco" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="cuentabanco" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="clabe" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="f_baja" Type="DateTime" Precision="3" />
+          <Property Name="f_antiguedad" Type="DateTime" Precision="3" />
+          <Property Name="sueldo" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="p_comision" Type="Decimal" Precision="7" Scale="4" />
+          <Property Name="puesto" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="claveacceso" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="idnivelacceso" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Nacionalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Documentacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="foto" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nota" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="subcuenta" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="cancelado" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
+          <Property Name="Venta_minima" Type="Decimal" Precision="14" Scale="2" />
+        </EntityType>
+        <EntityType Name="formas_pago">
+          <Key>
+            <PropertyRef Name="idinterno" />
+          </Key>
+          <Property Name="idinterno" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="idreg" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechamod" Type="DateTime" Precision="3" />
+          <Property Name="clave_usuario" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="clave_sucursal" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="clave" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="idmoneda" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="tipo" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="foto" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="abrir_cajon" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="ayuda" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <Property Name="secuencia" Type="Decimal" Precision="2" Scale="0" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SUPERTICKETStoreContainer" CdmEntityContainer="SUPERTICKETEntities">
+          <EntitySetMapping Name="doc_detalle">
+            <EntityTypeMapping TypeName="SUPERTICKET.doc_detalle">
+              <MappingFragment StoreEntitySet="doc_detalle">
+                <ScalarProperty Name="idinterno" ColumnName="idinterno" />
+                <ScalarProperty Name="idreg" ColumnName="idreg" />
+                <ScalarProperty Name="fechamod" ColumnName="fechamod" />
+                <ScalarProperty Name="clave_usuario" ColumnName="clave_usuario" />
+                <ScalarProperty Name="clave_sucursal" ColumnName="clave_sucursal" />
+                <ScalarProperty Name="tipodocto" ColumnName="tipodocto" />
+                <ScalarProperty Name="folio" ColumnName="folio" />
+                <ScalarProperty Name="iddocgeneral" ColumnName="iddocgeneral" />
+                <ScalarProperty Name="claveartic" ColumnName="claveartic" />
+                <ScalarProperty Name="idarticulo" ColumnName="idarticulo" />
+                <ScalarProperty Name="idsecundaria" ColumnName="idsecundaria" />
+                <ScalarProperty Name="multiplicador" ColumnName="multiplicador" />
+                <ScalarProperty Name="clase" ColumnName="clase" />
+                <ScalarProperty Name="AfectaPedido" ColumnName="AfectaPedido" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="presentacion" ColumnName="presentacion" />
+                <ScalarProperty Name="id_presentacion" ColumnName="id_presentacion" />
+                <ScalarProperty Name="factorconversion" ColumnName="factorconversion" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="Existencia" ColumnName="Existencia" />
+                <ScalarProperty Name="cant_fisico" ColumnName="cant_fisico" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="precioneto" ColumnName="precioneto" />
+                <ScalarProperty Name="ImporteNeto" ColumnName="ImporteNeto" />
+                <ScalarProperty Name="p_descuento" ColumnName="p_descuento" />
+                <ScalarProperty Name="descuento" ColumnName="descuento" />
+                <ScalarProperty Name="precio_cat" ColumnName="precio_cat" />
+                <ScalarProperty Name="puntos" ColumnName="puntos" />
+                <ScalarProperty Name="idlistaprecio" ColumnName="idlistaprecio" />
+                <ScalarProperty Name="costo" ColumnName="costo" />
+                <ScalarProperty Name="p_ieps" ColumnName="p_ieps" />
+                <ScalarProperty Name="p_iva" ColumnName="p_iva" />
+                <ScalarProperty Name="p_impuesto2" ColumnName="p_impuesto2" />
+                <ScalarProperty Name="idmoneda" ColumnName="idmoneda" />
+                <ScalarProperty Name="cotizacion" ColumnName="cotizacion" />
+                <ScalarProperty Name="idoferta" ColumnName="idoferta" />
+                <ScalarProperty Name="idkit" ColumnName="idkit" />
+                <ScalarProperty Name="idalmacen" ColumnName="idalmacen" />
+                <ScalarProperty Name="idalmacen_entra" ColumnName="idalmacen_entra" />
+                <ScalarProperty Name="idaduana" ColumnName="idaduana" />
+                <ScalarProperty Name="idlote" ColumnName="idlote" />
+                <ScalarProperty Name="secuencia" ColumnName="secuencia" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="cancelado" ColumnName="cancelado" />
+                <ScalarProperty Name="servicio" ColumnName="servicio" />
+                <ScalarProperty Name="partida" ColumnName="partida" />
+                <ScalarProperty Name="peso" ColumnName="peso" />
+                <ScalarProperty Name="p_max_descto" ColumnName="p_max_descto" />
+                <ScalarProperty Name="mensaje_oferta" ColumnName="mensaje_oferta" />
+                <ScalarProperty Name="kit" ColumnName="kit" />
+                <ScalarProperty Name="p_ish" ColumnName="p_ish" />
+                <ScalarProperty Name="ImporteSinImpuesto" ColumnName="ImporteSinImpuesto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="doc_general">
+            <EntityTypeMapping TypeName="SUPERTICKET.doc_general">
+              <MappingFragment StoreEntitySet="doc_general">
+                <ScalarProperty Name="idinterno" ColumnName="idinterno" />
+                <ScalarProperty Name="idreg" ColumnName="idreg" />
+                <ScalarProperty Name="usado" ColumnName="usado" />
+                <ScalarProperty Name="fechamod" ColumnName="fechamod" />
+                <ScalarProperty Name="clave_usuario" ColumnName="clave_usuario" />
+                <ScalarProperty Name="clave_sucursal" ColumnName="clave_sucursal" />
+                <ScalarProperty Name="iddocorigen" ColumnName="iddocorigen" />
+                <ScalarProperty Name="iddocdestino" ColumnName="iddocdestino" />
+                <ScalarProperty Name="clase" ColumnName="clase" />
+                <ScalarProperty Name="tipodocto" ColumnName="tipodocto" />
+                <ScalarProperty Name="FOLIO" ColumnName="FOLIO" />
+                <ScalarProperty Name="serie" ColumnName="serie" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="f_vencimiento" ColumnName="f_vencimiento" />
+                <ScalarProperty Name="idterminal" ColumnName="idterminal" />
+                <ScalarProperty Name="sucursal" ColumnName="sucursal" />
+                <ScalarProperty Name="idcortecaja" ColumnName="idcortecaja" />
+                <ScalarProperty Name="turno" ColumnName="turno" />
+                <ScalarProperty Name="idvendedor" ColumnName="idvendedor" />
+                <ScalarProperty Name="idcliente" ColumnName="idcliente" />
+                <ScalarProperty Name="idproveedor" ColumnName="idproveedor" />
+                <ScalarProperty Name="doctoproveedor" ColumnName="doctoproveedor" />
+                <ScalarProperty Name="fechadocto" ColumnName="fechadocto" />
+                <ScalarProperty Name="idconceptodocto" ColumnName="idconceptodocto" />
+                <ScalarProperty Name="peso" ColumnName="peso" />
+                <ScalarProperty Name="idmoneda" ColumnName="idmoneda" />
+                <ScalarProperty Name="clavemoneda" ColumnName="clavemoneda" />
+                <ScalarProperty Name="cotizacion" ColumnName="cotizacion" />
+                <ScalarProperty Name="subtotal" ColumnName="subtotal" />
+                <ScalarProperty Name="p_descto1" ColumnName="p_descto1" />
+                <ScalarProperty Name="p_descto2" ColumnName="p_descto2" />
+                <ScalarProperty Name="p_descto3" ColumnName="p_descto3" />
+                <ScalarProperty Name="descuento1" ColumnName="descuento1" />
+                <ScalarProperty Name="descuento2" ColumnName="descuento2" />
+                <ScalarProperty Name="descuento3" ColumnName="descuento3" />
+                <ScalarProperty Name="ieps" ColumnName="ieps" />
+                <ScalarProperty Name="iva" ColumnName="iva" />
+                <ScalarProperty Name="iva11" ColumnName="iva11" />
+                <ScalarProperty Name="iva16" ColumnName="iva16" />
+                <ScalarProperty Name="impuesto2" ColumnName="impuesto2" />
+                <ScalarProperty Name="retencion" ColumnName="retencion" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="PUNTOS" ColumnName="PUNTOS" />
+                <ScalarProperty Name="ahorro" ColumnName="ahorro" />
+                <ScalarProperty Name="impreso" ColumnName="impreso" />
+                <ScalarProperty Name="diasvigente" ColumnName="diasvigente" />
+                <ScalarProperty Name="valorpagado" ColumnName="valorpagado" />
+                <ScalarProperty Name="valorporcobrar" ColumnName="valorporcobrar" />
+                <ScalarProperty Name="AFECTADO" ColumnName="AFECTADO" />
+                <ScalarProperty Name="IDALMACEN" ColumnName="IDALMACEN" />
+                <ScalarProperty Name="idFactGlobal" ColumnName="idFactGlobal" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="iva_incluido" ColumnName="iva_incluido" />
+                <ScalarProperty Name="idE_Cert" ColumnName="idE_Cert" />
+                <ScalarProperty Name="idE_Folio" ColumnName="idE_Folio" />
+                <ScalarProperty Name="cfd_generado" ColumnName="cfd_generado" />
+                <ScalarProperty Name="reporte_sat" ColumnName="reporte_sat" />
+                <ScalarProperty Name="reporte_sat_canc" ColumnName="reporte_sat_canc" />
+                <ScalarProperty Name="archivo_xml" ColumnName="archivo_xml" />
+                <ScalarProperty Name="poliza" ColumnName="poliza" />
+                <ScalarProperty Name="cancelado" ColumnName="cancelado" />
+                <ScalarProperty Name="TotalSinDesc" ColumnName="TotalSinDesc" />
+                <ScalarProperty Name="CambioCliente" ColumnName="CambioCliente" />
+                <ScalarProperty Name="SumaPagos" ColumnName="SumaPagos" />
+                <ScalarProperty Name="DescuentoConIva" ColumnName="DescuentoConIva" />
+                <ScalarProperty Name="folio_cfdi" ColumnName="folio_cfdi" />
+                <ScalarProperty Name="uuid" ColumnName="uuid" />
+                <ScalarProperty Name="cbb" ColumnName="cbb" />
+                <ScalarProperty Name="fechatimbrado" ColumnName="fechatimbrado" />
+                <ScalarProperty Name="certificado" ColumnName="certificado" />
+                <ScalarProperty Name="idrecibe" ColumnName="idrecibe" />
+                <ScalarProperty Name="IMPORTAR" ColumnName="IMPORTAR" />
+                <ScalarProperty Name="idClieSuc" ColumnName="idClieSuc" />
+                <ScalarProperty Name="CanceladoEnSat" ColumnName="CanceladoEnSat" />
+                <ScalarProperty Name="RetencionIEPS" ColumnName="RetencionIEPS" />
+                <ScalarProperty Name="ISH" ColumnName="ISH" />
+                <ScalarProperty Name="Retencion5Millar" ColumnName="Retencion5Millar" />
+                <ScalarProperty Name="ImpresoOriginal" ColumnName="ImpresoOriginal" />
+                <ScalarProperty Name="ComisionPagada" ColumnName="ComisionPagada" />
+                <ScalarProperty Name="ComisionLiquidada" ColumnName="ComisionLiquidada" />
+                <ScalarProperty Name="partidas" ColumnName="partidas" />
+                <ScalarProperty Name="p_ieps" ColumnName="p_ieps" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="doc_pagos">
+            <EntityTypeMapping TypeName="SUPERTICKET.doc_pagos">
+              <MappingFragment StoreEntitySet="doc_pagos">
+                <ScalarProperty Name="idinterno" ColumnName="idinterno" />
+                <ScalarProperty Name="idreg" ColumnName="idreg" />
+                <ScalarProperty Name="tipodocto" ColumnName="tipodocto" />
+                <ScalarProperty Name="iddocto" ColumnName="iddocto" />
+                <ScalarProperty Name="idformapago" ColumnName="idformapago" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="abrircajon" ColumnName="abrircajon" />
+                <ScalarProperty Name="ayuda" ColumnName="ayuda" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="descripcion_moneda" ColumnName="descripcion_moneda" />
+                <ScalarProperty Name="cotizacion" ColumnName="cotizacion" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="obs" ColumnName="obs" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="metodo_pago" ColumnName="metodo_pago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientesSUPERTICKET">
+            <EntityTypeMapping TypeName="SUPERTICKET.clientesSUPERTICKET">
+              <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="Limite_Venta" ColumnName="Limite_Venta" />
+                <ScalarProperty Name="idFormaPago" ColumnName="idFormaPago" />
+                <ScalarProperty Name="metodo_pago" ColumnName="metodo_pago" />
+                <ScalarProperty Name="CANCELADO" ColumnName="CANCELADO" />
+                <ScalarProperty Name="campo_t_3" ColumnName="campo_t_3" />
+                <ScalarProperty Name="campo_t_2" ColumnName="campo_t_2" />
+                <ScalarProperty Name="campo_t_1" ColumnName="campo_t_1" />
+                <ScalarProperty Name="campo_n_3" ColumnName="campo_n_3" />
+                <ScalarProperty Name="campo_n_2" ColumnName="campo_n_2" />
+                <ScalarProperty Name="campo_n_1" ColumnName="campo_n_1" />
+                <ScalarProperty Name="cumpleanos" ColumnName="cumpleanos" />
+                <ScalarProperty Name="puntos" ColumnName="puntos" />
+                <ScalarProperty Name="f_alta" ColumnName="f_alta" />
+                <ScalarProperty Name="f_ult_venta" ColumnName="f_ult_venta" />
+                <ScalarProperty Name="Ventas" ColumnName="Ventas" />
+                <ScalarProperty Name="saldo_cxc" ColumnName="saldo_cxc" />
+                <ScalarProperty Name="firma" ColumnName="firma" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="subcuenta" ColumnName="subcuenta" />
+                <ScalarProperty Name="claverelacionada" ColumnName="claverelacionada" />
+                <ScalarProperty Name="clabe_banco" ColumnName="clabe_banco" />
+                <ScalarProperty Name="Cuenta_Banco" ColumnName="Cuenta_Banco" />
+                <ScalarProperty Name="Banco" ColumnName="Banco" />
+                <ScalarProperty Name="idpersonal" ColumnName="idpersonal" />
+                <ScalarProperty Name="idlistaprecio" ColumnName="idlistaprecio" />
+                <ScalarProperty Name="horapagos" ColumnName="horapagos" />
+                <ScalarProperty Name="diapagos" ColumnName="diapagos" />
+                <ScalarProperty Name="horarevision" ColumnName="horarevision" />
+                <ScalarProperty Name="diarevision" ColumnName="diarevision" />
+                <ScalarProperty Name="idzona" ColumnName="idzona" />
+                <ScalarProperty Name="idtipocliente" ColumnName="idtipocliente" />
+                <ScalarProperty Name="bloquear" ColumnName="bloquear" />
+                <ScalarProperty Name="p_interes" ColumnName="p_interes" />
+                <ScalarProperty Name="limitecredito" ColumnName="limitecredito" />
+                <ScalarProperty Name="p_descuento3" ColumnName="p_descuento3" />
+                <ScalarProperty Name="p_descuento2" ColumnName="p_descuento2" />
+                <ScalarProperty Name="p_descuento1" ColumnName="p_descuento1" />
+                <ScalarProperty Name="diascred" ColumnName="diascred" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="web" ColumnName="web" />
+                <ScalarProperty Name="curp" ColumnName="curp" />
+                <ScalarProperty Name="rfc" ColumnName="rfc" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="cp" ColumnName="cp" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="entfed" ColumnName="entfed" />
+                <ScalarProperty Name="poblacion" ColumnName="poblacion" />
+                <ScalarProperty Name="delegacion" ColumnName="delegacion" />
+                <ScalarProperty Name="colonia" ColumnName="colonia" />
+                <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
+                <ScalarProperty Name="numint" ColumnName="numint" />
+                <ScalarProperty Name="numext" ColumnName="numext" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="comercial" ColumnName="comercial" />
+                <ScalarProperty Name="paterno" ColumnName="paterno" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="clave_sucursal" ColumnName="clave_sucursal" />
+                <ScalarProperty Name="clave_usuario" ColumnName="clave_usuario" />
+                <ScalarProperty Name="fechamod" ColumnName="fechamod" />
+                <ScalarProperty Name="usado" ColumnName="usado" />
+                <ScalarProperty Name="idreg" ColumnName="idreg" />
+                <ScalarProperty Name="idinterno" ColumnName="idinterno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="personal">
+            <EntityTypeMapping TypeName="SUPERTICKET.personal">
+              <MappingFragment StoreEntitySet="personal">
+                <ScalarProperty Name="Venta_minima" ColumnName="Venta_minima" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="cancelado" ColumnName="cancelado" />
+                <ScalarProperty Name="subcuenta" ColumnName="subcuenta" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="Documentacion" ColumnName="Documentacion" />
+                <ScalarProperty Name="Nacionalidad" ColumnName="Nacionalidad" />
+                <ScalarProperty Name="idnivelacceso" ColumnName="idnivelacceso" />
+                <ScalarProperty Name="claveacceso" ColumnName="claveacceso" />
+                <ScalarProperty Name="puesto" ColumnName="puesto" />
+                <ScalarProperty Name="p_comision" ColumnName="p_comision" />
+                <ScalarProperty Name="sueldo" ColumnName="sueldo" />
+                <ScalarProperty Name="f_antiguedad" ColumnName="f_antiguedad" />
+                <ScalarProperty Name="f_baja" ColumnName="f_baja" />
+                <ScalarProperty Name="clabe" ColumnName="clabe" />
+                <ScalarProperty Name="cuentabanco" ColumnName="cuentabanco" />
+                <ScalarProperty Name="banco" ColumnName="banco" />
+                <ScalarProperty Name="f_alta" ColumnName="f_alta" />
+                <ScalarProperty Name="clavenomina" ColumnName="clavenomina" />
+                <ScalarProperty Name="f_nacimiento" ColumnName="f_nacimiento" />
+                <ScalarProperty Name="imss" ColumnName="imss" />
+                <ScalarProperty Name="curp" ColumnName="curp" />
+                <ScalarProperty Name="rfc" ColumnName="rfc" />
+                <ScalarProperty Name="celular" ColumnName="celular" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="entfed" ColumnName="entfed" />
+                <ScalarProperty Name="poblacion" ColumnName="poblacion" />
+                <ScalarProperty Name="colonia" ColumnName="colonia" />
+                <ScalarProperty Name="sector" ColumnName="sector" />
+                <ScalarProperty Name="cp" ColumnName="cp" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="perfil" ColumnName="perfil" />
+                <ScalarProperty Name="delegar" ColumnName="delegar" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="clave_sucursal" ColumnName="clave_sucursal" />
+                <ScalarProperty Name="clave_usuario" ColumnName="clave_usuario" />
+                <ScalarProperty Name="fechamod" ColumnName="fechamod" />
+                <ScalarProperty Name="usado" ColumnName="usado" />
+                <ScalarProperty Name="idreg" ColumnName="idreg" />
+                <ScalarProperty Name="idinterno" ColumnName="idinterno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formas_pago">
+            <EntityTypeMapping TypeName="SUPERTICKET.formas_pago">
+              <MappingFragment StoreEntitySet="formas_pago">
+                <ScalarProperty Name="secuencia" ColumnName="secuencia" />
+                <ScalarProperty Name="ayuda" ColumnName="ayuda" />
+                <ScalarProperty Name="abrir_cajon" ColumnName="abrir_cajon" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="idmoneda" ColumnName="idmoneda" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="clave_sucursal" ColumnName="clave_sucursal" />
+                <ScalarProperty Name="clave_usuario" ColumnName="clave_usuario" />
+                <ScalarProperty Name="fechamod" ColumnName="fechamod" />
+                <ScalarProperty Name="idreg" ColumnName="idreg" />
+                <ScalarProperty Name="idinterno" ColumnName="idinterno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

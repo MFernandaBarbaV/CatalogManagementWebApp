@@ -15,8 +15,6 @@ namespace CatalogManagement.DBModels
     {
         public int IdCliente { get; set; }
         public string NombreCliente { get; set; }
-        public string ApellidoPaternoCliente { get; set; }
-        public string ApellidoMaternoCliente { get; set; }
         public string Email { get; set; }
         public string RFC { get; set; }
         public string CalleDomicilioFiscal { get; set; }

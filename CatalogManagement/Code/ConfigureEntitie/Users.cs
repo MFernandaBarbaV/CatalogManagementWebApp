@@ -13,22 +13,20 @@ namespace CatalogManagement.Code.ConfigureEntitie
 
         internal static void GetAll(ref ListItemsViewModel model, int operationId, ref string errorMessage)
         {
-            using (var db = new CatalogManagementDBModel())
+            using (var db = new CatalogManagementDBEntities())
             {
-                model.SetAttributes("Usuarios", (OperationsEnum)operationId,  OperationsEnum.NuevoUsuario);
+                model.SetAttributes("Usuarios", (OperationsEnum)operationId, OperationsEnum.NuevoUsuario);
 
-                foreach (var item in db.mUsers)
+                foreach (var item in db.Users)
                 {
                     row = new Row();
                     row.Columns = new List<Column>();
                     row.Columns.Add(new Column() { ColumnHeader = "Id", Value = item.UserID.ToString(), ID = item.UserID.ToString() });
                     row.Columns.Add(new Column() { ColumnHeader = "Login", Value = item.Login.ToString(), ID = item.UserID.ToString() });
-                    row.Columns.Add(new Column() { ColumnHeader = "Estatus", Value = item.mStatus.Name, ID = item.UserID.ToString() });
+                    row.Columns.Add(new Column() { ColumnHeader = "Estatus", Value = item.Status.Name, ID = item.UserID.ToString() });
                     row.Columns.Add(new Column() { ColumnHeader = "Nombre", Value = item.Name.ToString(), ID = item.UserID.ToString() });
                     row.Columns.Add(new Column() { ColumnHeader = "Apellido Paterno", Value = item.LastName.ToString(), ID = item.UserID.ToString() });
-                    row.Columns.Add(new Column() { ColumnHeader = "Genero", Value = item.Sex.ToString(), ID = item.UserID.ToString() });
-                    row.Columns.Add(new Column() { ColumnHeader = "Organización", Value = item.Organization.ToString(), ID = item.UserID.ToString() });
-                    row.Columns.Add(new Column() { ColumnHeader = "Estatus", Value = item.mStatus.Name.ToString(), ID = item.UserID.ToString() });
+                    row.Columns.Add(new Column() { ColumnHeader = "Estatus", Value = item.Status.Name.ToString(), ID = item.UserID.ToString() });
                     row.Columns.Add(new Column() { ColumnHeader = "Editar", Value = item.UserID.ToString(), ID = item.UserID.ToString(), Type = ColumnType.Button, ButtonText = "Editar", ButtonAction = "LoadItemData", ButtonController = "Catalog", ButtonDissabled = item.IsReadOnly, ButtonOperationId = (int)OperationsEnum.EditarUsuarios });
                     row.Columns.Add(new Column()
                     {
@@ -36,11 +34,11 @@ namespace CatalogManagement.Code.ConfigureEntitie
                         Value = item.UserID.ToString(),
                         ID = item.UserID.ToString(),
                         Type = ColumnType.Button,
-                        ButtonText = "Ver Perfiles",
+                        ButtonText = "Ver Operaiones",
                         ButtonAction = "AddRelation",
                         ButtonController = "Catalog",
                         ButtonDissabled = false,
-                        ButtonOperationId = (int)OperationsEnum.AsignarPerfilaUsuario
+                        ButtonOperationId = (int)OperationsEnum.AsignarOperaciónaUsuario
                     });
                     row.Columns.Add(new Column()
                     {
@@ -63,23 +61,28 @@ namespace CatalogManagement.Code.ConfigureEntitie
 
         internal static void Get(ref ItemViewModel model, int operationId, int itemId, ref string errorMessage)
         {
-            using (var db = new CatalogManagementDBModel())
+            using (var db = new CatalogManagementDBEntities())
             {
+                if (db.Database.Connection.State != System.Data.ConnectionState.Open)
+                    db.Database.Connection.Open();
+
                 Dictionary<int, string> statusList = new Dictionary<int, string>();
-                foreach (var item in db.mStatus.Where(s => s.mStatusTypes.TypeID == 1))
+                statusList.Add(0, "-Seleccionar-");
+                foreach (var item in db.Status)
                 {
                     statusList.Add(item.StatusID, item.Name);
                 }
-                mUsers resultUser = null;
+                DBModels.Users resultUser = null;
 
                 if (itemId == 0)//Nuevo
                 {
-                    resultUser = new mUsers();
+                    resultUser = new DBModels.Users();
                     model.SetAttributes(itemId, "Nuevo Usuario", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerUsuarios);
                 }
                 else // Editar
                 {
-                    resultUser = db.mUsers.Where(us => us.UserID == itemId).FirstOrDefault();
+                    resultUser = db.Users.Where(us => us.UserID == itemId).FirstOrDefault();
+                    resultUser.Password = Security.Decrypt(resultUser.Password);
                     model.SetAttributes(itemId, "Editar Usuario", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerUsuarios);
                 }
 
@@ -93,113 +96,103 @@ namespace CatalogManagement.Code.ConfigureEntitie
                     model.Properties = new List<Propertie>();
                     #region FillProperties
 
-                    model.Properties.Add(new Propertie() { Id = "Name", Label = "Nombre", Value = resultUser.Name, RegEx = Utils.GenerateRegex(true, true, false, true, 0, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
-                    model.Properties.Add(new Propertie() { Id = "LastName", Label = "Apellido Paterno", Value = resultUser.LastName, RegEx = Utils.GenerateRegex(true, true, true, true, 0, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
-                    model.Properties.Add(new Propertie() { Id = "Surname", Label = "Apellido Materno", Value = resultUser.Surname, RegEx = Utils.GenerateRegex(true, true, true, true, 0, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
-                    model.Properties.Add(new Propertie() { Id = "ShortName", Label = "Nombre Corto", Value = resultUser.ShortName, RegEx = Utils.GenerateRegex(true, true, true, true, 0, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
-                    model.Properties.Add(new Propertie() { Id = "Sex", Label = "Genero", Value = resultUser.Sex.ToString(), Type = PropertieType.ComboBox, MultipleValues = gendleList, ClassIcon = faIconss.gendle });
+                    model.Properties.Add(new Propertie(25, 1) { Id = "Name", Label = "Nombre", Value = resultUser.Name, RegEx = Utils.GenerateRegex(true, true, false, true, 0, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
+                    model.Properties.Add(new Propertie(50, 1) { Id = "LastName", Label = "Apellido Paterno", Value = resultUser.LastName, RegEx = Utils.GenerateRegex(true, true, true, true, 0, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
+                    model.Properties.Add(new Propertie(50) { Id = "Surname", Label = "Apellido Materno", Value = resultUser.Surname, RegEx = Utils.GenerateRegex(true, true, true, true, 0, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
+                    model.Properties.Add(new Propertie(15, 0) { Id = "ShortName", Label = "Nombre Corto", Value = resultUser.ShortName, RegEx = Utils.GenerateRegex(true, true, true, true, 0, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
 
-                    model.Properties.Add(new Propertie() { Id = "Address", Label = "Dirección", Value = resultUser.Address, RegEx = Utils.GenerateRegex(true, true, true, true, 0, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
+                    model.Properties.Add(new Propertie(100, 1) { Id = "Address", Label = "Dirección", Value = resultUser.Address, RegEx = Utils.GenerateRegex(true, true, true, true, 0, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
                     model.Properties.Add(new Propertie() { Id = "ZipCode", Label = "Código Postal", Value = resultUser.ZipCode.ToString(), RegEx = Utils.GenerateRegex(false, false, true, false, 0, 6, false, false, ref messageValidation), ErrorMessage = messageValidation });
 
-                    model.Properties.Add(new Propertie() { Id = "Email", Label = "Email", Value = resultUser.Email, RegEx = Utils.RegexEmail, ErrorMessage = "Formato invalido para un correo" });
-                    model.Properties.Add(new Propertie() { Id = "Organization", Label = "Organización", Value = resultUser.Organization, RegEx = Utils.GenerateRegex(true, true, false, true, 0, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
-                    model.Properties.Add(new Propertie() { Id = "Position", Label = "Puesto", Value = resultUser.Position, RegEx = Utils.GenerateRegex(true, true, false, true, 0, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
+                    model.Properties.Add(new Propertie(120) { Id = "Email", Label = "Email", Value = resultUser.Email, RegEx = Utils.RegexEmail, ErrorMessage = "Formato invalido para un correo" });
+                    model.Properties.Add(new Propertie(50) { Id = "Position", Label = "Puesto", Value = resultUser.Position, RegEx = Utils.GenerateRegex(true, true, false, true, 0, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
 
-                    model.Properties.Add(new Propertie() { Id = "Status", Label = "Estatus", Value = resultUser.StatusID.ToString(), Type = PropertieType.ComboBox, MultipleValues = statusList, ClassIcon = faIconss.status });
 
-                    model.Properties.Add(new Propertie() { Id = "Login", Label = "Usuario", Value = resultUser.Login, RegEx = Utils.GenerateRegex(true, true, true, true, 0, 30, true, true, ref messageValidation), ErrorMessage = messageValidation });
-                    model.Properties.Add(new Propertie() { Id = "Password", Label = "Contraseña", Value = resultUser.Password, ClassIcon = faIconss.password, RegEx = Utils.GenerateRegex(true, true, true, true, 1, 30, true, false, ref messageValidation), ErrorMessage = messageValidation, Type = PropertieType.Password });
-                    model.Properties.Add(new Propertie() { Label = "Confirmar Contraseña", Value = "", ClassIcon = faIconss.password, Type = PropertieType.ConfirmPassword });
+                    model.Properties.Add(new Propertie(50, 1) { Id = "Login", Label = "Usuario", Value = resultUser.Login, RegEx = Utils.GenerateRegex(true, true, true, true, 0, 30, true, true, ref messageValidation), ErrorMessage = messageValidation });
+                    model.Properties.Add(new Propertie(64, 64) { Id = "Password", Label = "Contraseña", Value = resultUser.Password, ClassIcon = faIconss.password, RegEx = Utils.GenerateRegex(true, true, true, true, 1, 30, true, false, ref messageValidation), ErrorMessage = messageValidation, Type = PropertieType.Password });
+                    model.Properties.Add(new Propertie(64, 64) { Id = "ConfirmPassword", Label = "Confirmar Contraseña", Value = "", ClassIcon = faIconss.password, Type = PropertieType.ConfirmPassword });
+
+                    model.Properties.Add(new Propertie() { Id = "Status", Label = "Estatus", ObjectValue = new KeyValuePair<int, string>(resultUser.StatusID, statusList[resultUser.StatusID]), Type = PropertieType.ComboBox, MultipleValues = statusList, ClassIcon = faIconss.status });
                     #endregion
                 }
 
             }
         }
 
-        internal static void GetProfiles(ref RelationViewModel model, int operationId, int itemId, ref string errorMessage)
+        internal static void GetOperations(ref RelationViewModel model, int operationId, int itemId, ref string errorMessage)
         {
-            using (var db = new CatalogManagementDBModel())
+            using (var db = new CatalogManagementDBEntities())
             {
 
-                Dictionary<int, string> templates = new Dictionary<int, string>();
 
-                foreach (var item in db.mAccessTemplates)
-                {
-                    templates.Add(item.AccessTemplateID, item.Name);
-                }
-
-                var user = db.mUsers.FirstOrDefault(u => u.UserID == itemId);
-                var profilesAssigned = user.dUserProfiles;
-                var allProfiles = db.mProfiles;
+                var user = db.Users.FirstOrDefault(u => u.UserID == itemId);
+                var profilesAssigned = user.Operations;
+                var allOperations = db.Operations;
 
 
                 model.SetAttributes(Title: "Perfiles de usuario", ItemId: user.UserID, NameItem: user.Login, TitlePrincipalElement: "Usuario", TitleRelationElement: "Perfiles",
                    ButtonAction: "SaveRelation", ButtonController: "Catalog", ButtonText: "Guardar", OperationIdAction: operationId, OperationIdToReturn: (int)OperationsEnum.VerUsuarios);
 
                 model.Items = new List<Row>();
-                foreach (var profile in allProfiles)
+                foreach (var operation in allOperations)
                 {
                     Row row = new Row();
                     row.Columns = new List<Column>();
                     row.Columns.Add(new Column()
                     {
                         Type = ColumnType.CheckBox,
-                        BooleanValue = profilesAssigned.FirstOrDefault(p => p.ProfileID == profile.ProfileID) != null,
+                        BooleanValue = profilesAssigned.FirstOrDefault(p => p.OperationID == operation.OperationID) != null,
                         ColumnHeader = "Selección",
-                        ID = profile.ProfileID.ToString()
+                        ID = operation.OperationID.ToString()
                     });
 
-                    row.Columns.Add(new Column() { ID = profile.ProfileID.ToString(), ColumnHeader = "Id de Perfil", Value = profile.ProfileID.ToString() });
-                    row.Columns.Add(new Column() { ID = profile.ProfileID.ToString(), ColumnHeader = "Perfil", Value = profile.Name.ToString() });
-                    row.Columns.Add(new Column() { ID = profile.ProfileID.ToString(), ColumnHeader = "Aplicación", Value = profile.mApplications.Name.ToString() });
-                    row.Columns.Add(new Column() { ID = profile.ProfileID.ToString(), ColumnHeader = "Horario", Value = "", Type = ColumnType.ComboBox, MultipleValues = templates });
+                    row.Columns.Add(new Column() { ID = operation.OperationID.ToString(), ColumnHeader = "Id de Operaciòn", Value = operation.OperationID.ToString() });
+                    row.Columns.Add(new Column() { ID = operation.OperationID.ToString(), ColumnHeader = "Name", Value = operation.Name.ToString() });
+                    row.Columns.Add(new Column() { ID = operation.OperationID.ToString(), ColumnHeader = "SysOperation", Value = operation.SysOperation.ToString() });
                     model.Items.Add(row);
                 }
             }
 
         }
 
-        internal static bool New(ItemViewModel model, int userId, ref string errorMessage)
+        internal static bool New(ItemViewModel model, int userId, ref string errorMessage, out int id)
         {
-            using (var db = new CatalogManagementDBModel())
+            using (var db = new CatalogManagementDBEntities())
             {
                 param = new System.Data.Entity.Core.Objects.ObjectParameter("userID", typeof(int));
 
-                var resUserIns = db.spmUser_Insert(
+                var resUserIns = db.spUser_Insert(
                     userID: param,
                     name: model.GetValuePropertieString("Name"),
                     lastName: model.GetValuePropertieString("LastName"),
                     surname: model.GetValuePropertieString("Surname"),
-                    sexID: model.GetValuePropertieInteger("Sex"),
                     address: model.GetValuePropertieString("Address"),
                     zipCode: model.GetValuePropertieInteger("ZipCode"),
                     email: model.GetValuePropertieString("Email"),
-                    organization: model.GetValuePropertieString("Organization"),
                     position: model.GetValuePropertieString("Position"),
                     shortName: model.GetValuePropertieString("ShortName"),
                     login: model.GetValuePropertieString("Login"),
                     password: Security.Encrypt(model.GetValuePropertieString("Password")),
                     status: model.GetValuePropertieInteger("Status"));
-
+                id = int.Parse(param.Value.ToString());
                 return resUserIns > 0;
             }
         }
 
         internal static bool Edit(ItemViewModel model, int userId, ref string errorMessage)
         {
-            using (var db = new CatalogManagementDBModel())
+            using (var db = new CatalogManagementDBEntities())
             {
-                var resUserUpd = db.spmUser_Update(
+                var resUserUpd = db.spUser_Update(
                                   userID: model.ItemId,
                                   name: model.GetValuePropertieString("Name"),
                                   lastName: model.GetValuePropertieString("LastName"),
                                   surname: model.GetValuePropertieString("Surname"),
-                                  sexID: model.GetValuePropertieInteger("Sex"),
+
                                   address: model.GetValuePropertieString("Address"),
                                   zipCode: model.GetValuePropertieInteger("ZipCode"),
                                   email: model.GetValuePropertieString("Email"),
-                                  organization: model.GetValuePropertieString("Organization"),
+
                                   position: model.GetValuePropertieString("Position"),
                                   shortName: model.GetValuePropertieString("ShortName"),
                                   login: model.GetValuePropertieString("Login"),
@@ -210,17 +203,17 @@ namespace CatalogManagement.Code.ConfigureEntitie
             }
         }
 
-        internal static bool SetProfiles(RelationViewModel model, ref string errorMessage)
+        internal static bool SetOperations(RelationViewModel model, ref string errorMessage)
         {
             bool result = true;
-            using (var db = new CatalogManagementDBModel())
+            using (var db = new CatalogManagementDBEntities())
             {
 
                 using (var dbContextTransaction = db.Database.BeginTransaction())
                 {
                     try
                     {
-                        int r1 = db.spdUserProfiles_Delete(model.ItemId);
+                        int r1 = db.spOperationUser_DeleteAllByUser(model.ItemId);
 
                         if (r1 < 0)
                         {
@@ -237,8 +230,8 @@ namespace CatalogManagement.Code.ConfigureEntitie
                             if (result && item.Columns[0].BooleanValue)
                             {
 
-                                var r2 = db.spdUserProfiles_Insert(model.ItemId, int.Parse(item.Columns[0].ID), int.Parse(item.Columns[3].Value));
-                                if (r2 == null || r2.First() < 1)
+                                var r2 = db.spOperationUser_Insert(int.Parse(item.Columns[0].ID), model.ItemId);
+                                if (r2 < 1)
                                 {
                                     result = false;
                                     continue;

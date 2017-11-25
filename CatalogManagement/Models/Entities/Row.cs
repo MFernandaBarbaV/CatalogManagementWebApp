@@ -8,5 +8,9 @@ namespace CatalogManagement.Models.Entities
     public class Row
     {
         public List<Column> Columns { get; set; }
+        public Row()
+        {
+            Columns = new List<Column>();
+        }
     }
 }

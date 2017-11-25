@@ -28,7 +28,7 @@ namespace CatalogManagement
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      //"~/Content/font-awesome.css",
+                      "~/Content/font-awesome/css/font-awesome.css",
                       "~/Content/MenuBar.css",
                       "~/Content/Site.css"));
         }

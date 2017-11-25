@@ -3,7 +3,12 @@
 @using System.Web.Optimization
 @using CatalogManagement.Code
 @{
-    var viewModel = (MenuViewModel)Session[SessionVariables.MenuViewModel];
+    MenuViewModel viewModel = null;
+
+    if (Session!= null && Session[SessionVariables.MenuViewModel] != null)
+    {
+        viewModel = (MenuViewModel)Session[SessionVariables.MenuViewModel];
+    }
 }
 
 <!DOCTYPE html>
@@ -13,12 +18,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@ViewBag.Title </title>
-
+  
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet" />
+   
     @Styles.Render("~/Content/css")
+  
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+  
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
    
@@ -33,7 +41,7 @@
         </div>
 
      
-            @{SystemUser loggedUser = Session[SessionVariables.SystemUser] as SystemUser; }
+            @{SystemUser loggedUser = Session!= null? Session[SessionVariables.SystemUser] as SystemUser: null; }
             @if (loggedUser != null)
             {
                 if (viewModel != null)

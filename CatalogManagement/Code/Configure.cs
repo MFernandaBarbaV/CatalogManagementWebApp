@@ -33,30 +33,13 @@ namespace CatalogManagement.Code
 
             model.ItemsInMenu.Add(new MenuItem()
             {
-                Name = "Aplicaciones",
+                Name = "Operaciones",
                 Span = faIconss.application,
                 IsDropBox = true,
                 InnerItems = new List<MenuItem>()
                 {
-                    new MenuItem() { Name = "Aplicaciones" , Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerAplicaciones, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerAplicaciones) },
-                 new MenuItem() { Name = "Perfiles", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerPerfiles, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerPerfiles) },
-                     new MenuItem() { Name = "Plantilla de Acceso", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerPlantillasdeAcceso, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerPlantillasdeAcceso) },
-
-                            new MenuItem() { Name = "Operaciones", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerOperaciones, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerOperaciones) },
-
-                }
-            });
-
-
-
-            model.ItemsInMenu.Add(new MenuItem()
-            {
-                Name = "Operaciones",
-                Span = faIconss.operation,
-                IsDropBox = true,
-                InnerItems = new List<MenuItem>()
-                {
                     new MenuItem() { Name = "Operaciones", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerOperaciones, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerOperaciones) },
+
                 }
             });
 
@@ -78,7 +61,12 @@ namespace CatalogManagement.Code
                 IsDropBox = true,
                 InnerItems = new List<MenuItem>()
                 {
-                   new MenuItem() { Name = "Productos", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerProductos, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
+                    new MenuItem() { Name = "Productos", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerProductos, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
+                    new MenuItem() { Name = "Proveedores", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerProveedores, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
+                    new MenuItem() { Name = "Clientes", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerClientes, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
+                    new MenuItem() { Name = "Marcas", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerMarcas, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
+                    new MenuItem() { Name = "Tipo de producto", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerTipoProducto, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
+                    new MenuItem() { Name = "Tallas", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerTallas, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
 
                 }
             });
@@ -123,6 +111,22 @@ namespace CatalogManagement.Code
                 }
 
             });
+
+            model.ItemsInMenu.Add(new MenuItem()
+            {
+                Name = "SUPERTICKET",
+                Span = faIconss.filter,
+                IsDropBox = true,
+                InnerItems = new List<MenuItem>()
+                {
+                    new MenuItem() { Name = "Tickets", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteVentasSUPERTICKET, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteVentasSUPERTICKET) },
+                    new MenuItem() { Name = "Ganancia por ticket", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteGananciaTicketSUPERTICKET, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGananciaTicketSUPERTICKET) },
+                    new MenuItem() { Name = "Ganancia por producto", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteGananciaProductoSUPERTICKET, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGananciaProductoSUPERTICKET) },
+                   new MenuItem() { Name = "Reporte mensual", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteVentasMesSUPERTICKET, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteVentasMesSUPERTICKET) },
+
+                }
+
+            });
         }
 
         //PASO #2: Configurar las columnas que se mostrarán al VER el catálogo
@@ -138,38 +142,47 @@ namespace CatalogManagement.Code
                     case OperationsEnum.VerUsuarios:
                         ConfigureEntitie.Users.GetAll(ref model, operationId, ref errorMessage);
                         break;
-                    case OperationsEnum.VerAplicaciones:
-                        ConfigureEntitie.Application.GetCatalog(ref model, operationId, ref errorMessage);
-                        break;
-                    case OperationsEnum.VerPerfiles:
-                        ConfigureEntitie.Profiles.GetProfilesCatalog(ref model, operationId, ref errorMessage);
-                        break;
+
                     case OperationsEnum.VerOperaciones:
                         ConfigureEntitie.Operations.GetOperationsCatalog(ref model, operationId, ref errorMessage);
                         break;
-                    case OperationsEnum.VerPlantillasdeAcceso:
-                        ConfigureEntitie.AccessTemplates.GetAccessTemplatesCatalog(ref model, operationId, ref errorMessage);
-                        break;
-                    case OperationsEnum.VerGastos:
-                        ConfigureEntitie.Expenses.GetExpensesCatalog(ref model, operationId, ref errorMessage);
-                        break;
+                    //case OperationsEnum.VerGastos:
+                    //    ConfigureEntitie.Expenses.GetExpensesCatalog(ref model, operationId, ref errorMessage);
+                    //    break;
                     case OperationsEnum.VerTipoGasto:
                         ConfigureEntitie.ExpensesTypes.GetExpensesTypesCatalog(ref model, operationId, ref errorMessage);
                         break;
-                    case OperationsEnum.VerCompras:
-                        ConfigureEntitie.Purchases.GetCatalog(ref model, operationId, ref errorMessage);
-                        break;
+                    //case OperationsEnum.VerCompras:
+                    //    ConfigureEntitie.Purchases.GetCatalog(ref model, operationId, ref errorMessage);
+                    //    break;
                     case OperationsEnum.VerProductos:
                         ConfigureEntitie.Products.GetProductsCatalog(ref model, operationId, ref errorMessage);
                         break;
+                    case OperationsEnum.VerProveedores:
+                        ConfigureEntitie.Providers.GetAll(ref model, operationId, ref errorMessage);
+                        break;
+                    case OperationsEnum.VerClientes:
+                        ConfigureEntitie.Clients.GetAll(ref model, operationId, ref errorMessage);
+                        break;
+                    case OperationsEnum.VerMarcas:
+                        ConfigureEntitie.Brands.GetAll(ref model, operationId, ref errorMessage);
+                        break;
+                    case OperationsEnum.VerTipoProducto:
+                        ConfigureEntitie.ProductTypes.GetAll(ref model, operationId, ref errorMessage);
+                        break;
+
                     default:
                         errorMessage = "Modulo no implementado en Configure.LoadViewCatalog: " + ((OperationsEnum)operationId).ToString("g");
                         break;
                 };
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                errorMessage = ex.Message;
+                if (e.Message.Contains("See the inner exception for details."))
+                    errorMessage = e.InnerException.Message;
+                else
+                    errorMessage = e.Message + e.StackTrace;
+
             }
         }
 
@@ -184,26 +197,12 @@ namespace CatalogManagement.Code
             {
                 switch ((OperationsEnum)operationId)
                 {
-                    case OperationsEnum.NuevaAplicación:
-                    case OperationsEnum.EditarAplicaciones:
-                        ConfigureEntitie.Application.GetData(ref model, operationId, itemId, ref errorMessage);
-                        break;
+
                     case OperationsEnum.NuevoUsuario:
                     case OperationsEnum.EditarUsuarios:
                         ConfigureEntitie.Users.Get(ref model, operationId, itemId, ref errorMessage);
                         break;
-                    case OperationsEnum.NuevoPerfil:
-                    case OperationsEnum.EditarPerfiles:
-                        ConfigureEntitie.Profiles.GetData(ref model, operationId, itemId, ref errorMessage);
-                        break;
-                    case OperationsEnum.NuevaOperación:
-                    case OperationsEnum.EditarOperaciones:
-                        ConfigureEntitie.Operations.GetData(ref model, operationId, itemId, ref errorMessage);
-                        break;
-                    case OperationsEnum.NuevaPlantilladeAcceso:
-                    case OperationsEnum.EditarPlantillasdeAcceso:
-                        ConfigureEntitie.AccessTemplates.GetData(ref model, operationId, itemId, ref errorMessage);
-                        break;
+
                     case OperationsEnum.NuevoGasto:
                     case OperationsEnum.EditarGasto:
                         ConfigureEntitie.Expenses.GetData(ref model, operationId, itemId, ref errorMessage);
@@ -213,16 +212,30 @@ namespace CatalogManagement.Code
                         ConfigureEntitie.ExpensesTypes.GetData(ref model, operationId, itemId, ref errorMessage);
                         break;
                     case OperationsEnum.NuevaCompra:
-                    case OperationsEnum.EditarCompra:
                         ConfigureEntitie.Purchases.GetData(ref model, operationId, itemId, ref errorMessage);
                         break;
                     case OperationsEnum.NuevaVenta:
-                    case OperationsEnum.EditarVenta:
                         ConfigureEntitie.Sales.GetData(ref model, operationId, itemId, ref errorMessage);
                         break;
                     case OperationsEnum.NuevoProducto:
                     case OperationsEnum.EditarProducto:
                         ConfigureEntitie.Products.GetData(ref model, operationId, itemId, ref errorMessage);
+                        break;
+                    case OperationsEnum.EditarProveedor:
+                    case OperationsEnum.NuevoProveedor:
+                        ConfigureEntitie.Providers.GetData(ref model, operationId, itemId, ref errorMessage);
+                        break;
+                    case OperationsEnum.EditarCliente:
+                    case OperationsEnum.NuevoCliente:
+                        ConfigureEntitie.Clients.GetData(ref model, operationId, itemId, ref errorMessage);
+                        break;
+                    case OperationsEnum.EditarMarca:
+                    case OperationsEnum.NuevaMarca:
+                        ConfigureEntitie.Brands.GetData(ref model, operationId, itemId, ref errorMessage);
+                        break;
+                    case OperationsEnum.EditarTipoProducto:
+                    case OperationsEnum.NuevoTipoProducto:
+                        ConfigureEntitie.ProductTypes.GetData(ref model, operationId, itemId, ref errorMessage);
                         break;
                     default:
                         errorMessage = "Modulo no implementado en Configure.LoadItemData: " + ((OperationsEnum)operationId).ToString("g");
@@ -231,7 +244,11 @@ namespace CatalogManagement.Code
             }
             catch (Exception e)
             {
-                errorMessage = e.Message + (e.InnerException == null ? "" : e.InnerException.Message);
+                if (e.Message.Contains("See the inner exception for details."))
+                    errorMessage = e.InnerException.Message;
+                else
+                    errorMessage = e.Message + (e.InnerException == null ? "" : e.InnerException.Message);
+
             }
         }
 
@@ -245,12 +262,10 @@ namespace CatalogManagement.Code
             {
                 switch ((OperationsEnum)operationId)
                 {
-                    case OperationsEnum.AsignarPerfilaUsuario:
-                        ConfigureEntitie.Users.GetProfiles(ref model, operationId, itemId, ref errorMessage);
+                    case OperationsEnum.AsignarOperaciónaUsuario:
+                        ConfigureEntitie.Users.GetOperations(ref model, operationId, itemId, ref errorMessage);
                         break;
-                    case OperationsEnum.AsignarOperaciónaPerfil:
-                        ConfigureEntitie.Profiles.GetOperations(ref model, operationId, itemId, ref errorMessage);
-                        break;
+
                     default:
                         errorMessage = "Modulo no implementado en Configure.LoadRelationData: " + ((OperationsEnum)operationId).ToString("g");
                         break;
@@ -259,7 +274,11 @@ namespace CatalogManagement.Code
             }
             catch (Exception e)
             {
-                errorMessage = e.Message + (e.InnerException == null ? "" : e.InnerException.Message);
+                if (e.Message.Contains("See the inner exception for details."))
+                    errorMessage = e.InnerException.Message;
+                else
+                    errorMessage = e.Message + (e.InnerException == null ? "" : e.InnerException.Message);
+
             }
         }
 
@@ -267,10 +286,11 @@ namespace CatalogManagement.Code
         /// <summary>
         /// Método para guardar la información de un elemento
         /// </summary>
-        public static bool SaveItem(ItemViewModel model, ref string errorMessage, int userId)
+        public static bool SaveItem(ref ItemViewModel model, ref string errorMessage, int userId)
         {
             try
             {
+                int id = model.ItemId;
                 bool result = false;
 
                 switch ((OperationsEnum)model.OperationIdAction)
@@ -279,28 +299,13 @@ namespace CatalogManagement.Code
                         result = ConfigureEntitie.Users.Edit(model, userId, ref errorMessage);
                         break;
                     case OperationsEnum.NuevoUsuario:
-                        result = ConfigureEntitie.Users.New(model, userId, ref errorMessage);
-                        break;
-                    case OperationsEnum.EditarAplicaciones:
-                        result = ConfigureEntitie.Application.Edit(model, userId, ref errorMessage);
-                        break;
-                    case OperationsEnum.NuevaAplicación:
-                        result = ConfigureEntitie.Application.New(model, userId, ref errorMessage);
-                        break;
-                    case OperationsEnum.NuevoPerfil:
-                        result = ConfigureEntitie.Profiles.New(model, userId, ref errorMessage);
-                        break;
-                    case OperationsEnum.EditarPerfiles:
-                        result = ConfigureEntitie.Profiles.Edit(model, userId, ref errorMessage);
-                        break;
-                    case OperationsEnum.NuevaOperación:
-                        result = ConfigureEntitie.Operations.New(model, userId, ref errorMessage);
+                        result = ConfigureEntitie.Users.New(model, userId, ref errorMessage, out id);
                         break;
                     case OperationsEnum.NuevoGasto:
-                        result = ConfigureEntitie.Expenses.New(model, userId, ref errorMessage);
+                        result = ConfigureEntitie.Expenses.New(model, userId, ref errorMessage, out id);
                         break;
                     case OperationsEnum.NuevoTipoGasto:
-                        result = ConfigureEntitie.ExpensesTypes.New(model, userId, ref errorMessage);
+                        result = ConfigureEntitie.ExpensesTypes.New(model, userId, ref errorMessage, out id);
                         break;
                     case OperationsEnum.EditarTipoGasto:
                         result = ConfigureEntitie.ExpensesTypes.Edit(model, userId, ref errorMessage);
@@ -309,21 +314,47 @@ namespace CatalogManagement.Code
                         result = ConfigureEntitie.Expenses.Edit(model, userId, ref errorMessage);
                         break;
                     case OperationsEnum.NuevaCompra:
-                        result = ConfigureEntitie.Purchases.New(model, userId, ref errorMessage);
+                        result = ConfigureEntitie.Purchases.New(model, userId, ref errorMessage, out id);
                         break;
+               
                     case OperationsEnum.NuevaVenta:
-                        result = ConfigureEntitie.Sales.New(model, userId, ref errorMessage);
+                        result = ConfigureEntitie.Sales.New(model, userId, ref errorMessage, out id);
                         break;
                     case OperationsEnum.NuevoProducto:
-                        result = ConfigureEntitie.Products.New(model, userId, ref errorMessage);
+                        result = ConfigureEntitie.Products.New(model, userId, ref errorMessage, out id);
                         break;
                     case OperationsEnum.EditarProducto:
                         result = ConfigureEntitie.Products.Edit(model, userId, ref errorMessage);
+                        break;
+                    case OperationsEnum.NuevoProveedor:
+                        result = ConfigureEntitie.Providers.New(model, userId, ref errorMessage, out id);
+                        break;
+                    case OperationsEnum.EditarProveedor:
+                        result = ConfigureEntitie.Providers.Edit(model, userId, ref errorMessage);
+                        break;
+                    case OperationsEnum.EditarCliente:
+                        result = ConfigureEntitie.Clients.Edit(model, userId, ref errorMessage);
+                        break;
+                    case OperationsEnum.NuevoCliente:
+                        result = ConfigureEntitie.Clients.New(model, userId, ref errorMessage, out id);
+                        break;
+                    case OperationsEnum.EditarMarca:
+                        result = ConfigureEntitie.Brands.Edit(model, userId, ref errorMessage);
+                        break;
+                    case OperationsEnum.NuevaMarca:
+                        result = ConfigureEntitie.Brands.New(model, userId, ref errorMessage, out id);
+                        break;
+                    case OperationsEnum.EditarTipoProducto:
+                        result = ConfigureEntitie.ProductTypes.Edit(model, userId, ref errorMessage);
+                        break;
+                    case OperationsEnum.NuevoTipoProducto:
+                        result = ConfigureEntitie.ProductTypes.New(model, userId, ref errorMessage, out id);
                         break;
                     default:
                         errorMessage = "Modulo no implementado en Configure.SaveItem: " + ((OperationsEnum)model.OperationIdAction).ToString("g");
                         break;
                 }
+                model.ItemId = id;
                 return result;
             }
             catch (Exception e)
@@ -349,12 +380,10 @@ namespace CatalogManagement.Code
 
                 switch ((OperationsEnum)model.OperationIdAction)
                 {
-                    case OperationsEnum.AsignarPerfilaUsuario:
-                        result = ConfigureEntitie.Users.SetProfiles(model, ref errorMessage);
+                    case OperationsEnum.AsignarOperaciónaUsuario:
+                        result = ConfigureEntitie.Users.SetOperations(model, ref errorMessage);
                         break;
-                    case OperationsEnum.AsignarOperaciónaPerfil:
-                        result = ConfigureEntitie.Profiles.SetOperations(model, ref errorMessage);
-                        break;
+
                     default:
                         errorMessage = "Modulo no implementado en Configure.SaveRelation: " + ((OperationsEnum)model.OperationIdAction).ToString("g");
                         break;
@@ -372,7 +401,7 @@ namespace CatalogManagement.Code
         /// <summary>
         /// Método para cargar la información de un catálogo según la operación
         /// </summary>
-        public static void LoadDataReport(ref ReportViewModel model, int operationId, ref string errorMessage, bool applyFilters)
+        public static bool LoadDataReport(ref ReportViewModel model, int operationId, ref string errorMessage, bool applyFilters)
         {
             try
             {
@@ -390,14 +419,28 @@ namespace CatalogManagement.Code
                     case OperationsEnum.VerBalance:
                         ConfigureEntitie.Balance.GetReport(ref model, operationId, applyFilters, ref errorMessage);
                         break;
+                    case OperationsEnum.VerReporteVentasSUPERTICKET:
+                        ConfigureEntitie.SUPERTICKETData.GetTicketsReport(ref model, operationId, applyFilters, ref errorMessage);
+                        break;
+                    case OperationsEnum.VerReporteGananciaTicketSUPERTICKET:
+                        ConfigureEntitie.SUPERTICKETData.GetGainReport(ref model, operationId, applyFilters, ref errorMessage);
+                        break;
+                    case OperationsEnum.VerReporteGananciaProductoSUPERTICKET:
+                        ConfigureEntitie.SUPERTICKETData.GetProductsReport(ref model, operationId, applyFilters, ref errorMessage);
+                        break;
+                    case OperationsEnum.VerReporteVentasMesSUPERTICKET:
+                        ConfigureEntitie.SUPERTICKETData.GetTicketsInMonthReport(ref model, operationId, applyFilters, ref errorMessage);
+                        break;
                     default:
-                        errorMessage = "Modulo no implementado en Configure.LoadViewCatalog: " + ((OperationsEnum)operationId).ToString("g");
+                        errorMessage = "Modulo no implementado en Configure.LoadDataReport: " + ((OperationsEnum)operationId).ToString("g");
                         break;
                 };
+                return true;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                errorMessage = ex.Message;
+                errorMessage = e.Message + " " + (e.InnerException == null ? string.Empty : e.InnerException.Message) + " " + e.StackTrace;
+                return false;
             }
         }
 

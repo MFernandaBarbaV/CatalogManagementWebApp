@@ -23,7 +23,7 @@ BEGIN
 		p.IdUnidad,
 		prov.NombreProveedor, 
 		p.IdProveedor
-	from [dbo].[producto] p
+	from [dbo].[Producto] p
 	left join [dbo].Marca m on m.IdMarca = p.IdMarca
 	left join [dbo].Talla t on t.IdTalla = p.IdTalla
 	left join [dbo].TipoProducto tp on tp.IdTipoProducto = p.IdTipoProducto

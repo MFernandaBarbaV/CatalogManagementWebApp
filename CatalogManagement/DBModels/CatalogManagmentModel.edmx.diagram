@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cda50970a7934f4083d24f3c5893066e" Name="Diagram1">
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Clientes" Width="1.5" PointX="3.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Compra" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.CompraDetalle" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Configuracion" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Gastos" Width="1.5" PointX="14" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Genero" Width="1.5" PointX="3.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Log" Width="1.5" PointX="11" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Marca" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Operador" Width="1.5" PointX="1.5" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Operations" Width="1.5" PointX="8.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Producto" Width="1.5" PointX="6" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Proveedor" Width="1.5" PointX="1.5" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Status" Width="1.5" PointX="11.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.SubTipoProducto" Width="1.5" PointX="3.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Talla" Width="1.5" PointX="5.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.TipoGasto" Width="1.5" PointX="11.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.TipoPrecio" Width="1.5" PointX="9" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.TipoProducto" Width="1.5" PointX="3.75" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Unidad" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Users" Width="1.5" PointX="14" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.Venta" Width="1.5" PointX="6" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.VentaDetalle" Width="1.5" PointX="8.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CatalogManagementDBModel.TipoPrecioPorProducto" Width="1.5" PointX="11.25" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_Venta_Clientes" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_Compra_Operador" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_Compra_Proveedor" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_CompraDetalle_Compra" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_CompraDetalle_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_CompraDetalle_Unidad" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_Gastos_Gastos" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_Producto_Genero" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_Log_Operation" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_Log_User" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_Producto_Marca" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_Venta_Operador" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_Producto_Proveedor" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_Producto_SubTipoProducto" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_Producto_TipoProducto" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_Producto_Unidad" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_TipoPrecio_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_VentaDetalle_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_mUsers_mStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_TipoPrecio_TipoPrecio1" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_VentaDetalle_TipoPrecio" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_VentaDetalle_Unidad" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.FK_VentaDetalle_Venta" ManuallyRouted="false" />
+        <AssociationConnector Association="CatalogManagementDBModel.UserOperations" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

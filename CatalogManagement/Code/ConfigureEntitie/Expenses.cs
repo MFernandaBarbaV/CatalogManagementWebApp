@@ -11,10 +11,10 @@ namespace CatalogManagement.Code.ConfigureEntitie
     {
         internal static void GetExpensesCatalog(ref ListItemsViewModel model, int operationId, ref string errorMessage)
         {
-            using (var db2 = new PuntoDeVentaEntities())
+            using (var db2 = new CatalogManagementDBEntities())
             {
                 model.SetAttributes("Gastos", (OperationsEnum)operationId);
-                foreach (var item in db2.Gastos)
+                foreach (var item in db2.Gastos.Where(c => c.Fecha > new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)))
                 {
                     row = new Row();
                     row.Columns = new List<Column>();
@@ -34,7 +34,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
 
         internal static void GetData(ref ItemViewModel model, int operationId, int itemId, ref string errorMessage)
         {
-            using (var db2 = new PuntoDeVentaEntities())
+            using (var db2 = new CatalogManagementDBEntities())
             {
 
 
@@ -63,7 +63,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
                 if (resultGasto != null)
                 {
                     model.Properties = new List<Propertie>();
-                    model.Properties.Add(new Propertie() { Id = "Descripcion", Label = "Descripción", Value = resultGasto.Descripcion, RegEx = Utils.GenerateRegex(true, true, true, true, 1, 50, true, true, ref messageValidation), ErrorMessage = messageValidation });
+                    model.Properties.Add(new Propertie(150) { Id = "Descripcion", Label = "Descripción", Value = resultGasto.Descripcion, RegEx = Utils.GenerateRegex(true, true, true, true, 1, 50, true, true, ref messageValidation), ErrorMessage = messageValidation });
                     model.Properties.Add(new Propertie() { Id = "IdTipoGasto", Label = "Tipo Gasto", MultipleValues = tipoGasto, Type = PropertieType.ComboBox, Value = resultGasto.IdTipoGasto.ToString() });
                     model.Properties.Add(new Propertie() { Id = "Cantidad", Label = "Cantidad", ObjectValue = resultGasto.Cantidad, RegEx = Utils.OnlyNumber, ErrorMessage = Utils.ErrorOnlyNumber, Type = PropertieType.TextBox, ClassIcon = faIconss.money });
                     model.Properties.Add(new Propertie() { Id = "Fecha", Label = "Fecha", DateValue = resultGasto.Fecha, Type = PropertieType.Date, ClassIcon = faIconss.date });
@@ -77,7 +77,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
         {
             try
             {
-                using (var db2 = new PuntoDeVentaEntities())
+                using (var db2 = new CatalogManagementDBEntities())
                 {
                     var gasto = db2.Gastos.FirstOrDefault(m => m.IdGasto == model.ItemId);
 
@@ -99,34 +99,28 @@ namespace CatalogManagement.Code.ConfigureEntitie
 
         }
 
-        internal static bool New(ItemViewModel model, int userId, ref string errorMessage)
+        internal static bool New(ItemViewModel model, int userId, ref string errorMessage, out int id)
         {
-            try
+            using (var db2 = new CatalogManagementDBEntities())
             {
-                using (var db2 = new PuntoDeVentaEntities())
+                var gasto = new Gastos()
                 {
-                    db2.Gastos.Add(new Gastos()
-                    {
-                        Descripcion = model.GetValuePropertieString("Descripcion"),
-                        IdTipoGasto = model.GetValuePropertieByte("IdTipoGasto"),
-                        Cantidad = model.GetValuePropertieInteger("Cantidad"),
-                        Fecha = model.GetValuePropertieDateTime("Fecha"),
-                    });
-                    db2.SaveChanges();
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                errorMessage = ex.Message;
-                return false;
+                    Descripcion = model.GetValuePropertieString("Descripcion"),
+                    IdTipoGasto = model.GetValuePropertieByte("IdTipoGasto"),
+                    Cantidad = model.GetValuePropertieInteger("Cantidad"),
+                    Fecha = model.GetValuePropertieDateTime("Fecha"),
+                };
+                db2.Gastos.Add(gasto);
+                db2.SaveChanges();
+                id = gasto.IdGasto;
+                return true;
             }
 
         }
 
         internal static void GetReport(ref ReportViewModel model, int operationId, bool applyFilters, ref string errorMessage)
         {
-            using (var db2 = new PuntoDeVentaEntities())
+            using (var db2 = new CatalogManagementDBEntities())
             {
                 model.SetAttributes("Gastos", "Ver", "ViewReport", "Catalog", (OperationsEnum)operationId, (OperationsEnum)operationId);
                 if (applyFilters)

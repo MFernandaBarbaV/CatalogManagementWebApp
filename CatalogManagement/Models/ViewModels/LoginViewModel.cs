@@ -34,16 +34,16 @@ namespace CatalogManagement.Models.ViewModels
                 //UserName = "Administrador";
                 //Password = "321321321";
                 pwEncripted = Security.Encrypt(Password);
-                using (CatalogManagementDBModel db = new CatalogManagementDBModel())
+                using (CatalogManagementDBEntities db = new CatalogManagementDBEntities())
                 {
-                    var result = db.spmUser_DoLogin(UserName, pwEncripted);
+                    var result = db.spUser_DoLogin(UserName, pwEncripted);
 
                     if (result == null)
                     {
                         errorMessage = "Usuario o contraseña incorrecto";
                         return null;
                     }
-                    spmUser_DoLogin_Result user = null;
+                    spUser_DoLogin_Result user = null;
                     foreach (var item in result)
                     {
                         user = item;
@@ -55,20 +55,17 @@ namespace CatalogManagement.Models.ViewModels
                         return null;
                     }
 
-
-                    var profile = db.spdUserProfiles_GetByUserID(user.UserID).First();
-
-                    var operations = db.mProfiles.First(p => p.ProfileID == profile.ProfileID).mOperations.ToList();
+                    List<Operations> listOp = db.Users.Where(u => u.UserID == user.UserID).FirstOrDefault().Operations.ToList();
+                
 
                     var sysUser = new SystemUser()
                     {
                         SystemUserId = user.UserID,
                         FirstName = user.Name,
                         LastName = user.LastName,
-                        Operations = operations,
+                        Operations = listOp,
                         Password = user.Password,
-                        RoleId = profile.ProfileID,
-                        RoleName = profile.Name,
+                        RoleName = user.Position,
                         UserName = user.Login
                     };
 
@@ -79,7 +76,12 @@ namespace CatalogManagement.Models.ViewModels
             }
             catch (System.Data.Entity.Core.EntityException ex)
             {
-                errorMessage = "Error en la conexión [" + ex.Message + "]";
+                errorMessage = "Error en la conexión [" + ex.Message + (ex.InnerException != null ? ex.InnerException.Message : string.Empty)+ "]";
+                return null;
+            }
+            catch (NullReferenceException e)
+            {
+                errorMessage = e.Message + e.StackTrace;// "Usuario o contraseña incorrecto";
                 return null;
             }
             catch (Exception e)
@@ -95,13 +97,13 @@ namespace CatalogManagement.Models.ViewModels
         {
             try
             {
-                using (CatalogManagementDBModel db = new CatalogManagementDBModel())
+                using (CatalogManagementDBEntities db = new CatalogManagementDBEntities())
                 {
-                    db.spmUser_DoLogout(userId);
+                    db.spUser_DoLogout(userId);
                 }
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

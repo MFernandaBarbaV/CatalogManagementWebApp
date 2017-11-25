@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogManagement", "Catalo
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "UsersDataBase", "UsersDataBase\UsersDataBase.sqlproj", "{B3F64164-4BED-48C2-A8DF-3A2D189EBE41}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "CatalogsDataBase", "CatalogsDataBase\CatalogsDataBase.sqlproj", "{7106B9D8-FE86-42BD-B0F7-B0A7D2B35A0E}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SalesDataBase", "CatalogsDataBase\SalesDataBase.sqlproj", "{7106B9D8-FE86-42BD-B0F7-B0A7D2B35A0E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogManagementTests", "CatalogManagementTests\CatalogManagementTests.csproj", "{55C481C5-F86B-43AB-8FFD-F480B94DED1B}"
 EndProject

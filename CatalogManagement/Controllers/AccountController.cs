@@ -13,7 +13,7 @@ namespace CatalogManagement.Controllers
     public class AccountController : Controller
     {
         // GET: Account
-     
+
         public ActionResult Index()
         {
             return View();
@@ -23,39 +23,62 @@ namespace CatalogManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View("Index", model);
+                }
+
+                string errorMessage = null;
+
+                var userLogged = model.Login(out errorMessage);
+
+                if(Session == null)
+                {
+                    ModelState.AddModelError("error_msg", "session is null");
+                    return View("Index", model);
+
+                }
+
+                if (userLogged != null)
+                {
+                    Session[SessionVariables.SystemUser] = userLogged;
+                    FormsAuthentication.SetAuthCookie(model.UserName, false);
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ModelState.AddModelError("error_msg", errorMessage);
+
                 return View("Index", model);
             }
-
-            string errorMessage = null;
-
-            var userLogged = model.Login(out errorMessage);
-
-            if (userLogged != null)
+            catch (Exception ex)
             {
-                Session[SessionVariables.SystemUser] = userLogged;
-                FormsAuthentication.SetAuthCookie(model.UserName, false);
-                return RedirectToAction("Index", "Home");
+                ModelState.AddModelError("error_msg", ex.Message + " " + ex.StackTrace);
+                return View("Index", model);
             }
-
-            ModelState.AddModelError("error_msg", errorMessage);
-
-            return View("Index", model);
         }
 
         public ActionResult Logout()
         {
-            Models.Entities.SystemUser user = Session[SessionVariables.SystemUser] as Models.Entities.SystemUser;
-
-            if(user != null)
+            try
             {
-                LoginViewModel.Logout(user.SystemUserId);
-                Session[SessionVariables.SystemUser] = null;
-            }
+                Models.Entities.SystemUser user = Session[SessionVariables.SystemUser] as Models.Entities.SystemUser;
 
-        
-            return View("Index");
+                if (user != null)
+                {
+                    LoginViewModel.Logout(user.SystemUserId);
+                    Session[SessionVariables.SystemUser] = null;
+                }
+
+
+                return View("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("error_msg", ex.Message + " " + ex.StackTrace);
+                return View("Index");
+            }
         }
     }
 }

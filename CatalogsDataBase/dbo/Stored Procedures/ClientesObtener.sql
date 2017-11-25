@@ -13,8 +13,6 @@ BEGIN
     -- Insert statements for procedure here
 	SELECT TOP 1000 [IdCliente]
       ,[NombreCliente]
-      ,[ApellidoPaternoCliente]
-      ,[ApellidoMaternoCliente]
       ,[Email]
       ,[RFC]
       ,[CalleDomicilioFiscal]

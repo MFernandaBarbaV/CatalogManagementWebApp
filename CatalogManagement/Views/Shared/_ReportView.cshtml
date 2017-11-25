@@ -75,6 +75,7 @@ else
 
                         }
                         break;
+                        
                     case CatalogManagement.Models.ViewModels.FilterType.Text:
                         {
                             <div class="col-lg-2 col-md-3 col-xs-6">@Model.Filters[i].Description</div>
@@ -111,19 +112,25 @@ else
 
                             <div class="col-lg-2 col-md-3 col-xs-6">
 
-                                @*@Html.ListBoxFor(m => m.Filters[i].ObjectValue, @Model.Filters[i].MultipleValues.Select(indx => new SelectListItem
-                                    {
-                                        Value = indx.Key.ToString(),
-                                        Text = indx.Value.ToString(),
-
-                                        Selected = "select" == indx.Key.ToString()
-                                    }), new
-                                    {
-                                        @class = "form-control ",
-                                        @id = @Model.Filters[i].ColumnName
-                                    })*@
-
                                 @Html.ListBoxFor(m => m.Filters[i].selectedMultipleValues, new MultiSelectList(Model.Filters[i].MultipleValues, "Key", "Value"), new
+                           {
+                               @class = "form-control ",
+                               @id = @Model.Filters[i].ColumnName,
+                               @Multiple = "multiple"
+                           })
+
+                            </div>
+                        }
+                        break;
+                    case CatalogManagement.Models.ViewModels.FilterType.Combo2:
+                        {
+                            @Html.HiddenFor(m => m.Filters[i].MultipleValues)
+
+                            <div class="col-lg-2 col-md-3 col-xs-6">@Model.Filters[i].Description</div>
+
+                            <div class="col-lg-2 col-md-3 col-xs-6">
+
+                                @Html.ListBoxFor(m => m.Filters[i].selectedMultipleValues2, new MultiSelectList(Model.Filters[i].MultipleValues2, "Key", "Value"), new
                            {
                                @class = "form-control ",
                                @id = @Model.Filters[i].ColumnName,
