@@ -33,13 +33,14 @@ namespace CatalogManagement.Code
 
             regex = "^([" + tempRegex + "]{" + minLenght + "," + maxLenght + "})$";
 
-            messageValidation = "El campo no acepta: " +
-                                (alphabeticUpper ? "" : "Mayúsculas A-Z, ") +
-                                (aphabeticLower ? "" : "Minúsculas a-z, ") +
-                                (accent ? "" : "Acentos, ") +
-                                (numbers ? "" : "Números 0-9, ") +
-                                (spaces ? "" : "Espacios, ") +
-                                (specialChars ? "" : @"Caracteres especiales:  .,:;-=*+°_{}()[]¿?¡!#$%&^*~¬\/|") +
+            if (minLenght > 0)
+                messageValidation = "Campo requerido. ";
+            else messageValidation = "Campo opcional. ";
+
+            messageValidation += "El campo acepta: " +
+                                (!alphabeticUpper || !aphabeticLower ? "" : "Letras aA-zZ, ") +                           
+                                (!numbers ? "" : "Números 0-9, ") +
+                              //  (specialChars ? "" : @"Caracteres especiales:  .,:;-=*+°_{}()[]¿?¡!#$%&^*~¬\/|") +
                                 " y una longitud de " + minLenght + " a " + maxLenght + " caracteres.";
 
 

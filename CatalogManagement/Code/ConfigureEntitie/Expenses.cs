@@ -51,13 +51,13 @@ namespace CatalogManagement.Code.ConfigureEntitie
                 {
                     resultGasto = new Gastos();
                     resultGasto.Fecha = DateTime.Now;
-                    model.SetAttributes(itemId, "Nuevo Gasto", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerGastos);
+                    model.SetAttributes(itemId, "Nuevo Gasto", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteGastos);
 
                 }
                 else // Editar
                 {
                     resultGasto = db2.Gastos.Where(us => us.IdGasto == itemId).FirstOrDefault();
-                    model.SetAttributes(itemId, "Editar Gastos", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerGastos);
+                    model.SetAttributes(itemId, "Editar Gastos", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteGastos);
                 }
 
                 if (resultGasto != null)

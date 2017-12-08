@@ -15,9 +15,9 @@ BEGIN
 		--si la cantidad actual es negativa, se lo tengo que restar al nuevo lote
 	DECLARE @CantidadFaltante int
 	set @CantidadFaltante = 0
-	if exists (select cantidad from dbo.Producto where idproducto = @idproducto and Cantidad < 0)
+	if exists (select cantidad from dbo.Producto where IdProducto = @IdProducto and Cantidad < 0)
 	begin
-		set	@CantidadFaltante = (select Cantidad from dbo.Producto where idproducto = @idproducto)
+		set	@CantidadFaltante = (select Cantidad from dbo.Producto where IdProducto = @IdProducto)
 	end
 
 	declare @CantidadPorUnidad int 

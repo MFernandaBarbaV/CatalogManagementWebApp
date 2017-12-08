@@ -48,7 +48,7 @@ namespace CatalogManagement.Models.ViewModels
                 else if (prop.Type == PropertieType.ComboBox)
                     return prop.Value;
                 else if (prop.Type == PropertieType.Password)
-                    return prop.Value;
+                    return ((string[])prop.ObjectValue)[0];
                 else if (prop.Type == PropertieType.TextBox)
                     return prop.Value;
                 else
@@ -121,10 +121,10 @@ namespace CatalogManagement.Models.ViewModels
 
                 else if (prop.Type == PropertieType.ComboBox)
                 {
-                 
+
                     if (prop.ObjectValue.GetType() == typeof(System.String[]))
                         return int.Parse(((String[])prop.ObjectValue)[0]);
-                    if (prop.ObjectValue.GetType() == typeof(KeyValuePair<int,string>))
+                    if (prop.ObjectValue.GetType() == typeof(KeyValuePair<int, string>))
                         return ((KeyValuePair<int, string>)prop.ObjectValue).Key;
                     if (prop.Value != null)
                         return int.Parse(prop.Value);
@@ -133,14 +133,14 @@ namespace CatalogManagement.Models.ViewModels
                 }
                 else if (prop.Type == PropertieType.TextBox)
                     return int.Parse(prop.Value);
-                else if(prop.Type == PropertieType.Money)
+                else if (prop.Type == PropertieType.Money)
                     return int.Parse(prop.Value);
                 else
                     return -1;
             }
-            catch(FormatException fe)
+            catch (FormatException fe)
             {
-                Debug.WriteLine("Una de las propiedades no tiene Id.");
+                Debug.WriteLine("Una de las propiedades no tiene Id." + fe.Message);
                 return -1;
             }
             catch (Exception EX)
@@ -199,10 +199,11 @@ namespace CatalogManagement.Models.ViewModels
 
                 else if (prop.Type == PropertieType.ComboBox)
                 {
-                    if (prop.Value != null)
-                        return byte.Parse(prop.Value);
+                   
                     if (prop.ObjectValue.GetType() == typeof(System.String[]))
                         return byte.Parse(((String[])prop.ObjectValue)[0]);
+                    if (prop.Value != null)
+                        return byte.Parse(prop.Value);
                     else
                         return 0;
                 }

@@ -32,7 +32,7 @@ BEGIN
 	LEFT join [dbo].Talla t on t.IdTalla = p.IdTalla
 	LEFT join [dbo].TipoProducto tp on tp.IdTipoProducto = p.IdTipoProducto
 	LEFT join [dbo].SubTipoProducto stp on stp.IdSubTipoProducto = p.IdSubTipoProducto
-	LEFT join [dbo].Unidad u on u.idUnidad = p.IdUnidad
+	LEFT join [dbo].Unidad u on u.IdUnidad = p.IdUnidad
 	LEFT join [dbo].[Proveedor] prov on prov.IdProveedor = p.IdProveedor
 	LEFT join [dbo].[Genero] g on g.IdGenero = p.IdGenero
 	order by p.Codigo

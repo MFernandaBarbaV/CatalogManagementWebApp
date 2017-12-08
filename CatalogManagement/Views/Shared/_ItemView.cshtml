@@ -184,7 +184,8 @@ else
                                 @Html.TextBoxFor(m => m.Properties[i].Value, new
                            {
                                @class = "form-control " + (Model.Properties[i].IsDissabled ? "Dissabled" : ""),
-                               @id = @Model.Properties[i].Label,
+                               @id = @Model.Properties[i].Label,                               
+                               @required = "required",
                                @pattern = @Model.Properties[i].RegEx,
                                @oninvalid = "this.setCustomValidity('" + @Model.Properties[i].ErrorMessage + "')",
                                @oninput = "setCustomValidity('')"

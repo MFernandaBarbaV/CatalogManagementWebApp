@@ -25,75 +25,48 @@ SET IDENTITY_INSERT [dbo].[Operations] ON
 GO
 MERGE INTO [dbo].[Operations] AS Target
 USING (VALUES
-  (1,N'Inicio de sesión',1,0)
- ,(2,N'Ver Usuarios',2,0)
- ,(3,N'Editar Usuarios',3,0)
- ,(4,N'Crear Usuario',4,0)
- ,(5,N'Eliminar Usuarios',5,0)
- ,(6,N'Ver Aplicaciones',6,0)
- ,(7,N'Nueva Aplicación',7,0)
- ,(8,N'Editar Aplicaciones',8,0)
- ,(9,N'Eliminar Aplicaciones',9,0)
- ,(10,N'Ver Operaciones',10,0)
- ,(11,N'Nueva Operación',11,0)
- ,(12,N'Editar Operaciones',12,0)
- ,(13,N'Eliminar Operaciones',13,0)
- ,(14,N'Ver Perfiles',14,1)
- ,(15,N'Nuevo Perfil',15,0)
- ,(16,N'Editar Perfiles',16,0)
- ,(17,N'Eliminar Perfiles',17,0)
- ,(18,N'Ver Plantillas de Acceso',18,0)
- ,(19,N'Nueva Plantilla de Acceso',19,0)
- ,(20,N'Editar Plantilla de Acceso',20,0)
- ,(21,N'Eliminar Plantilla de Acceso',21,0)
- ,(22,N'Ver Reportes',22,0)
- ,(23,N'Nuevo Reporte',23,0)
- ,(24,N'Editar Reportes',24,0)
- ,(25,N'Eliminar Reportes',25,0)
- ,(26,N'Imprimir Reportes',26,0)
- ,(27,N'Asignar Operacióna Perfil',27,0)
- ,(28,N'Asignar Reporte a Usuario',28,0)
- ,(29,N'Asignar Reporte a Perfil',29,0)
- ,(30,N'Asignar Perfil a Usuario',30,0)
- ,(31,N'Nueva Compra',31,0)
- ,(32,N'Nuevo Gasto',32,0)
- ,(33,N'Ver Compras',33,0)
- ,(34,N'Ver Gastos',34,0)
- ,(35,N'Dashboard',35,0)
- ,(36,N'Editar Gasto',36,0)
- ,(37,N'Eliminar Gasto',37,0)
- ,(38,N'Ver Tipo de Gasto',38,0)
- ,(39,N'Editar Tipo de Gasto',39,0)
- ,(40,N'Nuevo Tipo de Gasto',40,0)
- ,(41,N'Ver Ventas',41,0)
- ,(42,N'Nueva Venta',42,0)
- ,(43,N'Ver Producto',43,0)
- ,(44,N'Nuevo Producto',44,0)
- ,(45,N'Editar Compra',45,0)
- ,(46,N'Eliminar Compra',46,0)
- ,(47,N'Ver Valance',47,0)
- ,(48,N'Ver Reporte Ventas',48,0)
- ,(49,N'Editar Venta',49,0)
-,(50,N'Editar Producto',50,0)
-,(51,N'VerProveedores',51,0)
-,(52,N'VerClientes',52,0)
-,(53,N'VerMarcas',53,0)
-,(54,N'VerTipoProducto',54,0)
-,(55,N'VerTallas',55,0)
-,(56,N'EditarProveedor',56,0)
-,(57,N'NuevoProveedor',57,0)
-,(58,N'EditarCliente',58,0)
-,(59,N'NuevoCliente',59,0)
-,(60,N'EditarMarca',60,0)
-,(61,N'NuevaMarca',61,0)
-,(62,N'EditarTipoProducto',62,0)
-,(63,N'NuevoTipoProducto',63,0)
-
-,(64,N'VerReporteInventariosSUPERTICKET',64,0)
-,(65,N'VerReporteEntradasSUPERTICKET',65,0)
-,(66,N'VerReporteVentasSUPERTICKET',66,0)
-,(67,N'VerReporteSalidasSUPERTICKET',67,0)
-
+ (1,N'Inicio de Sesión',1,0),
+(2,N'Ver Usuarios',2,0),
+(3,N'Editar Usuarios',3,0),
+(4,N'Nuevo Usuario',4,0),
+(5,N'Ver Operaciones',5,0),
+(6,N'Asignar Operación a Usuario',6,0),
+(7,N'Nueva Compra',7,0),
+(8,N'Ver ReporteCompras',8,0),
+(9,N'Eliminar Compra',9,0),
+(10,N'Nuevo Gasto',10,0),
+(11,N'Ver ReporteGastos',11,0),
+(12,N'Editar Gasto',12,0),
+(13,N'Eliminar Gasto',13,0),
+(14,N'Ver TipoGasto',14,0),
+(15,N'Editar TipoGasto',15,0),
+(16,N'Nuevo TipoGasto',16,0),
+(17,N'Ver Ventas',17,0),
+(18,N'Nueva Venta',18,0),
+(19,N'Ver ReporteVentas',19,0),
+(20,N'Ver Balance',20,0),
+(21,N'Ver Productos',21,0),
+(22,N'Nuevo Producto',22,0),
+(23,N'Editar Producto',23,0),
+(24,N'Ver Proveedores',24,0),
+(25,N'Editar Proveedor',25,0),
+(26,N'Nuevo Proveedor',26,0),
+(27,N'Ver Clientes',27,0),
+(28,N'Editar Cliente',28,0),
+(29,N'Nuevo Cliente',29,0),
+(30,N'Ver Marcas',30,0),
+(31,N'Editar Marca',31,0),
+(32,N'Nueva Marca',32,0),
+(33,N'Ver TipoProducto',33,0),
+(34,N'Editar TipoProducto',34,0),
+(35,N'Nuevo TipoProducto',35,0),
+(36,N'Ver Tallas',36,0),
+(37,N'Nueva Talla',37,0),
+(38,N'Editar Talla',38,0),
+(1000,N'Ver Reporte de Ganancia por Ticket - SUPERTICKET',1000,0),
+(1001,N'Ver Reporte de GananciaProducto - SUPERTICKET',1001,0),
+(1002,N'Ver Reporte de Ventas por Mes - SUPERTICKET',1002,0),
+(1003,N'Ver Reporte de Ventas - SUPERTICKET',1003,0)
 
 ) AS Source ([OperationID],[Name],[SysOperation],[IsReadOnly])
 ON (Target.[OperationID] = Source.[OperationID])
@@ -209,30 +182,6 @@ USING (VALUES
 ,(1,36)
 ,(1,37)
 ,(1,38)
-,(1,39)
-,(1,40)
-,(1,41)
-,(1,42)
-,(1,43)
-,(1,44)
-,(1,45)
-,(1,46)
-,(1,47)
-,(1,48)
-,(1,49)
-,(1,50)
-,(1,51)
-,(1,52)
-,(1,53)
-,(1,54)
-,(1,55)
-,(1,56)
-,(1,57)
-,(1,58)
-,(1,59)
-,(1,60),(1,61)
-,(1,62),(1,63)
-,(1,64),(1,65),(1,66),(1,67)
 ) AS Source ([UserId],[OperationID])
 ON (Target.[OperationID] = Source.[OperationID] AND Target.[UserId] = Source.[UserId])
 WHEN NOT MATCHED BY TARGET THEN

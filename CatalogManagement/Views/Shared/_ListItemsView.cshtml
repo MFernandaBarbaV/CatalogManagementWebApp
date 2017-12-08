@@ -5,11 +5,15 @@
 }
 @if (Model == null || Model.Rows == null || Model.Rows.Count() == 0)
 {
-    <div class="alert alert-danger">
-        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
-        {<strong>@ViewBag.ErrorMessage</strong> }
 
-    </div>
+    if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            <strong>@ViewBag.ErrorMessage</strong>
+        </div>
+    }
+
+
 }
 else
 {
@@ -52,7 +56,7 @@ else
     <div class="input-group col-lg-12 col-md-12 col-xs-12 col-sm-12">
         @if (Model.UseNewItemButton)
         {
-            using (Html.BeginForm(Model.ButtonAction, Model.ButtonController, new { OperationId=Model.OperationNewItem }, FormMethod.Post, new { id = "myForm", data_toggle = "validator", OperationId = Model.OperationNewItem.ToString() }))
+            using (Html.BeginForm(Model.ButtonAction, Model.ButtonController, new { OperationId = Model.OperationNewItem }, FormMethod.Post, new { id = "myForm", data_toggle = "validator", OperationId = Model.OperationNewItem.ToString() }))
             {
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary PrettyButton" type="submit">@Model.ButtonText</button>

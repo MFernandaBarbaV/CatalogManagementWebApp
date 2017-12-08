@@ -6,10 +6,10 @@
 	[UserID] ASC,
 	[OperationID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY], 
-    CONSTRAINT [FK_UserOperations_Users] FOREIGN KEY ([UserId]) REFERENCES [Users]([UserId])
+    CONSTRAINT [FK_UserOperations_Users] FOREIGN KEY ([UserID]) REFERENCES [Users]([UserID])
 ) ON [PRIMARY]
 GO
-ALTER TABLE [dbo].[UserOperations]  WITH CHECK ADD  CONSTRAINT [FK_UserOperations_Operations] FOREIGN KEY([OperationID])
+ALTER TABLE [dbo].[UserOperations]  ADD  CONSTRAINT [FK_UserOperations_Operations] FOREIGN KEY([OperationID])
 REFERENCES [dbo].[Operations] ([OperationID])
 GO
 

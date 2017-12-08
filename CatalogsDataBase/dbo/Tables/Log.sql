@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Log](
 	[LogID] [int] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NOT NULL,
-	[OperationID] [int] NOT NULL,
+	[OperationId] [int] NOT NULL,
 	[CreationDate] [datetime] NOT NULL DEFAULT ((GETDATE())),
  CONSTRAINT [PK_Log] PRIMARY KEY CLUSTERED 
 (

@@ -70,13 +70,13 @@ namespace CatalogManagement.Code.ConfigureEntitie
                         result.FechaCompra = DateTime.Now;
                         result.CompraDetalle = new List<CompraDetalle>();
                         result.CompraDetalle.Add(new CompraDetalle());
-                        model.SetAttributes(itemId, "Nueva Compra", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerCompras);
+                        model.SetAttributes(itemId, "Nueva Compra", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteCompras);
 
                     }
                     else // Editar
                     {
                         result = db2.Compra.Where(us => us.IdCompra == itemId).FirstOrDefault();
-                        model.SetAttributes(itemId, "Editar Compra", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerCompras);
+                        model.SetAttributes(itemId, "Editar Compra", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteCompras);
                     }
 
                     if (result != null)

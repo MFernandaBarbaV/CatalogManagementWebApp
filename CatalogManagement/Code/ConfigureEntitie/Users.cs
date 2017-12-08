@@ -40,18 +40,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
                         ButtonDissabled = false,
                         ButtonOperationId = (int)OperationsEnum.AsignarOperaciónaUsuario
                     });
-                    row.Columns.Add(new Column()
-                    {
-                        ColumnHeader = "Cerrar Sesión",
-                        Value = item.UserID.ToString(),
-                        ID = item.UserID.ToString(),
-                        Type = ColumnType.Button,
-                        ButtonText = "Cerrar Sesión",
-                        ButtonAction = "CloseUserSesion",
-                        ButtonController = "Catalog",
-                        ButtonDissabled = !item.IsActiveSession,
-                        ButtonOperationId = (int)OperationsEnum.CerrarSesionUsuario
-                    });
+                  
 
                     model.Rows.Add(row);
                 }

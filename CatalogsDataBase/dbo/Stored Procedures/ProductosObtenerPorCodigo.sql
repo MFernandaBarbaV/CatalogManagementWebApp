@@ -28,7 +28,7 @@ BEGIN
 	left join [dbo].Talla t on t.IdTalla = p.IdTalla
 	left join [dbo].TipoProducto tp on tp.IdTipoProducto = p.IdTipoProducto
 	left join [dbo].SubTipoProducto stp on stp.IdSubTipoProducto = p.IdSubTipoProducto
-	left join [dbo].Unidad u on u.idUnidad = p.IdUnidad
+	left join [dbo].Unidad u on u.IdUnidad = p.IdUnidad
 	left join [dbo].[Proveedor] prov on prov.IdProveedor = p.IdProveedor	
 	where p.Codigo = @codigo
 	order by p.Codigo

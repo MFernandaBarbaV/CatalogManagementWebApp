@@ -27,13 +27,13 @@ namespace CatalogManagement.Code.ConfigureEntitie
                     result = new Venta();
                     result.FechaVenta = DateTime.Now;
 
-                    model.SetAttributes(itemId, "Nueva Venta", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerCompras);
+                    model.SetAttributes(itemId, "Nueva Venta", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteVentas);
 
                 }
                 else // Editar
                 {
                     result = db2.Venta.Where(us => us.IdVenta == itemId).FirstOrDefault();
-                    model.SetAttributes(itemId, "Editar Venta", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerCompras);
+                    model.SetAttributes(itemId, "Editar Venta", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteVentas);
                 }
 
                 if (result != null)

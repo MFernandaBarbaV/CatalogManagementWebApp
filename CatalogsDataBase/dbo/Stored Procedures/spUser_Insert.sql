@@ -20,30 +20,11 @@ AS
 BEGIN
 
 	SET NOCOUNT OFF
-	--Valida que el nombre del usuario no este vacio o nulo
-	if @Name = '' or @Name is null
-	begin
-		raiserror('000024',15,1)
-		return
-	end
-	--Valida que el login del usuario no este vacio o nulo
-	if @Login = '' or @Login is null
-	begin
-		raiserror('000023',15,1)
-		return
-	end
-
-	--valida que el password no este vacio o nulo
-	if @Password = '' or @Password is null
-	begin
-		raiserror('000026',15,1)
-		return
-	end
 	
 	--valida que no se repita el login del usuario
 	if exists(select * from Users where [Login]=@Login)
 	begin
-		raiserror('000022',15,1)
+		raiserror('Ya existe un usuario con el mismo Login',15,1)
 		return
 	end
 	

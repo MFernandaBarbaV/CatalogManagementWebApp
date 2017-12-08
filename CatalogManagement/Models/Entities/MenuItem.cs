@@ -13,10 +13,10 @@ namespace CatalogManagement.Models.Entities
 
         public bool IsDropBox { get; set; }
 
-        public bool IsEnabled { get; set; }
+        public bool IsVisible { get; set; }
 
         public List<MenuItem> InnerItems { get; set; }
-        
+
         public string Action { get; set; }
 
         public string Controller { get; set; }
@@ -26,10 +26,29 @@ namespace CatalogManagement.Models.Entities
         public string OnFaliure { get; set; }
 
         public string Target { get; set; }
-        
+
+        public bool InnerItemsContainsVisible
+        {
+            get
+            {
+                if (InnerItems == null || InnerItems.Count == 0)
+                    return false;
+
+                if (InnerItems.FirstOrDefault(i=> i.IsVisible) == null)
+                    return false;
+
+                return true;
+            }
+        }
+
         /// <summary>
         /// Glyphicon or font-awesome
         /// </summary>
         public string Span { get; set; }
+
+        public MenuItem()
+        {
+            IsVisible = true;
+        }
     }
 }

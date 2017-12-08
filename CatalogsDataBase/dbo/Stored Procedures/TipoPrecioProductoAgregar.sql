@@ -10,7 +10,7 @@ BEGIN
 if exists (select top(1) * from [dbo].[TipoPrecioPorProducto] where IdTipoPrecio = @idTipoPrecio and IdProducto = @idProducto)
 	BEGIN
 		Update [dbo].[TipoPrecioPorProducto]
-		set Precio = @precio
+		set Precio = @Precio
 		where IdTipoPrecio = @IdTipoPrecio and IdProducto = @idProducto
 	END
 	ELSE

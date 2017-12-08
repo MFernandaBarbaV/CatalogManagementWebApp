@@ -20,113 +20,116 @@ namespace CatalogManagement.Code
         {
             model.ItemsInMenu = new List<MenuItem>();
 
-            model.ItemsInMenu.Add(new MenuItem()
-            {
-                Name = "Sesión",
-                Span = faIconss.user,
-                IsDropBox = true,
-                InnerItems = new List<MenuItem>()
+            model.ItemsInMenu.Add(
+                new MenuItem()
+                {
+                    Name = "Sesión",
+                    Span = faIconss.user,
+                    IsDropBox = true,
+                    InnerItems = new List<MenuItem>()
                 {
                     new MenuItem() { Name = "Cerrar sesión" , Controller = "Account", Action = "Logout" },
                }
-            });
+                });
 
-            model.ItemsInMenu.Add(new MenuItem()
-            {
-                Name = "Operaciones",
-                Span = faIconss.application,
-                IsDropBox = true,
-                InnerItems = new List<MenuItem>()
+            model.ItemsInMenu.Add(
+                new MenuItem()
                 {
-                    new MenuItem() { Name = "Operaciones", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerOperaciones, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerOperaciones) },
+                    Name = "Operaciones",
+                    Span = faIconss.application,
+                    IsDropBox = true,
+                    InnerItems = new List<MenuItem>()
+                      {
+                    new MenuItem() { Name = "Operaciones", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerOperaciones, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerOperaciones) },
+
+                      }
+                });
+            model.ItemsInMenu.Add(
+                new MenuItem()
+                {
+                    Name = "Usuarios",
+                    Span = faIconss.user,
+                    IsDropBox = true,
+                    InnerItems = new List<MenuItem>()
+                {
+                    new MenuItem() { Name = "Usuarios", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerUsuarios, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerUsuarios) },
+                }
+                });
+            model.ItemsInMenu.Add(
+                new MenuItem()
+                {
+                    Name = "Catalogos",
+                    Span = faIconss.bookmark,
+                    IsDropBox = true,
+                    InnerItems = new List<MenuItem>()
+                {
+                    new MenuItem() { Name = "Productos", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerProductos, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
+                    new MenuItem() { Name = "Proveedores", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerProveedores, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
+                    new MenuItem() { Name = "Clientes", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerClientes, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
+                    new MenuItem() { Name = "Marcas", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerMarcas, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
+                    new MenuItem() { Name = "Tipo de producto", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerTipoProducto, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
+                    new MenuItem() { Name = "Tallas", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerTallas, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
 
                 }
-            });
-
-            model.ItemsInMenu.Add(new MenuItem()
-            {
-                Name = "Usuarios",
-                Span = faIconss.user,
-                IsDropBox = true,
-                InnerItems = new List<MenuItem>()
+                });
+            model.ItemsInMenu.Add(
+                new MenuItem()
                 {
-                    new MenuItem() { Name = "Usuarios", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerUsuarios, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerUsuarios) },
-                }
-            });
-
-            model.ItemsInMenu.Add(new MenuItem()
-            {
-                Name = "Catalogos",
-                Span = faIconss.bookmark,
-                IsDropBox = true,
-                InnerItems = new List<MenuItem>()
+                    Name = "Gastos",
+                    Span = faIconss.shopping,
+                    IsDropBox = true,
+                    InnerItems = new List<MenuItem>()
                 {
-                    new MenuItem() { Name = "Productos", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerProductos, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
-                    new MenuItem() { Name = "Proveedores", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerProveedores, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
-                    new MenuItem() { Name = "Clientes", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerClientes, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
-                    new MenuItem() { Name = "Marcas", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerMarcas, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
-                    new MenuItem() { Name = "Tipo de producto", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerTipoProducto, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
-                    new MenuItem() { Name = "Tallas", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerTallas, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
+                  new MenuItem() { Name = "Nuevo Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)OperationsEnum.NuevoGasto, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.NuevoGasto) },
+                  new MenuItem() { Name = "Tipo de Gasto", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerTipoGasto, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerTipoGasto) },
+                  new MenuItem() { Name = "Nueva Compra", Controller = "Catalog", Action = "NewItem", OperationId = (int)OperationsEnum.NuevaCompra, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.NuevaCompra) },
 
                 }
-            });
-
-            model.ItemsInMenu.Add(new MenuItem()
-            {
-                Name = "Gastos",
-                Span = faIconss.shopping,
-                IsDropBox = true,
-                InnerItems = new List<MenuItem>()
+                });
+            model.ItemsInMenu.Add(
+                new MenuItem()
                 {
-                  new MenuItem() { Name = "Nuevo Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)OperationsEnum.NuevoGasto, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.NuevoGasto) },
-                  new MenuItem() { Name = "Nuevo Tipo de Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)OperationsEnum.NuevoTipoGasto, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.NuevoTipoGasto) },
-                  new MenuItem() { Name = "Nueva Compra", Controller = "Catalog", Action = "NewItem", OperationId = (int)OperationsEnum.NuevaCompra, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.NuevaCompra) },
+                    Name = "Ventas",
+                    Span = faIconss.money,
+                    IsDropBox = true,
+                    InnerItems = new List<MenuItem>()
+                {
+                   new MenuItem() { Name = "Nueva Venta", Controller = "Catalog", Action = "NewItem", OperationId = (int)OperationsEnum.NuevaVenta, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.NuevaVenta) },
 
                 }
-            });
-
-            model.ItemsInMenu.Add(new MenuItem()
-            {
-                Name = "Ventas",
-                Span = faIconss.money,
-                IsDropBox = true,
-                InnerItems = new List<MenuItem>()
+                });
+            model.ItemsInMenu.Add(
+                new MenuItem()
                 {
-                   new MenuItem() { Name = "Nueva Venta", Controller = "Catalog", Action = "NewItem", OperationId = (int)OperationsEnum.NuevaVenta, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.NuevaVenta) },
-
-                }
-            });
-
-            model.ItemsInMenu.Add(new MenuItem()
-            {
-                Name = "Reportes",
-                Span = faIconss.filter,
-                IsDropBox = true,
-                InnerItems = new List<MenuItem>()
+                    Name = "Reportes",
+                    Span = faIconss.filter,
+                    IsDropBox = true,
+                    InnerItems = new List<MenuItem>()
                 {
-                    new MenuItem() { Name = "Reporte de Gastos", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteGastos, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGastos) },
-                    new MenuItem() { Name = "Reporte de Compras", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteCompras, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteCompras) },
-                    new MenuItem() { Name = "Reporte de Ventas", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteVentas, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteVentas) },
-                    new MenuItem() { Name = "Balance", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerBalance, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerBalance) },
+                    new MenuItem() { Name = "Reporte de Gastos", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteGastos, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGastos) },
+                    new MenuItem() { Name = "Reporte de Compras", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteCompras, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteCompras) },
+                    new MenuItem() { Name = "Reporte de Ventas", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteVentas, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteVentas) },
+                    new MenuItem() { Name = "Balance", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerBalance, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerBalance) },
                 }
 
-            });
-
-            model.ItemsInMenu.Add(new MenuItem()
-            {
-                Name = "SUPERTICKET",
-                Span = faIconss.filter,
-                IsDropBox = true,
-                InnerItems = new List<MenuItem>()
+                });
+            model.ItemsInMenu.Add(
+                new MenuItem()
                 {
-                    new MenuItem() { Name = "Tickets", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteVentasSUPERTICKET, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteVentasSUPERTICKET) },
-                    new MenuItem() { Name = "Ganancia por ticket", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteGananciaTicketSUPERTICKET, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGananciaTicketSUPERTICKET) },
-                    new MenuItem() { Name = "Ganancia por producto", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteGananciaProductoSUPERTICKET, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGananciaProductoSUPERTICKET) },
-                   new MenuItem() { Name = "Reporte mensual", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteVentasMesSUPERTICKET, IsEnabled = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteVentasMesSUPERTICKET) },
+                    Name = "SUPERTICKET",
+                    Span = faIconss.filter,
+                    IsDropBox = true,
+                    InnerItems = new List<MenuItem>()
+                {
+                    new MenuItem() { Name = "Tickets", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteVentasSUPERTICKET, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteVentasSUPERTICKET) },
+                    new MenuItem() { Name = "Ganancia por ticket", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteGananciaTicketSUPERTICKET, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGananciaTicketSUPERTICKET) },
+                    new MenuItem() { Name = "Ganancia por producto", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteGananciaProductoSUPERTICKET, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGananciaProductoSUPERTICKET) },
+                   new MenuItem() { Name = "Reporte mensual", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteVentasMesSUPERTICKET, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteVentasMesSUPERTICKET) },
 
                 }
 
-            });
+
+                });
         }
 
         //PASO #2: Configurar las columnas que se mostrarán al VER el catálogo
@@ -172,7 +175,7 @@ namespace CatalogManagement.Code
                         break;
 
                     default:
-                        errorMessage = "Modulo no implementado en Configure.LoadViewCatalog: " + ((OperationsEnum)operationId).ToString("g");
+                     //   errorMessage = "Modulo no implementado en Configure.LoadViewCatalog: " + ((OperationsEnum)operationId).ToString("g");
                         break;
                 };
             }
@@ -316,7 +319,7 @@ namespace CatalogManagement.Code
                     case OperationsEnum.NuevaCompra:
                         result = ConfigureEntitie.Purchases.New(model, userId, ref errorMessage, out id);
                         break;
-               
+
                     case OperationsEnum.NuevaVenta:
                         result = ConfigureEntitie.Sales.New(model, userId, ref errorMessage, out id);
                         break;

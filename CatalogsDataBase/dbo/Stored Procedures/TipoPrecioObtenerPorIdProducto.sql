@@ -13,7 +13,7 @@ BEGIN
 	SELECT distinct
 	catalogo.IdTipoPrecio,
 	catalogo.Descripcion as TipoPrecio,
-	tp.precio,
+	tp.Precio,
 --	ISNULL(tp.Precio,( select round( p.Costo * catalogo.Multiplicador,1) from dbo.Producto p where p.IdProducto = @IdProducto)) Precio, 
 	ISNULL(tp.SeUsa, 0) Seleccion ,
 	catalogo.Multiplicador, catalogo.CantidadPiezas 

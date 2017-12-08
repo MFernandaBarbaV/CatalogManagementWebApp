@@ -1,8 +1,8 @@
-﻿
+﻿-- exec [dbo].[spUser_DoLogin] 'axel', 'QUJDLzEyMyo0NTZfNzg5LkFCQy8xMjMqNDU2Xzc4OS4iK92+pmReSLUJuXoVylIv'
 CREATE PROCEDURE [dbo].[spUser_DoLogin]
 (
 	@Login varchar(50),
-	@Password nvarchar(64)
+	@Password nvarchar(300)
 )
 AS
 BEGIN
@@ -15,7 +15,7 @@ BEGIN
                 U.CreateDate,  U.IsReadOnly, U.IsFirstSession, U.IsActiveSession, 
                 Status.Name AS StatusName, NEWID() AS Ticket, u.LastLogin
 	FROM Users AS U 
-	INNER JOIN Status 
+	LEFT JOIN Status 
 	ON U.StatusID = Status.StatusID
 	WHERE(U.Login = @Login) AND (U.Password = @Password) AND U.StatusID <> @IdStatusDelete
 	

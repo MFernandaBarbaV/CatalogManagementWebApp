@@ -30,8 +30,8 @@ namespace CatalogManagement.Models.Entities
                         return ObjectValue.ToString();
                     if (DateValue != DateTime.MinValue)
                         return DateValue.ToString();
-                    if (DecimalValue != decimal.MinValue)
-                        return DecimalValue.ToString();
+                    //if (DecimalValue != decimal.MinValue)
+                    //    return DecimalValue.ToString();
                 }
 
                 return _value;
@@ -90,6 +90,13 @@ namespace CatalogManagement.Models.Entities
 
         }
 
+        public Propertie(int maxLenght, int minLenght = 0) : this()
+        {
+            this.MaxLenght = maxLenght;
+            this.MinLenght = minLenght;
+
+        }
+
         private void GenerateRegex(bool numbers, bool spaces, int minLenght, int maxLenght, bool specialChars)
         {
 
@@ -123,11 +130,7 @@ namespace CatalogManagement.Models.Entities
 
         }
 
-        public Propertie(int maxLenght, int minLenght = 0)
-        {
-            this.MaxLenght = maxLenght;
-            this.MinLenght = minLenght;
-        }
+
 
 
     }
