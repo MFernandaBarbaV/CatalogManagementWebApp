@@ -18,7 +18,16 @@ BEGIN
 	
 	IF EXISTS (SELECT IdProducto FROM [dbo].[Producto] WHERE Codigo = @Codigo)
 	BEGIN
-		RAISERROR('El codigo insertado ya esta usado en otro producto.',16,1)
+		declare @DESC nvarchar(20) set @DESC= (SELECT Descripcion FROM [dbo].[Producto] WHERE Codigo = @Codigo)
+		RAISERROR('El código insertado ya esta usado en el producto ''%s''.',16,1,@DESC)
+		RETURN;
+	END
+	else IF EXISTS (SELECT IdProducto FROM [dbo].CodigoBarras WHERE CodigoBarras = @Codigo)
+	BEGIN
+		declare @var6 nvarchar(50) set @var6 = (select top(1) Descripcion from dbo.Producto where IdProducto = (select top(1) IdProducto from dbo.Precio where Codigo=@Codigo))
+
+	raiserror('El código ''%s'' seleccionado ya existe para el producto  %s',  16,1,@Codigo,@var6)
+	
 		RETURN;
 	END
 
@@ -31,7 +40,6 @@ BEGIN
            ,[IdMarca]
            ,[IdProveedor]
            ,[IdTalla]
-           ,[IdUnidad]
            ,[Imagen]
 		   ,[PrecioVenta]
 		   ,[IdGenero])
@@ -44,12 +52,15 @@ BEGIN
            ,@IdMarca
            ,@IdProveedor
            ,@IdTalla
-           ,1
            ,@Imagen
 		   ,@Precio
 		   ,@IdGenero)
+		   	
+			Declare @IdProducto int set @IdProducto = cast(SCOPE_IDENTITY() as int)
+			insert into [dbo].[PrecioHistorial] (IdProducto, Costo) values (@IdProducto, @Precio)
+	SELECT @IdProducto AS IdProducto
 
-	SELECT cast(SCOPE_IDENTITY() as int) AS IdProducto
+	
 END
 
 

@@ -150,7 +150,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
                         IdTipoProducto = model.GetValuePropertieInteger("IdTipoProducto")
                     };
 
-                    var resultProductoAgregar = db2.ProductoModificar(producto.Descripcion, producto.Codigo, producto.IdTipoProducto, producto.IdSubTipoProducto, producto.IdMarca, producto.IdProveedor, 0, producto.IdUnidad, producto.IdGenero, null, producto.IdProducto);
+                  //  var resultProductoAgregar = db2.ProductoModificar(producto.Descripcion, producto.Codigo, producto.IdTipoProducto, producto.IdSubTipoProducto, producto.IdMarca, producto.IdProveedor, 0, producto.IdUnidad, producto.IdGenero, null, producto.IdProducto);
 
                     db2.SaveChanges();
                     return true;

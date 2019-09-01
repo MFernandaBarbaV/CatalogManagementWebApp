@@ -2,98 +2,50 @@
 -- EXEC [dbo].[VentaDetalleAgregar] 4, 1, 1, 14, 10, 100
 -- =============================================
 CREATE PROCEDURE [dbo].[VentaDetalleAgregar]
-	@IdVenta int, @IdProducto int, @IdUnidad int, @Cantidad int, @PrecioUnitario money , @PrecioTotal money
+	@IdVenta int, @IdProducto int, @IdPresentacion int, @Cantidad int, @PrecioUnitario money ,
+	@PrecioTotal money, @IdTipoPrecio int, @Descuento money, @IdAlmacen smallint
 AS
 BEGIN
 
-	DECLARE @CantidadPorUnidad int
-	set @CantidadPorUnidad = (select Cantidad from dbo.Unidad where IdUnidad = @IdUnidad)
-	PRINT 'Cantidad por unidad'
-	PRINT @CantidadPorUnidad
+	 PRINT 'IdVenta'
+		   PRINT @IdVenta
 
-	DECLARE @IdCompra int, 
-			@ExistenciaEnElLote int , 
-			@CantidadPendiente int 
-			set @CantidadPendiente = @Cantidad * @CantidadPorUnidad
-		
-	PRINT 'Cantidad pendiente 1'
-	PRINT @CantidadPendiente
+	declare @cantidadPresentacion int set @cantidadPresentacion= (select top(1) Piezas from dbo.Presentacion where IdPresentacion = @IdPresentacion)
+	 declare @costo money set @costo= (select top(1) PrecioVenta * @Cantidad * @cantidadPresentacion from dbo.Producto where IdProducto = @IdProducto)
 
-	DECLARE db_cursor CURSOR FOR  
-		SELECT IdCompraDetalle 
-		FROM [dbo].[CompraDetalle] 
-		WHERE IdProducto = @IdProducto AND Existencia > 0 
-	OPEN db_cursor   
-	FETCH NEXT FROM db_cursor INTO @IdCompra   
-
-	WHILE @@FETCH_STATUS = 0   
-	BEGIN   
-		   PRINT 'IdCompraDetalle'
-		   PRINT @IdCompra
-
-		   SET @ExistenciaEnElLote = (select Existencia from [dbo].[CompraDetalle] where IdCompraDetalle = @IdCompra)
-		   
-		   PRINT 'EXISTENCIA EN EL LOTE'
-		   PRINT @ExistenciaEnElLote
-
-		   PRINT 'Cantidad pendiente'
-		   PRINT @CantidadPendiente
-		   
-		   IF(@CantidadPendiente > 0)
-		   BEGIN
-
-			   IF(@ExistenciaEnElLote >= @CantidadPendiente)
-			   BEGIN
-					PRINT 'SI ALCANZA'
-
-					UPDATE [dbo].[CompraDetalle]
-					SET Existencia = (Existencia  )- @CantidadPendiente
-					WHERE IdCompraDetalle = @IdCompra
-
-					SET @CantidadPendiente = 0
-			   END
-			   ELSE
-			   BEGIN
-					PRINT 'NO ALCANZA'
-					SET @CantidadPendiente = @CantidadPendiente - @ExistenciaEnElLote
-
-					UPDATE [dbo].[CompraDetalle]
-					SET Existencia = 0
-					WHERE IdCompraDetalle = @IdCompra
-			   END
-
-		   END
-
-		   FETCH NEXT FROM db_cursor INTO @IdCompra   
-	END   
-
-	CLOSE db_cursor   
-	DEALLOCATE db_cursor
-
-
-
+	
 	INSERT INTO [dbo].[VentaDetalle]
            ([IdVenta]
            ,[IdProducto]
-           ,[IdUnidad]
+           ,[IdPresentacion]
+           ,[IdTipoPrecio]
            ,[Cantidad]
            ,[PrecioUnitario]
-           ,[PrecioTotal])
+           ,[PrecioTotal]
+           ,[Descuento]
+		   ,CostoUnitario)
      VALUES
            (@IdVenta
            ,@IdProducto
-           ,@IdUnidad
+           ,@IdPresentacion
+		   ,@IdTipoPrecio
            ,@Cantidad
            ,@PrecioUnitario
-           ,@PrecioTotal)
+           ,@PrecioTotal
+		   ,@Descuento
+		   ,@costo)
 
 		   PRINT 'Cantidad'
 		   PRINT @Cantidad
-	SELECT @Cantidad = @Cantidad * Cantidad FROM [dbo].[Unidad] where [IdUnidad] = @IdUnidad
+
+	SELECT @Cantidad = @Cantidad * Piezas FROM [dbo].[Presentacion] where [IdPresentacion] = @IdPresentacion
 	   PRINT @Cantidad
-    UPDATE [dbo].[Producto]
-	SET Cantidad = Cantidad - @Cantidad
-	where IdProducto = @IdProducto
+	   	  
+	exec ExistenciaPorAlmacenModificar @IdProducto, @Cantidad, 1, @IdAlmacen
+
+	exec CantidadVendidaEnCompraModificar @IdProducto, @Cantidad, 1
+	    
+	exec dbo.VentaInsertarCosto @IdVenta
 
 	SELECT SCOPE_IDENTITY() AS IdVentaDetalle
 

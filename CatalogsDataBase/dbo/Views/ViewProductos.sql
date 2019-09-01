@@ -1,7 +1,7 @@
 ﻿CREATE VIEW dbo.ViewProductos
 AS
 SELECT        dbo.Producto.IdProducto, dbo.Producto.Descripcion, dbo.Producto.Codigo, dbo.Producto.Cantidad, dbo.Producto.PrecioVenta, dbo.CompraDetalle.Cantidad AS Expr1, dbo.CompraDetalle.IdProducto AS Expr2, 
-                         dbo.CompraDetalle.IdUnidad, dbo.CompraDetalle.Existencia, dbo.VentaDetalle.IdProducto AS Expr3, dbo.VentaDetalle.IdUnidad AS Expr4, dbo.VentaDetalle.Cantidad AS Expr5
+                         dbo.CompraDetalle.Existencia, dbo.VentaDetalle.IdProducto AS Expr3, dbo.VentaDetalle.IdPresentacion AS Expr4, dbo.VentaDetalle.Cantidad AS Expr5
 FROM            dbo.Producto INNER JOIN
                          dbo.CompraDetalle ON dbo.Producto.IdProducto = dbo.CompraDetalle.IdProducto INNER JOIN
                          dbo.VentaDetalle ON dbo.Producto.IdProducto = dbo.VentaDetalle.IdProducto

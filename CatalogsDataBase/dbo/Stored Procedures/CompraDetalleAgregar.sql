@@ -1,55 +1,48 @@
-﻿-- =============================================
--- EXEC  [dbo].[CompraDetalleAgregar] 4, 1, 2, 2, 5, 15
--- =============================================
+﻿
 CREATE PROCEDURE [dbo].[CompraDetalleAgregar]
-	-- Add the parameters for the stored procedure here
-	@IdCompra int, @IdProducto int, @IdUnidad int, @Cantidad int, 
-	@CostoUnitario money, @CostoTotal money
+
+	@IdCompra int, @IdProducto int, @IdPresentacion int,  @Cantidad int, 
+	@CostoUnitario money, @CostoTotal money, @ModificarCosto bit, @FletePPieza money, @IdAlmacen int
 AS
 BEGIN
-	DECLARE @IdLote int 
-	set @IdLote= 1
 
-	SELECT @IdLote = max([Lote]) + 1 FROM [dbo].[CompraDetalle] WHERE IdProducto = @IdProducto
-		
-		--si la cantidad actual es negativa, se lo tengo que restar al nuevo lote
-	DECLARE @CantidadFaltante int
-	set @CantidadFaltante = 0
-	if exists (select cantidad from dbo.Producto where IdProducto = @IdProducto and Cantidad < 0)
-	begin
-		set	@CantidadFaltante = (select Cantidad from dbo.Producto where IdProducto = @IdProducto)
-	end
+	declare @CantidadPorUnidad INT 
+	SET @CantidadPorUnidad= (SELECT TOP 1 [Piezas]  FROM [dbo].[Presentacion] WHERE IdPresentacion = @IdPresentacion)
 
-	declare @CantidadPorUnidad int 
-	set @CantidadPorUnidad= (select Cantidad from dbo.Unidad where IdUnidad = @IdUnidad)
+	declare @Exist INT
+
+	SET @Exist = (SELECT TOP(1) Cantidad FROM dbo.Producto WHERE IdProducto = @IdProducto)
+
+
 
 	INSERT INTO [dbo].[CompraDetalle]
            ([IdCompra]
            ,[IdProducto]
-           ,[IdUnidad]
+           ,[IdPresentacion]
            ,[Cantidad]
            ,[CostoUnitario]
            ,[CostoTotal]
            ,[Existencia]
-           ,[Lote]
-           ,[GananciaDeLote])
+           ,[CantidadVendida])
      VALUES
            (@IdCompra
            ,@IdProducto
-           ,1
-           ,@Cantidad * @CantidadPorUnidad
-           ,@CostoUnitario / @CantidadPorUnidad
+           ,@IdPresentacion
+           ,@Cantidad
+           ,@CostoUnitario
            ,@CostoTotal
-		   ,(Select Case When ( @Cantidad * @CantidadPorUnidad )+ @CantidadFaltante < 0 
-                   Then 0 else ( @Cantidad * @CantidadPorUnidad )+ @CantidadFaltante  End)
-           ,ISNULL(@IdLote,1)
+           ,isnull(@Exist,0)
            ,0)
-	
-	
-	
-	UPDATE [dbo].[Producto]
-	SET Cantidad = Cantidad + @Cantidad * @CantidadPorUnidad
-	where IdProducto = @IdProducto
+		
+		
+		set @Cantidad = @Cantidad * @CantidadPorUnidad
+		exec ExistenciaPorAlmacenModificar @IdProducto, @Cantidad, 0, @IdAlmacen, 0
+
+		if @ModificarCosto = 1
+		begin
+			set @CostoUnitario = (@CostoUnitario/@CantidadPorUnidad )+ @FletePPieza
+			exec ProductoCostoModificar @IdProducto, @CostoUnitario
+		end
 
 	SELECT cast(SCOPE_IDENTITY() as int) AS IdCompraDetalle
 

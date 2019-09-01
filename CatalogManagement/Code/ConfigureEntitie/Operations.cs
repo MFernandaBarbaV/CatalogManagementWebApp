@@ -20,7 +20,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
                     row.Columns = new List<Column>();
                     row.Columns.Add(new Column() { ColumnHeader = "Id", Value = item.OperationID.ToString(), ID = item.OperationID.ToString() });
                     row.Columns.Add(new Column() { ColumnHeader = "Nombre", Value = item.Name.ToString(), ID = item.OperationID.ToString() });
-                    row.Columns.Add(new Column() { ColumnHeader = "Id De Sistema", Value = item.SysOperation.ToString(), ID = item.OperationID.ToString() });
+                  //  row.Columns.Add(new Column() { ColumnHeader = "Id De Sistema", Value = item.SysOperation.ToString(), ID = item.OperationID.ToString() });
                    model.Rows.Add(row);
                 }
             }
@@ -50,7 +50,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
                 {
                     model.Properties = new List<Propertie>();
                     model.Properties.Add(new Propertie() { Id = "Name", Label = "Nombre", Value = resultOperation.Name, RegEx = Utils.GenerateRegex(true, true, false, true, 1, 30, true, false, ref messageValidation), ErrorMessage = messageValidation });
-                    model.Properties.Add(new Propertie() { Id = "SysOperation", Label = "Id de Sistema", Value = resultOperation.SysOperation.ToString(), Type = PropertieType.TextBox, IsEnabled = itemId == 0, RegEx = Utils.OnlyNumber, ErrorMessage = Utils.ErrorOnlyNumber });
+                  //  model.Properties.Add(new Propertie() { Id = "SysOperation", Label = "Id de Sistema", Value = resultOperation.SysOperation.ToString(), Type = PropertieType.TextBox, IsEnabled = itemId == 0, RegEx = Utils.OnlyNumber, ErrorMessage = Utils.ErrorOnlyNumber });
 
                   
                 }

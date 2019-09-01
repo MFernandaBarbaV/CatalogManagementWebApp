@@ -12,18 +12,23 @@ CREATE PROCEDURE [dbo].[ProductoModificar]
 		,@IdMarca int
 		,@IdProveedor int
 		,@IdTalla int
-		,@IdUnidad int = null
+		--,@IdUnidad int = null
 		,@IdGenero int
 		,@Imagen image = null,
-		@IdProducto int
+		@IdProducto int,
+		@Precio money
 AS
 BEGIN
 
 	IF EXISTS (SELECT IdProducto FROM [dbo].[Producto] WHERE Codigo = @Codigo and IdProducto != @IdProducto)
 	BEGIN
-		RAISERROR('El codigo insertado ya esta usado en otro producto.',16,1)
+		RAISERROR('El código insertado ya esta usado en otro producto.',16,1)
 		RETURN;
 	END
+	IF @Precio != (SELECT PrecioVenta FROM [dbo].[Producto] WHERE IdProducto = @IdProducto)
+	begin
+		insert into [dbo].[PrecioHistorial] (IdProducto, Costo) values (@IdProducto, @Precio)
+	end
 
 	UPDATE [dbo].[Producto]
 	   SET [Descripcion] = @Descripcion
@@ -36,6 +41,7 @@ BEGIN
 		 -- ,[IdUnidad] = @IdUnidad
 		 -- ,[Imagen] = @Imagen
 		  ,[IdGenero] = @IdGenero
+		  ,[PrecioVenta] = @Precio
 	 WHERE IdProducto = @IdProducto
 END
 

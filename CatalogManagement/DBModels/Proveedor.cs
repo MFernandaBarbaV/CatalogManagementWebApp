@@ -25,9 +25,16 @@ namespace CatalogManagement.DBModels
         public string NombreProveedor { get; set; }
         public string Telefono { get; set; }
         public string Dirección { get; set; }
+        public string NumeroInterior { get; set; }
+        public string NumeroExterior { get; set; }
+        public string Colonia { get; set; }
+        public string CodigoPostal { get; set; }
+        public string Ciudad { get; set; }
+        public string Estado { get; set; }
         public string InformacionBancaria { get; set; }
         public string Email { get; set; }
-        public Nullable<byte> DiasCredito { get; set; }
+        public byte DiasCredito { get; set; }
+        public decimal Adeudo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compra> Compra { get; set; }

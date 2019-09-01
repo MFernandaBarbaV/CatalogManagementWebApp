@@ -1,193 +1,148 @@
 ﻿
-SET IDENTITY_INSERT [dbo].[Status] ON
+SET IDENTITY_INSERT [dbo].[Estatus] ON
 GO
-MERGE INTO [dbo].[Status] AS Target
+MERGE INTO [dbo].[Estatus] AS Target
 USING (VALUES
-  (1,N'Activo')
-) AS Source ([StatusID],[Name])
-ON (Target.[StatusID] = Source.[StatusID])
+  (1,N'Activo'),
+  (2,N'Cancelado')
+) AS Source ([IdEstatus],[Descripcion])
+ON (Target.[IdEstatus] = Source.[IdEstatus])
 WHEN MATCHED AND (
-	NULLIF(Source.[Name], Target.[Name]) IS NOT NULL OR NULLIF(Target.[Name], Source.[Name]) IS NOT NULL) THEN
+	NULLIF(Source.[Descripcion], Target.[Descripcion]) IS NOT NULL OR NULLIF(Target.[Descripcion], Source.[Descripcion]) IS NOT NULL) THEN
  UPDATE SET
-  [Name] = Source.[Name]
+  [Descripcion] = Source.[Descripcion]
 WHEN NOT MATCHED BY TARGET THEN
- INSERT([StatusID],[Name])
- VALUES(Source.[StatusID],Source.[Name])
+ INSERT([IdEstatus],[Descripcion])
+ VALUES(Source.[IdEstatus],Source.[Descripcion])
 WHEN NOT MATCHED BY SOURCE THEN 
  DELETE;
 GO
-SET IDENTITY_INSERT [dbo].[Status] OFF
+SET IDENTITY_INSERT [dbo].[Estatus] OFF
 GO
 
 
 
-SET IDENTITY_INSERT [dbo].[Operations] ON
-GO
-MERGE INTO [dbo].[Operations] AS Target
-USING (VALUES
- (1,N'Inicio de Sesión',1,0),
-(2,N'Ver Usuarios',2,0),
-(3,N'Editar Usuarios',3,0),
-(4,N'Nuevo Usuario',4,0),
-(5,N'Ver Operaciones',5,0),
-(6,N'Asignar Operación a Usuario',6,0),
-(7,N'Nueva Compra',7,0),
-(8,N'Ver ReporteCompras',8,0),
-(9,N'Eliminar Compra',9,0),
-(10,N'Nuevo Gasto',10,0),
-(11,N'Ver ReporteGastos',11,0),
-(12,N'Editar Gasto',12,0),
-(13,N'Eliminar Gasto',13,0),
-(14,N'Ver TipoGasto',14,0),
-(15,N'Editar TipoGasto',15,0),
-(16,N'Nuevo TipoGasto',16,0),
-(17,N'Ver Ventas',17,0),
-(18,N'Nueva Venta',18,0),
-(19,N'Ver ReporteVentas',19,0),
-(20,N'Ver Balance',20,0),
-(21,N'Ver Productos',21,0),
-(22,N'Nuevo Producto',22,0),
-(23,N'Editar Producto',23,0),
-(24,N'Ver Proveedores',24,0),
-(25,N'Editar Proveedor',25,0),
-(26,N'Nuevo Proveedor',26,0),
-(27,N'Ver Clientes',27,0),
-(28,N'Editar Cliente',28,0),
-(29,N'Nuevo Cliente',29,0),
-(30,N'Ver Marcas',30,0),
-(31,N'Editar Marca',31,0),
-(32,N'Nueva Marca',32,0),
-(33,N'Ver TipoProducto',33,0),
-(34,N'Editar TipoProducto',34,0),
-(35,N'Nuevo TipoProducto',35,0),
-(36,N'Ver Tallas',36,0),
-(37,N'Nueva Talla',37,0),
-(38,N'Editar Talla',38,0),
-(1000,N'Ver Reporte de Ganancia por Ticket - SUPERTICKET',1000,0),
-(1001,N'Ver Reporte de GananciaProducto - SUPERTICKET',1001,0),
-(1002,N'Ver Reporte de Ventas por Mes - SUPERTICKET',1002,0),
-(1003,N'Ver Reporte de Ventas - SUPERTICKET',1003,0)
-
-) AS Source ([OperationID],[Name],[SysOperation],[IsReadOnly])
-ON (Target.[OperationID] = Source.[OperationID])
+SET IDENTITY_INSERT operaciones ON
+go
+MERGE INTO operaciones AS Target
+	USING (VALUES
+	(0, 'IniciarSesion'),
+	(1, 'HacerVenta'),
+(2, 'EliminarVenta'),
+(3, 'DarDescuentoEnVenta'),
+(4, 'EliminarPagoEnVenta'),
+(5, 'VerProductos'),
+(6, 'NuevoProducto'),
+(7, 'EditarProducto'),
+(8, 'EliminarProducto'),
+(9, 'VerCostoProducto'),
+(10, 'VerClientes'),
+(11, 'NuevoCliente'),
+(12, 'EditarCliente'),
+(13, 'EliminarCliente'),
+(14, 'VerProveedores'),
+(15, 'NuevoProveedor'),
+(16, 'EditarProveedores'),
+(17, 'EliminarProveedor'),
+(18, 'VerVentasDiarias'),
+(19, 'VerCostosEnReportes'),
+(20, 'HacerCorteX'),
+(21, 'HacerCorteY'),
+(22, 'VerCompras'),
+(23, 'NuevaCompra'),
+(24, 'EditarCompra'),
+(25, 'EliminarCompra'),
+(26, 'EliminarPagoEnCompra'),
+(27, 'MovimientosDeInventario'),
+(28, 'HacerDevolucion'),
+(29, 'VerUsuarios'),
+(30, 'NuevoUsuario'),
+(31, 'EditarUsuarios'),
+(32, 'VerOperaciones'),
+(33, 'AsignarOperaciónaUsuario'),
+(34, 'VerMarcas'),
+(35, 'NuevaMarca'),
+(36, 'EditarMarcas'),
+(37, 'EliminarMarcas'),
+(38, 'VerTipoProducto'),
+(39, 'NuevoTipoProducto'),
+(40, 'EditarTipoProducto'),
+(41, 'EliminarTipoProducto'),
+(42, 'VerTallas'),
+(43, 'NuevaTalla'),
+(44, 'EditarTalla'),
+(45, 'EliminarTalla'),
+(46, 'VerInventarioFisico'),
+(47, 'NuevoInventarioFisico'),
+(48, 'EditarInventarioFisico'),
+(49, 'EliminarInventarioFisico'),
+(50, 'VerReporteDeVentasPrincipal')
+) AS Source (idoperacion,descripcion)
+ON (Target.[IdOperacion] = Source.idoperacion)
 WHEN MATCHED AND (
-	NULLIF(Source.[Name], Target.[Name]) IS NOT NULL OR NULLIF(Target.[Name], Source.[Name]) IS NOT NULL OR 
-	NULLIF(Source.[SysOperation], Target.[SysOperation]) IS NOT NULL OR NULLIF(Target.[SysOperation], Source.[SysOperation]) IS NOT NULL OR 
-	NULLIF(Source.[IsReadOnly], Target.[IsReadOnly]) IS NOT NULL OR NULLIF(Target.[IsReadOnly], Source.[IsReadOnly]) IS NOT NULL) THEN
+	NULLIF(Source.descripcion, Target.descripcion) IS NOT NULL OR NULLIF(Target.descripcion, Source.descripcion) IS NOT NULL)  THEN
  UPDATE SET
-  [Name] = Source.[Name], 
-  [SysOperation] = Source.[SysOperation], 
-  [IsReadOnly] = Source.[IsReadOnly]
+  descripcion = Source.descripcion
 WHEN NOT MATCHED BY TARGET THEN
- INSERT([OperationID],[Name],[SysOperation],[IsReadOnly])
- VALUES(Source.[OperationID],Source.[Name],Source.[SysOperation],Source.[IsReadOnly])
+ INSERT(idoperacion, descripcion)
+ VALUES(Source.idoperacion,Source.descripcion)
 WHEN NOT MATCHED BY SOURCE THEN 
- DELETE;
+ DELETE
+;
 GO
-SET IDENTITY_INSERT [dbo].[Operations] OFF
+SET IDENTITY_INSERT operaciones OFF
 GO
 
 
 
 
 
-SET IDENTITY_INSERT [dbo].[Users] ON
-GO
-MERGE INTO [dbo].[Users] AS Target
+SET IDENTITY_INSERT [dbo].[usuario] ON
+go
+MERGE INTO [dbo].[usuario] AS Target
 USING (VALUES
-  (1,N'María Fernanda',N'Barba',N'Velázquez',N'Tierra del Fuego',44630,N'ma.fer.bv23@gmail.com',N'Ing. de Software',N'Fer',N'Fer',N'QUJDLzEyMyo0NTZfNzg5LkFCQy8xMjMqNDU2Xzc4OS6TxFB6y2snIZx65+bj58TA',1,'2017-09-11T19:54:40.290',0,0,0,'2017-09-29T19:09:43.923')
-
-) AS Source ([UserID],[Name],[LastName],[Surname],[Address],[ZipCode],[Email],[Position],[ShortName],[Login],[Password],[StatusID],[CreateDate],[IsReadOnly],[IsFirstSession],[IsActiveSession],[LastLogin])
-ON (Target.[UserID] = Source.[UserID])
+  (1,N'AXEL MURGUIA',NULL,N'axelboneteria@gmail.com ',N'1723',1,N'36503725',N'3313379454',0.0000,'1988-05-23T00:00:00','2017-03-08T00:00:00',NULL)
+ ,(2,N'MOISES MURGUIA',NULL,NULL,N'1212',1,NULL,NULL,0.0000,'1990-09-01T00:00:00','2018-11-09T00:00:00',NULL)
+ ,(3,N'FERNANDA BARBA',N'LA MISMA DE SU ESPOSO ',NULL,N'0323',1,NULL,NULL,0.0000,'1990-10-23T00:00:00','2018-08-20T00:00:00',NULL)
+ ,(4,N'MARIANA LIZETH HUERECA PONCE',N'OASIS 155-B ',N'8 - junio - 2001',N'1234',1,NULL,N'3314169546',0.0000,'2019-01-01T00:00:00','2018-11-08T00:00:00',NULL)
+ ,(5,N'JOSELYN MARTINEZ',NULL,NULL,N'1203',2,NULL,NULL,0.0000,'2019-01-01T00:00:00','2017-02-06T00:00:00',NULL)
+ ,(6,N'KEYLA PALOMAR VILLASEÑOR',N'ZAPOPAN ',N'13 - noviembre - 2001 ',N'1311',1,NULL,N'3338747991',0.0000,'2001-11-13T00:00:00','2017-08-29T00:00:00',NULL)
+ ,(7,N'LITZY DEMY MAGAÑA ',NULL,NULL,N'',2,N'3322016810',NULL,0.0000,'2019-01-01T00:00:00','2018-02-27T00:00:00',NULL)
+ ,(8,N'JOANNA JANETH OLIVA RIOS',N'PRIVADA AEROMEXICO #12',NULL,N'1478',2,NULL,N'3326049415',0.0000,'2019-01-01T00:00:00','2018-11-16T00:00:00',NULL)
+) AS Source ([IdUsuario],[Nombre],[Direccion],[Email],[Contraseña],[IdEstatus],[Telefono],[Celular],[SueldoBase],[FechaNacimiento],[FechaContratacion],[FechaBaja])
+ON (Target.[IdUsuario] = Source.[IdUsuario])
 WHEN MATCHED AND (
-	NULLIF(Source.[Name], Target.[Name]) IS NOT NULL OR NULLIF(Target.[Name], Source.[Name]) IS NOT NULL OR 
-	NULLIF(Source.[LastName], Target.[LastName]) IS NOT NULL OR NULLIF(Target.[LastName], Source.[LastName]) IS NOT NULL OR 
-	NULLIF(Source.[Surname], Target.[Surname]) IS NOT NULL OR NULLIF(Target.[Surname], Source.[Surname]) IS NOT NULL OR 
-	NULLIF(Source.[Address], Target.[Address]) IS NOT NULL OR NULLIF(Target.[Address], Source.[Address]) IS NOT NULL OR 
-	NULLIF(Source.[ZipCode], Target.[ZipCode]) IS NOT NULL OR NULLIF(Target.[ZipCode], Source.[ZipCode]) IS NOT NULL OR 
+	NULLIF(Source.[Nombre], Target.[Nombre]) IS NOT NULL OR NULLIF(Target.[Nombre], Source.[Nombre]) IS NOT NULL OR 
+	NULLIF(Source.[Direccion], Target.[Direccion]) IS NOT NULL OR NULLIF(Target.[Direccion], Source.[Direccion]) IS NOT NULL OR 
 	NULLIF(Source.[Email], Target.[Email]) IS NOT NULL OR NULLIF(Target.[Email], Source.[Email]) IS NOT NULL OR 
-	NULLIF(Source.[Position], Target.[Position]) IS NOT NULL OR NULLIF(Target.[Position], Source.[Position]) IS NOT NULL OR 
-	NULLIF(Source.[ShortName], Target.[ShortName]) IS NOT NULL OR NULLIF(Target.[ShortName], Source.[ShortName]) IS NOT NULL OR 
-	NULLIF(Source.[Login], Target.[Login]) IS NOT NULL OR NULLIF(Target.[Login], Source.[Login]) IS NOT NULL OR 
-	NULLIF(Source.[Password], Target.[Password]) IS NOT NULL OR NULLIF(Target.[Password], Source.[Password]) IS NOT NULL OR 
-	NULLIF(Source.[StatusID], Target.[StatusID]) IS NOT NULL OR NULLIF(Target.[StatusID], Source.[StatusID]) IS NOT NULL OR 
-	NULLIF(Source.[CreateDate], Target.[CreateDate]) IS NOT NULL OR NULLIF(Target.[CreateDate], Source.[CreateDate]) IS NOT NULL OR 
-	NULLIF(Source.[IsReadOnly], Target.[IsReadOnly]) IS NOT NULL OR NULLIF(Target.[IsReadOnly], Source.[IsReadOnly]) IS NOT NULL OR 
-	NULLIF(Source.[IsFirstSession], Target.[IsFirstSession]) IS NOT NULL OR NULLIF(Target.[IsFirstSession], Source.[IsFirstSession]) IS NOT NULL OR 
-	NULLIF(Source.[IsActiveSession], Target.[IsActiveSession]) IS NOT NULL OR NULLIF(Target.[IsActiveSession], Source.[IsActiveSession]) IS NOT NULL OR 
-	NULLIF(Source.[LastLogin], Target.[LastLogin]) IS NOT NULL OR NULLIF(Target.[LastLogin], Source.[LastLogin]) IS NOT NULL) THEN
+	NULLIF(Source.[Contraseña], Target.[Contraseña]) IS NOT NULL OR NULLIF(Target.[Contraseña], Source.[Contraseña]) IS NOT NULL OR 
+	NULLIF(Source.[IdEstatus], Target.[IdEstatus]) IS NOT NULL OR NULLIF(Target.[IdEstatus], Source.[IdEstatus]) IS NOT NULL OR 
+	NULLIF(Source.[Telefono], Target.[Telefono]) IS NOT NULL OR NULLIF(Target.[Telefono], Source.[Telefono]) IS NOT NULL OR 
+	NULLIF(Source.[Celular], Target.[Celular]) IS NOT NULL OR NULLIF(Target.[Celular], Source.[Celular]) IS NOT NULL OR 
+	NULLIF(Source.[SueldoBase], Target.[SueldoBase]) IS NOT NULL OR NULLIF(Target.[SueldoBase], Source.[SueldoBase]) IS NOT NULL OR 
+	NULLIF(Source.[FechaNacimiento], Target.[FechaNacimiento]) IS NOT NULL OR NULLIF(Target.[FechaNacimiento], Source.[FechaNacimiento]) IS NOT NULL OR 
+	NULLIF(Source.[FechaContratacion], Target.[FechaContratacion]) IS NOT NULL OR NULLIF(Target.[FechaContratacion], Source.[FechaContratacion]) IS NOT NULL OR 
+	NULLIF(Source.[FechaBaja], Target.[FechaBaja]) IS NOT NULL OR NULLIF(Target.[FechaBaja], Source.[FechaBaja]) IS NOT NULL) THEN
  UPDATE SET
-  [Name] = Source.[Name], 
-  [LastName] = Source.[LastName], 
-  [Surname] = Source.[Surname], 
-  [Address] = Source.[Address], 
-  [ZipCode] = Source.[ZipCode], 
+  [Nombre] = Source.[Nombre], 
+  [Direccion] = Source.[Direccion], 
   [Email] = Source.[Email], 
-  [Position] = Source.[Position], 
-  [ShortName] = Source.[ShortName], 
-  [Login] = Source.[Login], 
-  [Password] = Source.[Password], 
-  [StatusID] = Source.[StatusID], 
-  [CreateDate] = Source.[CreateDate], 
-  [IsReadOnly] = Source.[IsReadOnly], 
-  [IsFirstSession] = Source.[IsFirstSession], 
-  [IsActiveSession] = Source.[IsActiveSession], 
-  [LastLogin] = Source.[LastLogin]
+  [Contraseña] = Source.[Contraseña], 
+  [IdEstatus] = Source.[IdEstatus], 
+  [Telefono] = Source.[Telefono], 
+  [Celular] = Source.[Celular], 
+  [SueldoBase] = Source.[SueldoBase], 
+  [FechaNacimiento] = Source.[FechaNacimiento], 
+  [FechaContratacion] = Source.[FechaContratacion], 
+  [FechaBaja] = Source.[FechaBaja]
 WHEN NOT MATCHED BY TARGET THEN
- INSERT([UserID],[Name],[LastName],[Surname],[Address],[ZipCode],[Email],[Position],[ShortName],[Login],[Password],[StatusID],[CreateDate],[IsReadOnly],[IsFirstSession],[IsActiveSession],[LastLogin])
- VALUES(Source.[UserID],Source.[Name],Source.[LastName],Source.[Surname],Source.[Address],Source.[ZipCode],Source.[Email],Source.[Position],Source.[ShortName],Source.[Login],Source.[Password],Source.[StatusID],Source.[CreateDate],Source.[IsReadOnly],Source.[IsFirstSession],Source.[IsActiveSession],Source.[LastLogin])
+ INSERT([IdUsuario],[Nombre],[Direccion],[Email],[Contraseña],[IdEstatus],[Telefono],[Celular],[SueldoBase],[FechaNacimiento],[FechaContratacion],[FechaBaja])
+ VALUES(Source.[IdUsuario],Source.[Nombre],Source.[Direccion],Source.[Email],Source.[Contraseña],Source.[IdEstatus],Source.[Telefono],Source.[Celular],Source.[SueldoBase],Source.[FechaNacimiento],Source.[FechaContratacion],Source.[FechaBaja])
 WHEN NOT MATCHED BY SOURCE THEN 
- DELETE;
+ DELETE
+;
 GO
-SET IDENTITY_INSERT [dbo].[Users] OFF
+SET IDENTITY_INSERT [dbo].[usuario] OFF
 GO
 
-MERGE INTO [dbo].[UserOperations] AS Target
-USING (VALUES
-(1,1)
-,(1,2)
-,(1,3)
-,(1,4)
-,(1,5)
-,(1,6)
-,(1,7)
-,(1,8)
-,(1,9)
-,(1,10)
-,(1,11)
-,(1,12)
-,(1,13)
-,(1,14)
-,(1,15)
-,(1,16)
-,(1,17)
-,(1,18)
-,(1,19)
-,(1,20)
-,(1,21)
-,(1,22)
-,(1,23)
-,(1,24)
-,(1,25)
-,(1,26)
-,(1,27)
-,(1,28)
-,(1,29)
-,(1,30)
-,(1,31)
-,(1,32)
-,(1,33)
-,(1,34)
-,(1,35)
-,(1,36)
-,(1,37)
-,(1,38)
-) AS Source ([UserId],[OperationID])
-ON (Target.[OperationID] = Source.[OperationID] AND Target.[UserId] = Source.[UserId])
-WHEN NOT MATCHED BY TARGET THEN
- INSERT([UserId],[OperationID])
- VALUES(Source.[UserId],Source.[OperationID])
-WHEN NOT MATCHED BY SOURCE THEN 
- DELETE;
-GO
 

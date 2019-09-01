@@ -14,12 +14,13 @@ namespace CatalogManagement.DBModels
     
     public partial class Log
     {
-        public int LogID { get; set; }
-        public int UserID { get; set; }
-        public int OperationID { get; set; }
-        public System.DateTime CreationDate { get; set; }
+        public int IdLog { get; set; }
+        public int IdOperacion { get; set; }
+        public int IdUsuario { get; set; }
+        public int IdObject { get; set; }
+        public System.DateTime Fecha { get; set; }
     
+        public virtual Usuario Usuario { get; set; }
         public virtual Operations Operations { get; set; }
-        public virtual Users Users { get; set; }
     }
 }

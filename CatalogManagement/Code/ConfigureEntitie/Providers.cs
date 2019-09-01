@@ -27,7 +27,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
                     row.Columns.Add(new Column() { ColumnHeader = "DiasCredito", Value = item.DiasCredito.ToString(), ID = item.IdProveedor.ToString() });
                     row.Columns.Add(new Column() { ColumnHeader = "Informacion Bancaria", Value = item.InformacionBancaria, ID = item.IdProveedor.ToString() });
 
-                    row.Columns.Add(new Column() { ColumnHeader = "Editar", ID = item.IdProveedor.ToString(), Type = ColumnType.Button, ButtonOperationId = (int)OperationsEnum.EditarProveedor, ButtonText = "Editar", ButtonAction = "LoadItemData", ButtonController = "Catalog" });
+                    row.Columns.Add(new Column() { ColumnHeader = "Editar", ID = item.IdProveedor.ToString(), Type = ColumnType.Button, ButtonOperationId = (int)OperationsEnum.EditarProveedores, ButtonText = "Editar", ButtonAction = "LoadItemData", ButtonController = "Catalog" });
                     model.Rows.Add(row);
                 }
 

@@ -17,15 +17,17 @@ namespace CatalogManagement.DBModels
         public int IdVentaDetalle { get; set; }
         public int IdVenta { get; set; }
         public int IdProducto { get; set; }
-        public int IdUnidad { get; set; }
-        public int IdTipoPrecio { get; set; }
+        public short IdPresentacion { get; set; }
+        public short IdTipoPrecio { get; set; }
         public int Cantidad { get; set; }
         public decimal PrecioUnitario { get; set; }
         public decimal PrecioTotal { get; set; }
+        public decimal Descuento { get; set; }
+        public decimal CostoUnitario { get; set; }
     
+        public virtual Presentacion Presentacion { get; set; }
         public virtual Producto Producto { get; set; }
         public virtual TipoPrecio TipoPrecio { get; set; }
-        public virtual Unidad Unidad { get; set; }
         public virtual Venta Venta { get; set; }
     }
 }

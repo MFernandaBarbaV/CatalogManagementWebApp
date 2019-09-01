@@ -116,7 +116,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
                 result.RFC = model.GetValuePropertieString("RFC");
                 result.Telefono = model.GetValuePropertieString("Telefono");
 
-                var resultProductoAgregar = db2.ClienteEditar(result.NombreCliente, result.Email, result.RFC, result.CalleDomicilioFiscal, result.NumeroInteriorDomicilioFiscal, result.NumeroExteriorDomicilioFiscal, result.ColoniaDomicilioFiscal, result.CodigoPostalDomicilioFiscal, result.CiudadDomicilioFiscal, result.EstadoDomicilioFiscal, result.Telefono, result.IdCliente);
+              //  var resultProductoAgregar = db2.ClienteEditar(result.NombreCliente, result.Email, result.RFC, result.CalleDomicilioFiscal, result.NumeroInteriorDomicilioFiscal, result.NumeroExteriorDomicilioFiscal, result.ColoniaDomicilioFiscal, result.CodigoPostalDomicilioFiscal, result.CiudadDomicilioFiscal, result.EstadoDomicilioFiscal, result.Telefono, result.IdCliente);
                 db2.SaveChanges();
                 return true;
             }
@@ -145,11 +145,11 @@ namespace CatalogManagement.Code.ConfigureEntitie
 
                 result.RFC = model.GetValuePropertieString("RFC");
                 result.Telefono = model.GetValuePropertieString("Telefono");
-                var resultProductoAgregar = db2.ClienteAgregar(result.NombreCliente, result.Email, result.RFC, result.CalleDomicilioFiscal, result.NumeroInteriorDomicilioFiscal, result.NumeroExteriorDomicilioFiscal, result.ColoniaDomicilioFiscal, result.CodigoPostalDomicilioFiscal, result.CiudadDomicilioFiscal, result.EstadoDomicilioFiscal, result.Telefono);
+             //   var resultProductoAgregar = db2.ClienteAgregar(result.NombreCliente, result.Email, result.RFC, result.CalleDomicilioFiscal, result.NumeroInteriorDomicilioFiscal, result.NumeroExteriorDomicilioFiscal, result.ColoniaDomicilioFiscal, result.CodigoPostalDomicilioFiscal, result.CiudadDomicilioFiscal, result.EstadoDomicilioFiscal, result.Telefono);
 
-                id = resultProductoAgregar.First().Value;
+              //  id = resultProductoAgregar.First().Value;
                 db2.SaveChanges();
-
+                id = 0;
                 return true;
             }
 

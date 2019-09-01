@@ -256,6 +256,9 @@
     <Compile Include="Code\SessionVariables.cs" />
     <Compile Include="Code\Utils.cs" />
     <Compile Include="Code\Validation.cs" />
+    <Compile Include="DBModels\Almacen.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBModels\CatalogManagmentModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -283,6 +286,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DBModels\CodigoBarras.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBModels\Compra.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
@@ -290,6 +296,21 @@
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\Configuracion.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\CorteX.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\CorteZ.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\C__RefactorLog.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Devolucion.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\DevolucionDetalle.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\doc_detalle.cs">
@@ -301,6 +322,15 @@
     <Compile Include="DBModels\doc_pagos.cs">
       <DependentUpon>SUPERTICKETModelDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBModels\Estatus.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\ExistenciaPorAlmacen.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\FormaDePago.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBModels\formas_pago.cs">
       <DependentUpon>SUPERTICKETModelDB.tt</DependentUpon>
     </Compile>
@@ -308,6 +338,12 @@
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\Genero.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Informacion.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\InventarioHistorial.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\Log.cs">
@@ -319,14 +355,26 @@
     <Compile Include="DBModels\MarcasObtener_Result.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\Operador.cs">
+    <Compile Include="DBModels\Operations.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\Operations.cs">
+    <Compile Include="DBModels\Pagos.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\PagosCompras.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\personal.cs">
       <DependentUpon>SUPERTICKETModelDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Precio.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\PrecioHistorial.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Presentacion.cs">
+      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\Producto.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
@@ -343,10 +391,10 @@
     <Compile Include="DBModels\ProveedorObtener_Result.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\spUser_DoLogin_Result.cs">
+    <Compile Include="DBModels\SerieFolio.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\Status.cs">
+    <Compile Include="DBModels\spUser_DoLogin_Result.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\SubTipoProducto.cs">
@@ -385,22 +433,16 @@
     <Compile Include="DBModels\TipoPrecioObtenerPorIdProducto_Result.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\TipoPrecioPorProducto.cs">
-      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DBModels\TipoProducto.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\TipoProductoObtener_Result.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\Unidad.cs">
-      <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DBModels\UnidadesObtener_Result.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\Users.cs">
+    <Compile Include="DBModels\Usuario.cs">
       <DependentUpon>CatalogManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModels\Venta.cs">

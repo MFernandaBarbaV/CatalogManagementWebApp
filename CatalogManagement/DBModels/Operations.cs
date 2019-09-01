@@ -18,17 +18,16 @@ namespace CatalogManagement.DBModels
         public Operations()
         {
             this.Log = new HashSet<Log>();
-            this.Users = new HashSet<Users>();
+            this.Usuario = new HashSet<Usuario>();
         }
     
         public int OperationID { get; set; }
         public string Name { get; set; }
-        public int SysOperation { get; set; }
-        public bool IsReadOnly { get; set; }
+        public bool Permiso { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Log> Log { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users { get; set; }
+        public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }

@@ -13,7 +13,8 @@ CREATE PROCEDURE [dbo].[ClienteAgregar]
           @CodigoPostalDomicilioFiscal nvarchar(100), 
           @CiudadDomicilioFiscal nvarchar(100), 
           @EstadoDomicilioFiscal nvarchar(100), 
-          @Telefono nvarchar(100)
+          @Telefono nvarchar(100),
+		  @Observaciones nvarchar(500)
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
@@ -32,7 +33,8 @@ BEGIN
            ,[CodigoPostalDomicilioFiscal]
            ,[CiudadDomicilioFiscal]
            ,[EstadoDomicilioFiscal]
-           ,[Telefono])
+           ,[Telefono]
+		   ,[Observaciones])
      VALUES
            (@NombreCliente,        
           @Email, 
@@ -44,7 +46,8 @@ BEGIN
           @CodigoPostalDomicilioFiscal, 
           @CiudadDomicilioFiscal, 
           @EstadoDomicilioFiscal, 
-          @Telefono )
+          @Telefono,
+		  @Observaciones)
 
 		  select cast(SCOPE_IDENTITY() as int) as IdCliente
 END

@@ -7,69 +7,68 @@ namespace CatalogManagement.Models.Entities
 {
     public enum OperationsEnum : int
     {
-        IniciodeSesión=1 ,
+        IniciarSesion,
 
-        //Usuario
-        VerUsuarios ,
-        EditarUsuarios,
-        NuevoUsuario ,
+        HacerVenta = 1,
+        EliminarVenta,
+        DarDescuentoEnVenta,
+        EliminarPagoEnVenta,
 
-        //Operaciones
-        VerOperaciones,
-
-        //Relacional  TODO:Al relacionar agregar opción de seleccionar todo
-        AsignarOperaciónaUsuario ,
-        
-        //FINANZAS------------
-        NuevaCompra,
-        VerReporteCompras ,
-        EliminarCompra ,
-
-        NuevoGasto ,
-        VerReporteGastos,
-        EditarGasto,
-        EliminarGasto,
-
-        VerTipoGasto ,
-        EditarTipoGasto ,
-        NuevoTipoGasto ,
-
-        VerVentas ,
-        NuevaVenta ,
-        VerReporteVentas ,
-
-        VerBalance ,
-
-        //CATALOGOS-------------
         VerProductos,
-        NuevoProducto ,
+        NuevoProducto,
         EditarProducto,
-
-        VerProveedores ,
-        EditarProveedor ,
-        NuevoProveedor ,
+        EliminarProducto,
+        VerCostoProducto,
 
         VerClientes,
-        EditarCliente ,
-        NuevoCliente ,
+        NuevoCliente,
+        EditarCliente,
+        EliminarCliente,
+
+        VerProveedores,
+        NuevoProveedor,
+        EditarProveedores,
+        EliminarProveedor,
+
+        VerVentasDiarias,
+        VerCostosEnReportes,
+        HacerCorteX,
+        HacerCorteY,
+
+        VerCompras,
+        NuevaCompra,
+        EditarCompra,
+        EliminarCompra,
+        EliminarPagoEnCompra,
+
+        MovimientosDeInventario,
+
+
+        HacerDevolucion,
+
+        VerUsuarios,
+        NuevoUsuario,
+        EditarUsuarios,
+
+        VerOperaciones,
+        AsignarOperaciónaUsuario,
 
         VerMarcas,
-        EditarMarca,
-        NuevaMarca ,
+        NuevaMarca,
+        EditarMarcas,
+        EliminarMarcas,
 
-        VerTipoProducto ,
+        VerTipoProducto,
+        NuevoTipoProducto,
         EditarTipoProducto,
-        NuevoTipoProducto ,
+        EliminarTipoProducto,
 
-        VerTallas ,
+        VerTallas,
         NuevaTalla,
         EditarTalla,
+        EliminarTalla,
 
-        //REPORTES DEL SUPERTICKET--------------
-        VerReporteGananciaTicketSUPERTICKET = 1000,
-        VerReporteGananciaProductoSUPERTICKET = 1001,
-        VerReporteVentasMesSUPERTICKET = 1002,
-        VerReporteVentasSUPERTICKET = 1003
+
     }
 
 

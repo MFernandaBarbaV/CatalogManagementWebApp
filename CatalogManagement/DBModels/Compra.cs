@@ -18,17 +18,30 @@ namespace CatalogManagement.DBModels
         public Compra()
         {
             this.CompraDetalle = new HashSet<CompraDetalle>();
+            this.PagosCompras = new HashSet<PagosCompras>();
         }
     
         public int IdCompra { get; set; }
         public int IdProveedor { get; set; }
-        public int IdOperador { get; set; }
+        public int IdUsuario { get; set; }
         public System.DateTime FechaCompra { get; set; }
+        public System.DateTime FechaRegistro { get; set; }
+        public string Folio { get; set; }
+        public bool EsFactura { get; set; }
+        public decimal Subtotal { get; set; }
+        public decimal IVA { get; set; }
+        public decimal Descuento { get; set; }
+        public decimal Flete { get; set; }
         public decimal Total { get; set; }
+        public decimal Pagado { get; set; }
+        public short IdAlmacen { get; set; }
     
-        public virtual Operador Operador { get; set; }
+        public virtual Almacen Almacen { get; set; }
         public virtual Proveedor Proveedor { get; set; }
+        public virtual Usuario Usuario { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CompraDetalle> CompraDetalle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PagosCompras> PagosCompras { get; set; }
     }
 }

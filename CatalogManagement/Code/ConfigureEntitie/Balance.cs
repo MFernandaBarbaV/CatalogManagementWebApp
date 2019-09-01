@@ -4,6 +4,7 @@ using CatalogManagement.Models.Entities;
 using System.Collections.Generic;
 using CatalogManagement.DBModels;
 using System.Linq;
+using System.Data.Entity;
 
 namespace CatalogManagement.Code.ConfigureEntitie
 {
@@ -11,7 +12,8 @@ namespace CatalogManagement.Code.ConfigureEntitie
     {
         internal static void GetReport(ref ReportViewModel model, int operationId, bool applyFilters, ref string errorMessage)
         {
-            using (var db2 = new CatalogManagementDBEntities() )
+            using (var db = new SUPERTICKETEntities())
+            using (var db2 = new CatalogManagementDBEntities())
             {
                 model.SetAttributes("Balance", "Ver", "ViewReport", "Catalog", (OperationsEnum)operationId, (OperationsEnum)operationId);
                 if (applyFilters)
@@ -23,18 +25,29 @@ namespace CatalogManagement.Code.ConfigureEntitie
                     DateTime minDate = model.Filters[0].DateValue.Date;
                     DateTime maxDate = model.Filters[1].DateValue.Date;
 
-                    foreach (var item in db2.Venta.Where(g => g.FechaVenta >= minDate && g.FechaVenta <= maxDate))
+                    foreach (var item2 in db.doc_general.Where(g => g.fecha >= minDate && g.fecha <= maxDate && g.TOTAL > 0 && g.tipodocto == "TICKET")
+                          .GroupBy(p => DbFunctions.TruncateTime(p.fecha.Value)).Select(p =>
+                           new
+                           {
+                               fecha = p.Key,
+                               Venta = p.Sum(i => i.TOTAL),
+                               tickets = p.Count(),
+                               id = p.FirstOrDefault().idinterno,
+                               folio = p.FirstOrDefault().FOLIO
+                           }))
                     {
+                       
                         row = new Row();
                         row.Columns = new List<Column>();
-                        row.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = item.FechaVenta.ToString("dd MMMM yyyy hh:mm tt"), ID = item.IdVenta.ToString() });
-                        row.Columns.Add(new Column() { ColumnHeader = "Concepto", Value = "Venta", ID = item.IdVenta.ToString() });
-                        row.Columns.Add(new Column() { ColumnHeader = "Detalles", Value = item.Clientes.NombreCliente, ID = item.IdVenta.ToString() });
-                        row.Columns.Add(new Column() { ColumnHeader = "Entrada", Value = item.Total.ToString("c2"), ID = item.IdVenta.ToString() });
-                        row.Columns.Add(new Column() { ColumnHeader = "Salida", Value = 0.ToString("c2"), ID = item.IdVenta.ToString() });
+                        row.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = item2.fecha.Value.ToString("dd MMMM yyyy hh:mm tt"), ID = item2.id.ToString() });
+                        row.Columns.Add(new Column() { ColumnHeader = "Concepto", Value = "Venta", ID = item2.id });
+                        row.Columns.Add(new Column() { ColumnHeader = "Detalles", Value = $"{item2.tickets} tickets" , ID = item2.id.ToString() });
+                        row.Columns.Add(new Column() { ColumnHeader = "Entrada", Value = item2.Venta.Value.ToString("c2"), ID = item2.id.ToString() });
+                        row.Columns.Add(new Column() { ColumnHeader = "Salida", Value = 0.ToString("c2"), ID = item2.id.ToString() });
 
                         model.Rows.Add(row);
-                        totalEntrada += item.Total;
+                        totalEntrada += item2.Venta.Value;
+
                     }
 
                     foreach (var item in db2.Gastos.Where(g => g.Fecha >= minDate && g.Fecha <= maxDate))

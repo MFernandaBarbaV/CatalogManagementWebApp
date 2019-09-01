@@ -17,20 +17,54 @@ namespace CatalogManagement.DBModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Venta()
         {
+            this.CorteX = new HashSet<CorteX>();
+            this.CorteX1 = new HashSet<CorteX>();
+            this.CorteZ = new HashSet<CorteZ>();
+            this.CorteZ1 = new HashSet<CorteZ>();
+            this.Devolucion = new HashSet<Devolucion>();
+            this.Pagos = new HashSet<Pagos>();
             this.VentaDetalle = new HashSet<VentaDetalle>();
         }
     
         public int IdVenta { get; set; }
+        public Nullable<int> Folio { get; set; }
+        public string Serie { get; set; }
         public int IdCliente { get; set; }
         public int IdOperador { get; set; }
         public System.DateTime FechaVenta { get; set; }
-        public double Descuento { get; set; }
         public bool EsFactura { get; set; }
+        public decimal Subtotal { get; set; }
+        public decimal Descuento { get; set; }
+        public decimal IVA { get; set; }
         public decimal Total { get; set; }
+        public decimal Pagado { get; set; }
         public bool GuardadoTemporal { get; set; }
+        public System.DateTime FechaModificacion { get; set; }
+        public bool PagoParcial { get; set; }
+        public decimal Costo { get; set; }
+        public byte IdEstatus { get; set; }
+        public string PC { get; set; }
+        public Nullable<int> IdUsuario { get; set; }
+        public short IdAlmacen { get; set; }
     
+        public virtual Almacen Almacen { get; set; }
         public virtual Clientes Clientes { get; set; }
-        public virtual Operador Operador { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CorteX> CorteX { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CorteX> CorteX1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CorteZ> CorteZ { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CorteZ> CorteZ1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Devolucion> Devolucion { get; set; }
+        public virtual Estatus Estatus { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Pagos> Pagos { get; set; }
+        public virtual SerieFolio SerieFolio { get; set; }
+        public virtual Usuario Usuario { get; set; }
+        public virtual Usuario Usuario1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VentaDetalle> VentaDetalle { get; set; }
     }

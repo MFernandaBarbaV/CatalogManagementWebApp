@@ -27,31 +27,45 @@ namespace CatalogManagement.DBModels
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
+        public virtual DbSet<Almacen> Almacen { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
+        public virtual DbSet<CodigoBarras> CodigoBarras { get; set; }
         public virtual DbSet<Compra> Compra { get; set; }
         public virtual DbSet<CompraDetalle> CompraDetalle { get; set; }
         public virtual DbSet<Configuracion> Configuracion { get; set; }
+        public virtual DbSet<CorteX> CorteX { get; set; }
+        public virtual DbSet<CorteZ> CorteZ { get; set; }
+        public virtual DbSet<Devolucion> Devolucion { get; set; }
+        public virtual DbSet<DevolucionDetalle> DevolucionDetalle { get; set; }
+        public virtual DbSet<Estatus> Estatus { get; set; }
+        public virtual DbSet<ExistenciaPorAlmacen> ExistenciaPorAlmacen { get; set; }
+        public virtual DbSet<FormaDePago> FormaDePago { get; set; }
         public virtual DbSet<Gastos> Gastos { get; set; }
         public virtual DbSet<Genero> Genero { get; set; }
+        public virtual DbSet<Informacion> Informacion { get; set; }
+        public virtual DbSet<InventarioHistorial> InventarioHistorial { get; set; }
         public virtual DbSet<Log> Log { get; set; }
         public virtual DbSet<Marca> Marca { get; set; }
-        public virtual DbSet<Operador> Operador { get; set; }
         public virtual DbSet<Operations> Operations { get; set; }
+        public virtual DbSet<Pagos> Pagos { get; set; }
+        public virtual DbSet<PagosCompras> PagosCompras { get; set; }
+        public virtual DbSet<Precio> Precio { get; set; }
+        public virtual DbSet<PrecioHistorial> PrecioHistorial { get; set; }
+        public virtual DbSet<Presentacion> Presentacion { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Proveedor> Proveedor { get; set; }
-        public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<SerieFolio> SerieFolio { get; set; }
         public virtual DbSet<SubTipoProducto> SubTipoProducto { get; set; }
         public virtual DbSet<Talla> Talla { get; set; }
         public virtual DbSet<TipoGasto> TipoGasto { get; set; }
         public virtual DbSet<TipoPrecio> TipoPrecio { get; set; }
         public virtual DbSet<TipoProducto> TipoProducto { get; set; }
-        public virtual DbSet<Unidad> Unidad { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Venta> Venta { get; set; }
         public virtual DbSet<VentaDetalle> VentaDetalle { get; set; }
-        public virtual DbSet<TipoPrecioPorProducto> TipoPrecioPorProducto { get; set; }
     
-        public virtual ObjectResult<Nullable<int>> ClienteAgregar(string nombreCliente, string email, string rFC, string calleDomicilioFiscal, string numeroInteriorDomicilioFiscal, string numeroExteriorDomicilioFiscal, string coloniaDomicilioFiscal, string codigoPostalDomicilioFiscal, string ciudadDomicilioFiscal, string estadoDomicilioFiscal, string telefono)
+        public virtual ObjectResult<Nullable<int>> ClienteAgregar(string nombreCliente, string email, string rFC, string calleDomicilioFiscal, string numeroInteriorDomicilioFiscal, string numeroExteriorDomicilioFiscal, string coloniaDomicilioFiscal, string codigoPostalDomicilioFiscal, string ciudadDomicilioFiscal, string estadoDomicilioFiscal, string telefono, string observaciones)
         {
             var nombreClienteParameter = nombreCliente != null ?
                 new ObjectParameter("NombreCliente", nombreCliente) :
@@ -97,10 +111,14 @@ namespace CatalogManagement.DBModels
                 new ObjectParameter("Telefono", telefono) :
                 new ObjectParameter("Telefono", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("ClienteAgregar", nombreClienteParameter, emailParameter, rFCParameter, calleDomicilioFiscalParameter, numeroInteriorDomicilioFiscalParameter, numeroExteriorDomicilioFiscalParameter, coloniaDomicilioFiscalParameter, codigoPostalDomicilioFiscalParameter, ciudadDomicilioFiscalParameter, estadoDomicilioFiscalParameter, telefonoParameter);
+            var observacionesParameter = observaciones != null ?
+                new ObjectParameter("Observaciones", observaciones) :
+                new ObjectParameter("Observaciones", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("ClienteAgregar", nombreClienteParameter, emailParameter, rFCParameter, calleDomicilioFiscalParameter, numeroInteriorDomicilioFiscalParameter, numeroExteriorDomicilioFiscalParameter, coloniaDomicilioFiscalParameter, codigoPostalDomicilioFiscalParameter, ciudadDomicilioFiscalParameter, estadoDomicilioFiscalParameter, telefonoParameter, observacionesParameter);
         }
     
-        public virtual int ClienteEditar(string nombreCliente, string email, string rFC, string calleDomicilioFiscal, string numeroInteriorDomicilioFiscal, string numeroExteriorDomicilioFiscal, string coloniaDomicilioFiscal, string codigoPostalDomicilioFiscal, string ciudadDomicilioFiscal, string estadoDomicilioFiscal, string telefono, Nullable<int> idCliente)
+        public virtual int ClienteEditar(string nombreCliente, string email, string rFC, string calleDomicilioFiscal, string numeroInteriorDomicilioFiscal, string numeroExteriorDomicilioFiscal, string coloniaDomicilioFiscal, string codigoPostalDomicilioFiscal, string ciudadDomicilioFiscal, string estadoDomicilioFiscal, string telefono, Nullable<int> idCliente, string observaciones)
         {
             var nombreClienteParameter = nombreCliente != null ?
                 new ObjectParameter("NombreCliente", nombreCliente) :
@@ -150,7 +168,11 @@ namespace CatalogManagement.DBModels
                 new ObjectParameter("IdCliente", idCliente) :
                 new ObjectParameter("IdCliente", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ClienteEditar", nombreClienteParameter, emailParameter, rFCParameter, calleDomicilioFiscalParameter, numeroInteriorDomicilioFiscalParameter, numeroExteriorDomicilioFiscalParameter, coloniaDomicilioFiscalParameter, codigoPostalDomicilioFiscalParameter, ciudadDomicilioFiscalParameter, estadoDomicilioFiscalParameter, telefonoParameter, idClienteParameter);
+            var observacionesParameter = observaciones != null ?
+                new ObjectParameter("Observaciones", observaciones) :
+                new ObjectParameter("Observaciones", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ClienteEditar", nombreClienteParameter, emailParameter, rFCParameter, calleDomicilioFiscalParameter, numeroInteriorDomicilioFiscalParameter, numeroExteriorDomicilioFiscalParameter, coloniaDomicilioFiscalParameter, codigoPostalDomicilioFiscalParameter, ciudadDomicilioFiscalParameter, estadoDomicilioFiscalParameter, telefonoParameter, idClienteParameter, observacionesParameter);
         }
     
         public virtual ObjectResult<ClientesObtener_Result> ClientesObtener(Nullable<int> idCliente)
@@ -162,7 +184,7 @@ namespace CatalogManagement.DBModels
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ClientesObtener_Result>("ClientesObtener", idClienteParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> CompraAgregar(Nullable<int> idProveedor, Nullable<int> idOperador, Nullable<System.DateTime> fechaCompra, Nullable<decimal> total, ObjectParameter idCompra)
+        public virtual ObjectResult<Nullable<int>> CompraAgregar(Nullable<int> idProveedor, Nullable<int> idOperador, Nullable<System.DateTime> fecha, string folio, Nullable<bool> esFactura, Nullable<decimal> subtotal, Nullable<decimal> iVA, Nullable<decimal> descuento, Nullable<decimal> flete, Nullable<decimal> total, Nullable<short> idAlmacen, ObjectParameter idCompra)
         {
             var idProveedorParameter = idProveedor.HasValue ?
                 new ObjectParameter("IdProveedor", idProveedor) :
@@ -172,18 +194,46 @@ namespace CatalogManagement.DBModels
                 new ObjectParameter("IdOperador", idOperador) :
                 new ObjectParameter("IdOperador", typeof(int));
     
-            var fechaCompraParameter = fechaCompra.HasValue ?
-                new ObjectParameter("FechaCompra", fechaCompra) :
-                new ObjectParameter("FechaCompra", typeof(System.DateTime));
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("Fecha", fecha) :
+                new ObjectParameter("Fecha", typeof(System.DateTime));
+    
+            var folioParameter = folio != null ?
+                new ObjectParameter("Folio", folio) :
+                new ObjectParameter("Folio", typeof(string));
+    
+            var esFacturaParameter = esFactura.HasValue ?
+                new ObjectParameter("EsFactura", esFactura) :
+                new ObjectParameter("EsFactura", typeof(bool));
+    
+            var subtotalParameter = subtotal.HasValue ?
+                new ObjectParameter("Subtotal", subtotal) :
+                new ObjectParameter("Subtotal", typeof(decimal));
+    
+            var iVAParameter = iVA.HasValue ?
+                new ObjectParameter("IVA", iVA) :
+                new ObjectParameter("IVA", typeof(decimal));
+    
+            var descuentoParameter = descuento.HasValue ?
+                new ObjectParameter("Descuento", descuento) :
+                new ObjectParameter("Descuento", typeof(decimal));
+    
+            var fleteParameter = flete.HasValue ?
+                new ObjectParameter("Flete", flete) :
+                new ObjectParameter("Flete", typeof(decimal));
     
             var totalParameter = total.HasValue ?
                 new ObjectParameter("Total", total) :
                 new ObjectParameter("Total", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CompraAgregar", idProveedorParameter, idOperadorParameter, fechaCompraParameter, totalParameter, idCompra);
+            var idAlmacenParameter = idAlmacen.HasValue ?
+                new ObjectParameter("IdAlmacen", idAlmacen) :
+                new ObjectParameter("IdAlmacen", typeof(short));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CompraAgregar", idProveedorParameter, idOperadorParameter, fechaParameter, folioParameter, esFacturaParameter, subtotalParameter, iVAParameter, descuentoParameter, fleteParameter, totalParameter, idAlmacenParameter, idCompra);
         }
     
-        public virtual ObjectResult<Nullable<int>> CompraDetalleAgregar(Nullable<int> idCompra, Nullable<int> idProducto, Nullable<int> idUnidad, Nullable<int> cantidad, Nullable<decimal> costoUnitario, Nullable<decimal> costoTotal)
+        public virtual ObjectResult<Nullable<int>> CompraDetalleAgregar(Nullable<int> idCompra, Nullable<int> idProducto, Nullable<int> idPresentacion, Nullable<int> cantidad, Nullable<decimal> costoUnitario, Nullable<decimal> costoTotal, Nullable<bool> modificarCosto, Nullable<decimal> fletePPieza, Nullable<int> idAlmacen)
         {
             var idCompraParameter = idCompra.HasValue ?
                 new ObjectParameter("IdCompra", idCompra) :
@@ -193,9 +243,9 @@ namespace CatalogManagement.DBModels
                 new ObjectParameter("IdProducto", idProducto) :
                 new ObjectParameter("IdProducto", typeof(int));
     
-            var idUnidadParameter = idUnidad.HasValue ?
-                new ObjectParameter("IdUnidad", idUnidad) :
-                new ObjectParameter("IdUnidad", typeof(int));
+            var idPresentacionParameter = idPresentacion.HasValue ?
+                new ObjectParameter("IdPresentacion", idPresentacion) :
+                new ObjectParameter("IdPresentacion", typeof(int));
     
             var cantidadParameter = cantidad.HasValue ?
                 new ObjectParameter("Cantidad", cantidad) :
@@ -209,7 +259,19 @@ namespace CatalogManagement.DBModels
                 new ObjectParameter("CostoTotal", costoTotal) :
                 new ObjectParameter("CostoTotal", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CompraDetalleAgregar", idCompraParameter, idProductoParameter, idUnidadParameter, cantidadParameter, costoUnitarioParameter, costoTotalParameter);
+            var modificarCostoParameter = modificarCosto.HasValue ?
+                new ObjectParameter("ModificarCosto", modificarCosto) :
+                new ObjectParameter("ModificarCosto", typeof(bool));
+    
+            var fletePPiezaParameter = fletePPieza.HasValue ?
+                new ObjectParameter("FletePPieza", fletePPieza) :
+                new ObjectParameter("FletePPieza", typeof(decimal));
+    
+            var idAlmacenParameter = idAlmacen.HasValue ?
+                new ObjectParameter("IdAlmacen", idAlmacen) :
+                new ObjectParameter("IdAlmacen", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CompraDetalleAgregar", idCompraParameter, idProductoParameter, idPresentacionParameter, cantidadParameter, costoUnitarioParameter, costoTotalParameter, modificarCostoParameter, fletePPiezaParameter, idAlmacenParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> MarcaAgregar(string descripcion)
@@ -284,7 +346,7 @@ namespace CatalogManagement.DBModels
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("ProductoAgregar", descripcionParameter, codigoParameter, idTipoProductoParameter, idSubTipoProductoParameter, idMarcaParameter, idProveedorParameter, idTallaParameter, idGeneroParameter, imagenParameter, precioParameter);
         }
     
-        public virtual int ProductoModificar(string descripcion, string codigo, Nullable<int> idTipoProducto, Nullable<int> idSubTipoProducto, Nullable<int> idMarca, Nullable<int> idProveedor, Nullable<int> idTalla, Nullable<int> idUnidad, Nullable<int> idGenero, byte[] imagen, Nullable<int> idProducto)
+        public virtual int ProductoModificar(string descripcion, string codigo, Nullable<int> idTipoProducto, Nullable<int> idSubTipoProducto, Nullable<int> idMarca, Nullable<int> idProveedor, Nullable<int> idTalla, Nullable<int> idGenero, byte[] imagen, Nullable<int> idProducto, Nullable<decimal> precio)
         {
             var descripcionParameter = descripcion != null ?
                 new ObjectParameter("Descripcion", descripcion) :
@@ -314,10 +376,6 @@ namespace CatalogManagement.DBModels
                 new ObjectParameter("IdTalla", idTalla) :
                 new ObjectParameter("IdTalla", typeof(int));
     
-            var idUnidadParameter = idUnidad.HasValue ?
-                new ObjectParameter("IdUnidad", idUnidad) :
-                new ObjectParameter("IdUnidad", typeof(int));
-    
             var idGeneroParameter = idGenero.HasValue ?
                 new ObjectParameter("IdGenero", idGenero) :
                 new ObjectParameter("IdGenero", typeof(int));
@@ -330,7 +388,11 @@ namespace CatalogManagement.DBModels
                 new ObjectParameter("IdProducto", idProducto) :
                 new ObjectParameter("IdProducto", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductoModificar", descripcionParameter, codigoParameter, idTipoProductoParameter, idSubTipoProductoParameter, idMarcaParameter, idProveedorParameter, idTallaParameter, idUnidadParameter, idGeneroParameter, imagenParameter, idProductoParameter);
+            var precioParameter = precio.HasValue ?
+                new ObjectParameter("Precio", precio) :
+                new ObjectParameter("Precio", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ProductoModificar", descripcionParameter, codigoParameter, idTipoProductoParameter, idSubTipoProductoParameter, idMarcaParameter, idProveedorParameter, idTallaParameter, idGeneroParameter, imagenParameter, idProductoParameter, precioParameter);
         }
     
         public virtual ObjectResult<ProductosObtener_Result> ProductosObtener()
@@ -697,7 +759,7 @@ namespace CatalogManagement.DBModels
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UnidadesObtener_Result>("UnidadesObtener");
         }
     
-        public virtual ObjectResult<Nullable<int>> VentaAgregar(Nullable<int> idCliente, Nullable<int> idOperador, Nullable<decimal> descuento, Nullable<bool> esFactura, Nullable<decimal> total, Nullable<bool> guardadoTemporal, Nullable<System.DateTime> fecha, ObjectParameter idVenta)
+        public virtual ObjectResult<Nullable<int>> VentaAgregar(Nullable<int> idCliente, Nullable<int> idOperador, Nullable<decimal> descuento, Nullable<bool> esFactura, Nullable<decimal> total, Nullable<bool> guardadoTemporal, Nullable<System.DateTime> fecha, Nullable<decimal> pagado, Nullable<bool> pagoParcial, Nullable<decimal> iVA, Nullable<decimal> subtotal, string pC, Nullable<int> idUsuario, Nullable<short> idAlmacen, ObjectParameter idVenta)
         {
             var idClienteParameter = idCliente.HasValue ?
                 new ObjectParameter("IdCliente", idCliente) :
@@ -727,10 +789,38 @@ namespace CatalogManagement.DBModels
                 new ObjectParameter("Fecha", fecha) :
                 new ObjectParameter("Fecha", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("VentaAgregar", idClienteParameter, idOperadorParameter, descuentoParameter, esFacturaParameter, totalParameter, guardadoTemporalParameter, fechaParameter, idVenta);
+            var pagadoParameter = pagado.HasValue ?
+                new ObjectParameter("Pagado", pagado) :
+                new ObjectParameter("Pagado", typeof(decimal));
+    
+            var pagoParcialParameter = pagoParcial.HasValue ?
+                new ObjectParameter("PagoParcial", pagoParcial) :
+                new ObjectParameter("PagoParcial", typeof(bool));
+    
+            var iVAParameter = iVA.HasValue ?
+                new ObjectParameter("IVA", iVA) :
+                new ObjectParameter("IVA", typeof(decimal));
+    
+            var subtotalParameter = subtotal.HasValue ?
+                new ObjectParameter("Subtotal", subtotal) :
+                new ObjectParameter("Subtotal", typeof(decimal));
+    
+            var pCParameter = pC != null ?
+                new ObjectParameter("PC", pC) :
+                new ObjectParameter("PC", typeof(string));
+    
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("IdUsuario", idUsuario) :
+                new ObjectParameter("IdUsuario", typeof(int));
+    
+            var idAlmacenParameter = idAlmacen.HasValue ?
+                new ObjectParameter("IdAlmacen", idAlmacen) :
+                new ObjectParameter("IdAlmacen", typeof(short));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("VentaAgregar", idClienteParameter, idOperadorParameter, descuentoParameter, esFacturaParameter, totalParameter, guardadoTemporalParameter, fechaParameter, pagadoParameter, pagoParcialParameter, iVAParameter, subtotalParameter, pCParameter, idUsuarioParameter, idAlmacenParameter, idVenta);
         }
     
-        public virtual ObjectResult<Nullable<decimal>> VentaDetalleAgregar(Nullable<int> idVenta, Nullable<int> idProducto, Nullable<int> idUnidad, Nullable<int> cantidad, Nullable<decimal> precioUnitario, Nullable<decimal> precioTotal)
+        public virtual ObjectResult<Nullable<decimal>> VentaDetalleAgregar(Nullable<int> idVenta, Nullable<int> idProducto, Nullable<int> idPresentacion, Nullable<int> cantidad, Nullable<decimal> precioUnitario, Nullable<decimal> precioTotal, Nullable<int> idTipoPrecio, Nullable<decimal> descuento, Nullable<short> idAlmacen)
         {
             var idVentaParameter = idVenta.HasValue ?
                 new ObjectParameter("IdVenta", idVenta) :
@@ -740,9 +830,9 @@ namespace CatalogManagement.DBModels
                 new ObjectParameter("IdProducto", idProducto) :
                 new ObjectParameter("IdProducto", typeof(int));
     
-            var idUnidadParameter = idUnidad.HasValue ?
-                new ObjectParameter("IdUnidad", idUnidad) :
-                new ObjectParameter("IdUnidad", typeof(int));
+            var idPresentacionParameter = idPresentacion.HasValue ?
+                new ObjectParameter("IdPresentacion", idPresentacion) :
+                new ObjectParameter("IdPresentacion", typeof(int));
     
             var cantidadParameter = cantidad.HasValue ?
                 new ObjectParameter("Cantidad", cantidad) :
@@ -756,7 +846,19 @@ namespace CatalogManagement.DBModels
                 new ObjectParameter("PrecioTotal", precioTotal) :
                 new ObjectParameter("PrecioTotal", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("VentaDetalleAgregar", idVentaParameter, idProductoParameter, idUnidadParameter, cantidadParameter, precioUnitarioParameter, precioTotalParameter);
+            var idTipoPrecioParameter = idTipoPrecio.HasValue ?
+                new ObjectParameter("IdTipoPrecio", idTipoPrecio) :
+                new ObjectParameter("IdTipoPrecio", typeof(int));
+    
+            var descuentoParameter = descuento.HasValue ?
+                new ObjectParameter("Descuento", descuento) :
+                new ObjectParameter("Descuento", typeof(decimal));
+    
+            var idAlmacenParameter = idAlmacen.HasValue ?
+                new ObjectParameter("IdAlmacen", idAlmacen) :
+                new ObjectParameter("IdAlmacen", typeof(short));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("VentaDetalleAgregar", idVentaParameter, idProductoParameter, idPresentacionParameter, cantidadParameter, precioUnitarioParameter, precioTotalParameter, idTipoPrecioParameter, descuentoParameter, idAlmacenParameter);
         }
     }
 }

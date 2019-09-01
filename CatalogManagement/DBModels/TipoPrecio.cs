@@ -17,18 +17,24 @@ namespace CatalogManagement.DBModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TipoPrecio()
         {
-            this.TipoPrecioPorProducto = new HashSet<TipoPrecioPorProducto>();
+            this.CodigoBarras = new HashSet<CodigoBarras>();
+            this.Precio = new HashSet<Precio>();
             this.VentaDetalle = new HashSet<VentaDetalle>();
+            this.Clientes = new HashSet<Clientes>();
         }
     
-        public int IdTipoPrecio { get; set; }
+        public short IdTipoPrecio { get; set; }
         public string Descripcion { get; set; }
         public decimal Multiplicador { get; set; }
         public int CantidadPiezas { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TipoPrecioPorProducto> TipoPrecioPorProducto { get; set; }
+        public virtual ICollection<CodigoBarras> CodigoBarras { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Precio> Precio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VentaDetalle> VentaDetalle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Clientes> Clientes { get; set; }
     }
 }

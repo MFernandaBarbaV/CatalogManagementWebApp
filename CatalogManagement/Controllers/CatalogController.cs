@@ -217,11 +217,11 @@ namespace CatalogManagement.Controllers
                 try
                 {
 
-                   Users user = db.Users.First(usr => usr.UserID == itmId);
-                    user.IsActiveSession = false;
-                    db.Users.Attach(user);
-                    db.Entry(user).Property(x => x.IsActiveSession).IsModified = true;
-                    db.SaveChanges();
+                    //Usuario user = db.Usuario.First(usr => usr.UserID == itmId);
+                    //user.IsActiveSession = false;
+                    //db.Usuario.Attach(user);
+                    //db.Entry(user).Property(x => x.IsActiveSession).IsModified = true;
+                    //db.SaveChanges();
 
                 }
                 catch (Exception e)
@@ -382,10 +382,10 @@ namespace CatalogManagement.Controllers
                 try
                 {
 
-                    Users user = db.Users.First(usr => usr.UserID == itmId);
-                    user.IsActiveSession = false;
-                    db.Users.Attach(user);
-                    db.Entry(user).Property(x => x.IsActiveSession).IsModified = true;
+                    Usuario user = db.Usuario.First(usr => usr.IdUsuario == itmId);
+                  
+                    db.Usuario.Attach(user);
+                
                     db.SaveChanges();
 
                 }

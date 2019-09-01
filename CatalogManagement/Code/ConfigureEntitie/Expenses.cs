@@ -23,8 +23,8 @@ namespace CatalogManagement.Code.ConfigureEntitie
                     row.Columns.Add(new Column() { ColumnHeader = "Tipo de Gasto", Value = item.TipoGasto.Descripcion, ID = item.IdGasto.ToString() });
                     row.Columns.Add(new Column() { ColumnHeader = "Cantidad", Value = item.Cantidad.ToString("c2"), ID = item.IdGasto.ToString() });
                     row.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = item.Fecha.ToString("dd MMMM yyyy hh:mm tt"), ID = item.IdGasto.ToString() });
-                    row.Columns.Add(new Column() { ColumnHeader = "", Value = item.IdGasto.ToString(), ID = item.IdGasto.ToString(), Type = ColumnType.Button, ButtonText = "Editar Gasto", ButtonAction = "LoadItemData", ButtonController = "Catalog", ButtonOperationId = (int)OperationsEnum.EditarGasto });
-                    row.Columns.Add(new Column() { ColumnHeader = "", Value = item.IdGasto.ToString(), ID = item.IdGasto.ToString(), Type = ColumnType.Button, ButtonText = "Eliminar Gasto", ButtonAction = "DeleteItem", ButtonController = "Catalog", ButtonOperationId = (int)OperationsEnum.EliminarGasto });
+                  //  row.Columns.Add(new Column() { ColumnHeader = "", Value = item.IdGasto.ToString(), ID = item.IdGasto.ToString(), Type = ColumnType.Button, ButtonText = "Editar Gasto", ButtonAction = "LoadItemData", ButtonController = "Catalog", ButtonOperationId = (int)OperationsEnum.EditarGasto });
+                  //  row.Columns.Add(new Column() { ColumnHeader = "", Value = item.IdGasto.ToString(), ID = item.IdGasto.ToString(), Type = ColumnType.Button, ButtonText = "Eliminar Gasto", ButtonAction = "DeleteItem", ButtonController = "Catalog", ButtonOperationId = (int)OperationsEnum.EliminarGasto });
 
                     model.Rows.Add(row);
                 }
@@ -51,13 +51,13 @@ namespace CatalogManagement.Code.ConfigureEntitie
                 {
                     resultGasto = new Gastos();
                     resultGasto.Fecha = DateTime.Now;
-                    model.SetAttributes(itemId, "Nuevo Gasto", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteGastos);
+                   // model.SetAttributes(itemId, "Nuevo Gasto", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteGastos);
 
                 }
                 else // Editar
                 {
                     resultGasto = db2.Gastos.Where(us => us.IdGasto == itemId).FirstOrDefault();
-                    model.SetAttributes(itemId, "Editar Gastos", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteGastos);
+                 //   model.SetAttributes(itemId, "Editar Gastos", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteGastos);
                 }
 
                 if (resultGasto != null)

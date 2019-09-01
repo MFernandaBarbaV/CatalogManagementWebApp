@@ -11,18 +11,19 @@ namespace CatalogManagement.Code.ConfigureEntitie
     {
         internal static void GetExpensesTypesCatalog(ref ListItemsViewModel model, int operationId, ref string errorMessage)
         {
+            return;
             using (var db2 = new CatalogManagementDBEntities())
             {
                 #region VerTipoGasto
 
-                model.SetAttributes("Tipo de Gasto", (OperationsEnum)operationId, OperationsEnum.NuevoTipoGasto);
+               // model.SetAttributes("Tipo de Gasto", (OperationsEnum)operationId, OperationsEnum.NuevoTipoGasto);
                 foreach (var item in db2.TipoGasto)
                 {
                     row = new Row();
                     row.Columns = new List<Column>();
                     row.Columns.Add(new Column() { ColumnHeader = "Id", Value = item.IdTipoGasto.ToString(), ID = item.IdTipoGasto.ToString() });
                     row.Columns.Add(new Column() { ColumnHeader = "Descripción", Value = item.Descripcion.ToString(), ID = item.IdTipoGasto.ToString() });
-                    row.Columns.Add(new Column() { ColumnHeader = "", Value = item.IdTipoGasto.ToString(), ID = item.IdTipoGasto.ToString(), Type = ColumnType.Button, ButtonText = "Editar Tipo de Gasto", ButtonAction = "LoadItemData", ButtonController = "Catalog", ButtonOperationId = (int)OperationsEnum.EditarTipoGasto });
+                  //  row.Columns.Add(new Column() { ColumnHeader = "", Value = item.IdTipoGasto.ToString(), ID = item.IdTipoGasto.ToString(), Type = ColumnType.Button, ButtonText = "Editar Tipo de Gasto", ButtonAction = "LoadItemData", ButtonController = "Catalog", ButtonOperationId = (int)OperationsEnum.EditarTipoGasto });
 
                     model.Rows.Add(row);
                 }
@@ -41,13 +42,13 @@ namespace CatalogManagement.Code.ConfigureEntitie
                     if (itemId == 0)//Nuevo
                     {
                         resultGasto = new TipoGasto();
-                        model.SetAttributes(itemId, "Nuevo Gasto", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerTipoGasto);
+                     //   model.SetAttributes(itemId, "Nuevo Gasto", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerTipoGasto);
 
                     }
                     else // Editar
                     {
                         resultGasto = db2.TipoGasto.Where(us => us.IdTipoGasto == itemId).FirstOrDefault();
-                        model.SetAttributes(itemId, "Editar Tipo Gasto", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerTipoGasto);
+                      //  model.SetAttributes(itemId, "Editar Tipo Gasto", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerTipoGasto);
                     }
 
                     if (resultGasto != null)

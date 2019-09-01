@@ -1,15 +1,11 @@
-﻿CREATE TABLE [dbo].[Log](
-	[LogID] [int] IDENTITY(1,1) NOT NULL,
-	[UserID] [int] NOT NULL,
-	[OperationId] [int] NOT NULL,
-	[CreationDate] [datetime] NOT NULL DEFAULT ((GETDATE())),
- CONSTRAINT [PK_Log] PRIMARY KEY CLUSTERED 
+﻿CREATE TABLE [dbo].[Log]
 (
-	[LogID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY], 
-    CONSTRAINT [FK_Log_Operation] FOREIGN KEY ([OperationId]) REFERENCES Operations([OperationId]), 
-    CONSTRAINT [FK_Log_User] FOREIGN KEY ([UserId]) REFERENCES [Users]([UserId])
-) ON [PRIMARY]
-GO
-
-
+	[IdLog] BIGINT NOT NULL  identity(1,1), 
+    [IdOperacion] INT NOT NULL, 
+    [IdUsuario] INT NOT NULL, 
+    [IdObject] INT NOT NULL, 
+    [Fecha] DATETIME NOT NULL DEFAULT ((GETDATE())), 
+    CONSTRAINT [PK_Log] PRIMARY KEY ([IdLog]), 
+    CONSTRAINT [FK_Log_Usuarios] FOREIGN KEY (IdOperacion) REFERENCES dbo.Operaciones(IdOperacion), 
+    CONSTRAINT [FK_Log_Operaciones] FOREIGN KEY (IdUsuario) REFERENCES dbo.Usuario(IdUsuario)
+)

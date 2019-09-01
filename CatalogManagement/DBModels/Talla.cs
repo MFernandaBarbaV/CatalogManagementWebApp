@@ -14,8 +14,17 @@ namespace CatalogManagement.DBModels
     
     public partial class Talla
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Talla()
+        {
+            this.Producto = new HashSet<Producto>();
+        }
+    
         public int IdTalla { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> IdGenero { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Producto> Producto { get; set; }
     }
 }

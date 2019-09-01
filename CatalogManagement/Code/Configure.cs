@@ -64,40 +64,40 @@ namespace CatalogManagement.Code
                     InnerItems = new List<MenuItem>()
                 {
                     new MenuItem() { Name = "Productos", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerProductos, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
-                    new MenuItem() { Name = "Proveedores", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerProveedores, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
-                    new MenuItem() { Name = "Clientes", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerClientes, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
-                    new MenuItem() { Name = "Marcas", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerMarcas, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
-                    new MenuItem() { Name = "Tipo de producto", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerTipoProducto, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
-                    new MenuItem() { Name = "Tallas", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerTallas, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerProductos) },
+                    new MenuItem() { Name = "Proveedores", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerProveedores, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerProveedores) },
+                    new MenuItem() { Name = "Clientes", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerClientes, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerClientes) },
+                    new MenuItem() { Name = "Marcas", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerMarcas, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerMarcas) },
+                    new MenuItem() { Name = "Tipo de producto", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerTipoProducto, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerTipoProducto) },
+                    new MenuItem() { Name = "Tallas", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerTallas, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerTallas) },
 
                 }
                 });
-            model.ItemsInMenu.Add(
-                new MenuItem()
-                {
-                    Name = "Gastos",
-                    Span = faIconss.shopping,
-                    IsDropBox = true,
-                    InnerItems = new List<MenuItem>()
-                {
-                  new MenuItem() { Name = "Nuevo Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)OperationsEnum.NuevoGasto, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.NuevoGasto) },
-                  new MenuItem() { Name = "Tipo de Gasto", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.VerTipoGasto, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerTipoGasto) },
-                  new MenuItem() { Name = "Nueva Compra", Controller = "Catalog", Action = "NewItem", OperationId = (int)OperationsEnum.NuevaCompra, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.NuevaCompra) },
+            //model.ItemsInMenu.Add(
+            //    new MenuItem()
+            //    {
+            //        Name = "Gastos",
+            //        Span = faIconss.shopping,
+            //        IsDropBox = true,
+            //        InnerItems = new List<MenuItem>()
+            //    {
+            //      new MenuItem() { Name = "Nuevo Gasto", Controller = "Catalog", Action = "NewItem", OperationId = (int)OperationsEnum.IniciarSesion, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.NuevoGasto) },
+            //      new MenuItem() { Name = "Tipo de Gasto", Controller = "Catalog", Action = "ViewCatalog", OperationId = (int)OperationsEnum.IniciarSesion, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerTipoGasto) },
+            //      new MenuItem() { Name = "Nueva Compra", Controller = "Catalog", Action = "NewItem", OperationId = (int)OperationsEnum.IniciarSesion, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.NuevaCompra) },
 
-                }
-                });
-            model.ItemsInMenu.Add(
-                new MenuItem()
-                {
-                    Name = "Ventas",
-                    Span = faIconss.money,
-                    IsDropBox = true,
-                    InnerItems = new List<MenuItem>()
-                {
-                   new MenuItem() { Name = "Nueva Venta", Controller = "Catalog", Action = "NewItem", OperationId = (int)OperationsEnum.NuevaVenta, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.NuevaVenta) },
+            //    }
+            //    });
+            //model.ItemsInMenu.Add(
+            //    new MenuItem()
+            //    {
+            //        Name = "Ventas",
+            //        Span = faIconss.money,
+            //        IsDropBox = true,
+            //        InnerItems = new List<MenuItem>()
+            //    {
+            //       new MenuItem() { Name = "Nueva Venta", Controller = "Catalog", Action = "NewItem", OperationId = (int)OperationsEnum.HacerVenta, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.NuevaVenta) },
 
-                }
-                });
+            //    }
+            //    });
             model.ItemsInMenu.Add(
                 new MenuItem()
                 {
@@ -106,30 +106,30 @@ namespace CatalogManagement.Code
                     IsDropBox = true,
                     InnerItems = new List<MenuItem>()
                 {
-                    new MenuItem() { Name = "Reporte de Gastos", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteGastos, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGastos) },
-                    new MenuItem() { Name = "Reporte de Compras", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteCompras, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteCompras) },
-                    new MenuItem() { Name = "Reporte de Ventas", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteVentas, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteVentas) },
-                    new MenuItem() { Name = "Balance", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerBalance, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerBalance) },
+                    //new MenuItem() { Name = "Reporte de Gastos", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.IniciarSesion, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGastos) },
+                    //new MenuItem() { Name = "Reporte de Compras", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.IniciarSesion, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteCompras) },
+                    new MenuItem() { Name = "Reporte de Ventas", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerVentasDiarias, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerVentasDiarias) },
+                  //  new MenuItem() { Name = "Balance", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.IniciarSesion, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerBalance) },
                 }
 
                 });
-            model.ItemsInMenu.Add(
-                new MenuItem()
-                {
-                    Name = "SUPERTICKET",
-                    Span = faIconss.filter,
-                    IsDropBox = true,
-                    InnerItems = new List<MenuItem>()
-                {
-                    new MenuItem() { Name = "Tickets", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteVentasSUPERTICKET, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteVentasSUPERTICKET) },
-                    new MenuItem() { Name = "Ganancia por ticket", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteGananciaTicketSUPERTICKET, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGananciaTicketSUPERTICKET) },
-                    new MenuItem() { Name = "Ganancia por producto", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteGananciaProductoSUPERTICKET, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGananciaProductoSUPERTICKET) },
-                   new MenuItem() { Name = "Reporte mensual", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteVentasMesSUPERTICKET, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteVentasMesSUPERTICKET) },
+            //model.ItemsInMenu.Add(
+            //    new MenuItem()
+            //    {
+            //        Name = "SUPERTICKET",
+            //        Span = faIconss.filter,
+            //        IsDropBox = true,
+            //        InnerItems = new List<MenuItem>()
+            //    {
+            //        new MenuItem() { Name = "Tickets", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteVentasSUPERTICKET, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteVentasSUPERTICKET) },
+            //        new MenuItem() { Name = "Ganancia por ticket", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteGananciaTicketSUPERTICKET, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGananciaTicketSUPERTICKET) },
+            //        new MenuItem() { Name = "Ganancia por producto", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteGananciaProductoSUPERTICKET, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteGananciaProductoSUPERTICKET) },
+            //       new MenuItem() { Name = "Reporte mensual", Controller = "Catalog", Action = "ViewFilterReport", OperationId = (int)OperationsEnum.VerReporteVentasMesSUPERTICKET, IsVisible = loggedUser.ContainsOperation((int)OperationsEnum.VerReporteVentasMesSUPERTICKET) },
 
-                }
+            //    }
 
 
-                });
+            //    });
         }
 
         //PASO #2: Configurar las columnas que se mostrarán al VER el catálogo
@@ -152,12 +152,12 @@ namespace CatalogManagement.Code
                     //case OperationsEnum.VerGastos:
                     //    ConfigureEntitie.Expenses.GetExpensesCatalog(ref model, operationId, ref errorMessage);
                     //    break;
-                    case OperationsEnum.VerTipoGasto:
-                        ConfigureEntitie.ExpensesTypes.GetExpensesTypesCatalog(ref model, operationId, ref errorMessage);
-                        break;
-                    //case OperationsEnum.VerCompras:
-                    //    ConfigureEntitie.Purchases.GetCatalog(ref model, operationId, ref errorMessage);
+                    //case OperationsEnum.VerTipoGasto:
+                    //    ConfigureEntitie.ExpensesTypes.GetExpensesTypesCatalog(ref model, operationId, ref errorMessage);
                     //    break;
+                    case OperationsEnum.VerCompras:
+                        ConfigureEntitie.Purchases.GetCatalog(ref model, operationId, ref errorMessage);
+                        break;
                     case OperationsEnum.VerProductos:
                         ConfigureEntitie.Products.GetProductsCatalog(ref model, operationId, ref errorMessage);
                         break;
@@ -175,7 +175,7 @@ namespace CatalogManagement.Code
                         break;
 
                     default:
-                     //   errorMessage = "Modulo no implementado en Configure.LoadViewCatalog: " + ((OperationsEnum)operationId).ToString("g");
+                        //   errorMessage = "Modulo no implementado en Configure.LoadViewCatalog: " + ((OperationsEnum)operationId).ToString("g");
                         break;
                 };
             }
@@ -201,43 +201,42 @@ namespace CatalogManagement.Code
                 switch ((OperationsEnum)operationId)
                 {
 
-                    case OperationsEnum.NuevoUsuario:
                     case OperationsEnum.EditarUsuarios:
                         ConfigureEntitie.Users.Get(ref model, operationId, itemId, ref errorMessage);
                         break;
 
-                    case OperationsEnum.NuevoGasto:
-                    case OperationsEnum.EditarGasto:
-                        ConfigureEntitie.Expenses.GetData(ref model, operationId, itemId, ref errorMessage);
-                        break;
-                    case OperationsEnum.EditarTipoGasto:
-                    case OperationsEnum.NuevoTipoGasto:
-                        ConfigureEntitie.ExpensesTypes.GetData(ref model, operationId, itemId, ref errorMessage);
-                        break;
-                    case OperationsEnum.NuevaCompra:
-                        ConfigureEntitie.Purchases.GetData(ref model, operationId, itemId, ref errorMessage);
-                        break;
-                    case OperationsEnum.NuevaVenta:
-                        ConfigureEntitie.Sales.GetData(ref model, operationId, itemId, ref errorMessage);
-                        break;
-                    case OperationsEnum.NuevoProducto:
+                    //case OperationsEnum.NuevoGasto:
+                    //case OperationsEnum.EditarGasto:
+                    //    ConfigureEntitie.Expenses.GetData(ref model, operationId, itemId, ref errorMessage);
+                    //    break;
+                    //case OperationsEnum.EditarTipoGasto:
+                    //case OperationsEnum.NuevoTipoGasto:
+                    //    ConfigureEntitie.ExpensesTypes.GetData(ref model, operationId, itemId, ref errorMessage);
+                    //    break;
+                    //case OperationsEnum.NuevaCompra:
+                    //    ConfigureEntitie.Purchases.GetData(ref model, operationId, itemId, ref errorMessage);
+                    //    break;
+                    //case OperationsEnum.NuevaVenta:
+                    //    ConfigureEntitie.Sales.GetData(ref model, operationId, itemId, ref errorMessage);
+                    //    break;
+                    //case OperationsEnum.NuevoProducto:
                     case OperationsEnum.EditarProducto:
                         ConfigureEntitie.Products.GetData(ref model, operationId, itemId, ref errorMessage);
                         break;
-                    case OperationsEnum.EditarProveedor:
-                    case OperationsEnum.NuevoProveedor:
+
+                    case OperationsEnum.EditarProveedores:
                         ConfigureEntitie.Providers.GetData(ref model, operationId, itemId, ref errorMessage);
                         break;
                     case OperationsEnum.EditarCliente:
-                    case OperationsEnum.NuevoCliente:
+
                         ConfigureEntitie.Clients.GetData(ref model, operationId, itemId, ref errorMessage);
                         break;
-                    case OperationsEnum.EditarMarca:
-                    case OperationsEnum.NuevaMarca:
+                    case OperationsEnum.EditarMarcas:
+
                         ConfigureEntitie.Brands.GetData(ref model, operationId, itemId, ref errorMessage);
                         break;
+
                     case OperationsEnum.EditarTipoProducto:
-                    case OperationsEnum.NuevoTipoProducto:
                         ConfigureEntitie.ProductTypes.GetData(ref model, operationId, itemId, ref errorMessage);
                         break;
                     default:
@@ -304,23 +303,23 @@ namespace CatalogManagement.Code
                     case OperationsEnum.NuevoUsuario:
                         result = ConfigureEntitie.Users.New(model, userId, ref errorMessage, out id);
                         break;
-                    case OperationsEnum.NuevoGasto:
-                        result = ConfigureEntitie.Expenses.New(model, userId, ref errorMessage, out id);
-                        break;
-                    case OperationsEnum.NuevoTipoGasto:
-                        result = ConfigureEntitie.ExpensesTypes.New(model, userId, ref errorMessage, out id);
-                        break;
-                    case OperationsEnum.EditarTipoGasto:
-                        result = ConfigureEntitie.ExpensesTypes.Edit(model, userId, ref errorMessage);
-                        break;
-                    case OperationsEnum.EditarGasto:
-                        result = ConfigureEntitie.Expenses.Edit(model, userId, ref errorMessage);
-                        break;
+                    //case OperationsEnum.NuevoGasto:
+                    //    result = ConfigureEntitie.Expenses.New(model, userId, ref errorMessage, out id);
+                    //    break;
+                    //case OperationsEnum.NuevoTipoGasto:
+                    //    result = ConfigureEntitie.ExpensesTypes.New(model, userId, ref errorMessage, out id);
+                    //    break;
+                    //case OperationsEnum.EditarTipoGasto:
+                    //    result = ConfigureEntitie.ExpensesTypes.Edit(model, userId, ref errorMessage);
+                    //    break;
+                    //case OperationsEnum.EditarGasto:
+                    //    result = ConfigureEntitie.Expenses.Edit(model, userId, ref errorMessage);
+                    //    break;
                     case OperationsEnum.NuevaCompra:
                         result = ConfigureEntitie.Purchases.New(model, userId, ref errorMessage, out id);
                         break;
 
-                    case OperationsEnum.NuevaVenta:
+                    case OperationsEnum.HacerVenta:
                         result = ConfigureEntitie.Sales.New(model, userId, ref errorMessage, out id);
                         break;
                     case OperationsEnum.NuevoProducto:
@@ -332,7 +331,7 @@ namespace CatalogManagement.Code
                     case OperationsEnum.NuevoProveedor:
                         result = ConfigureEntitie.Providers.New(model, userId, ref errorMessage, out id);
                         break;
-                    case OperationsEnum.EditarProveedor:
+                    case OperationsEnum.EditarProveedores:
                         result = ConfigureEntitie.Providers.Edit(model, userId, ref errorMessage);
                         break;
                     case OperationsEnum.EditarCliente:
@@ -341,7 +340,7 @@ namespace CatalogManagement.Code
                     case OperationsEnum.NuevoCliente:
                         result = ConfigureEntitie.Clients.New(model, userId, ref errorMessage, out id);
                         break;
-                    case OperationsEnum.EditarMarca:
+                    case OperationsEnum.EditarMarcas:
                         result = ConfigureEntitie.Brands.Edit(model, userId, ref errorMessage);
                         break;
                     case OperationsEnum.NuevaMarca:
@@ -410,30 +409,30 @@ namespace CatalogManagement.Code
             {
                 switch ((OperationsEnum)operationId)
                 {
-                    case OperationsEnum.VerReporteGastos:
-                        ConfigureEntitie.Expenses.GetReport(ref model, operationId, applyFilters, ref errorMessage);
-                        break;
-                    case OperationsEnum.VerReporteCompras:
-                        ConfigureEntitie.Purchases.GetReport(ref model, operationId, applyFilters, ref errorMessage);
-                        break;
-                    case OperationsEnum.VerReporteVentas:
+                    //case OperationsEnum.VerReporteGastos:
+                    //    ConfigureEntitie.Expenses.GetReport(ref model, operationId, applyFilters, ref errorMessage);
+                    //    break;
+                    //case OperationsEnum.VerReporteCompras:
+                    //    ConfigureEntitie.Purchases.GetReport(ref model, operationId, applyFilters, ref errorMessage);
+                    //    break;
+                    case OperationsEnum.VerVentasDiarias:
                         ConfigureEntitie.Sales.GetReport(ref model, operationId, applyFilters, ref errorMessage);
                         break;
-                    case OperationsEnum.VerBalance:
-                        ConfigureEntitie.Balance.GetReport(ref model, operationId, applyFilters, ref errorMessage);
-                        break;
-                    case OperationsEnum.VerReporteVentasSUPERTICKET:
-                        ConfigureEntitie.SUPERTICKETData.GetTicketsReport(ref model, operationId, applyFilters, ref errorMessage);
-                        break;
-                    case OperationsEnum.VerReporteGananciaTicketSUPERTICKET:
-                        ConfigureEntitie.SUPERTICKETData.GetGainReport(ref model, operationId, applyFilters, ref errorMessage);
-                        break;
-                    case OperationsEnum.VerReporteGananciaProductoSUPERTICKET:
-                        ConfigureEntitie.SUPERTICKETData.GetProductsReport(ref model, operationId, applyFilters, ref errorMessage);
-                        break;
-                    case OperationsEnum.VerReporteVentasMesSUPERTICKET:
-                        ConfigureEntitie.SUPERTICKETData.GetTicketsInMonthReport(ref model, operationId, applyFilters, ref errorMessage);
-                        break;
+                    //case OperationsEnum.VerBalance:
+                    //    ConfigureEntitie.Balance.GetReport(ref model, operationId, applyFilters, ref errorMessage);
+                    //    break;
+                    //case OperationsEnum.VerReporteVentasSUPERTICKET:
+                    //    ConfigureEntitie.SUPERTICKETData.GetTicketsReport(ref model, operationId, applyFilters, ref errorMessage);
+                    //    break;
+                    //case OperationsEnum.VerReporteGananciaTicketSUPERTICKET:
+                    //    ConfigureEntitie.SUPERTICKETData.GetGainReport(ref model, operationId, applyFilters, ref errorMessage);
+                    //    break;
+                    //case OperationsEnum.VerReporteGananciaProductoSUPERTICKET:
+                    //    ConfigureEntitie.SUPERTICKETData.GetProductsReport(ref model, operationId, applyFilters, ref errorMessage);
+                    //    break;
+                    //case OperationsEnum.VerReporteVentasMesSUPERTICKET:
+                    //    ConfigureEntitie.SUPERTICKETData.GetTicketsInMonthReport(ref model, operationId, applyFilters, ref errorMessage);
+                    //    break;
                     default:
                         errorMessage = "Modulo no implementado en Configure.LoadDataReport: " + ((OperationsEnum)operationId).ToString("g");
                         break;

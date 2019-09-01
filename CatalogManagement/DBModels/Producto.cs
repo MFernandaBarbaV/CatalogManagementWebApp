@@ -17,8 +17,12 @@ namespace CatalogManagement.DBModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Producto()
         {
+            this.CodigoBarras = new HashSet<CodigoBarras>();
             this.CompraDetalle = new HashSet<CompraDetalle>();
-            this.TipoPrecioPorProducto = new HashSet<TipoPrecioPorProducto>();
+            this.DevolucionDetalle = new HashSet<DevolucionDetalle>();
+            this.ExistenciaPorAlmacen = new HashSet<ExistenciaPorAlmacen>();
+            this.InventarioHistorial = new HashSet<InventarioHistorial>();
+            this.Precio = new HashSet<Precio>();
             this.VentaDetalle = new HashSet<VentaDetalle>();
         }
     
@@ -29,23 +33,30 @@ namespace CatalogManagement.DBModels
         public int IdTipoProducto { get; set; }
         public int IdSubTipoProducto { get; set; }
         public int IdMarca { get; set; }
-        public int IdProveedor { get; set; }
+        public Nullable<int> IdProveedor { get; set; }
         public int IdTalla { get; set; }
-        public int IdUnidad { get; set; }
         public int IdGenero { get; set; }
         public byte[] Imagen { get; set; }
         public decimal PrecioVenta { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CodigoBarras> CodigoBarras { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CompraDetalle> CompraDetalle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DevolucionDetalle> DevolucionDetalle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ExistenciaPorAlmacen> ExistenciaPorAlmacen { get; set; }
         public virtual Genero Genero { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InventarioHistorial> InventarioHistorial { get; set; }
         public virtual Marca Marca { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Precio> Precio { get; set; }
         public virtual Proveedor Proveedor { get; set; }
         public virtual SubTipoProducto SubTipoProducto { get; set; }
+        public virtual Talla Talla { get; set; }
         public virtual TipoProducto TipoProducto { get; set; }
-        public virtual Unidad Unidad { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TipoPrecioPorProducto> TipoPrecioPorProducto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VentaDetalle> VentaDetalle { get; set; }
     }

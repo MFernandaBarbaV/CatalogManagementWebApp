@@ -8,20 +8,29 @@ namespace CatalogManagement.Models.Entities
 {
     public class SystemUser
     {
-        public int SystemUserId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public int RoleId { get; set; }
-        public string RoleName { get; set; }
+        public int SystemUserId { get { return usuario.IdUsuario; } }
+        public string Name { get { return usuario.Nombre; } }
+       
+      
         public string UserName { get; set; }
         public string Password { get; set; }
         public List<Operations> Operations { get; set; }
+
+        public Usuario usuario { get; set; }
+
+        public SystemUser()
+        {
+            usuario = new Usuario();
+        }
 
         public bool ContainsOperation(int operationId)
         {
             try
             {
-                if (Operations.FirstOrDefault(o => o.SysOperation == operationId) == null)
+                if (usuario == null || usuario.Operations == null)
+                    return false;
+
+                if (usuario.Operations.FirstOrDefault(o => o.OperationID == operationId) == null)
                     return false;
                 return true;
             }

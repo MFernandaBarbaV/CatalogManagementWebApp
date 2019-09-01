@@ -14,7 +14,8 @@ CREATE PROCEDURE [dbo].[ClienteEditar]
           @CiudadDomicilioFiscal nvarchar(100), 
           @EstadoDomicilioFiscal nvarchar(100), 
           @Telefono nvarchar(100),
-		  @IdCliente int
+		  @IdCliente int,
+		  @Observaciones nvarchar(500)
 AS
 BEGIN
 
@@ -32,7 +33,8 @@ BEGIN
 		CodigoPostalDomicilioFiscal = @CodigoPostalDomicilioFiscal,
 		CiudadDomicilioFiscal = @CiudadDomicilioFiscal,
 		EstadoDomicilioFiscal = @EstadoDomicilioFiscal,
-		Telefono = @Telefono
+		Telefono = @Telefono,
+		Observaciones = @Observaciones
 	WHERE IdCliente = @IdCliente 
 
 

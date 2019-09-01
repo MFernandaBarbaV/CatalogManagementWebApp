@@ -21,7 +21,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
                     row.Columns = new List<Column>();
                     row.Columns.Add(new Column() { ColumnHeader = "IdMarca", Value = item.IdMarca.ToString(), ID = item.IdMarca.ToString() });
                     row.Columns.Add(new Column() { ColumnHeader = "Descripcion", Value = item.Descripcion, ID = item.IdMarca.ToString() });
-                    row.Columns.Add(new Column() { ColumnHeader = "Editar", ID = item.IdMarca.ToString(), Type = ColumnType.Button, ButtonOperationId = (int)OperationsEnum.EditarMarca, ButtonText = "Editar", ButtonAction = "LoadItemData", ButtonController = "Catalog" });
+                    row.Columns.Add(new Column() { ColumnHeader = "Editar", ID = item.IdMarca.ToString(), Type = ColumnType.Button, ButtonOperationId = (int)OperationsEnum.EditarMarcas, ButtonText = "Editar", ButtonAction = "LoadItemData", ButtonController = "Catalog" });
 
                     model.Rows.Add(row);
                 }

@@ -19,6 +19,8 @@ namespace CatalogManagement.Code
 
         public static string ErrorMoney = "El campo solo acepta valores numéricos";
 
+        public static string RegexMoney = @"^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$";
+
         public static string GenerateRegex(bool aphabeticLower, bool alphabeticUpper, bool numbers, bool spaces, int minLenght, int maxLenght, bool accent, bool specialChars, ref string messageValidation)
         {
             string regex = string.Empty;

@@ -23,6 +23,7 @@ BEGIN
       ,[CiudadDomicilioFiscal]
       ,[EstadoDomicilioFiscal]
       ,[Telefono]
+	  ,[Observaciones]
   FROM [dbo].[Clientes]
   WHERE [IdCliente] = @IdCliente or @IdCliente = 0
 END

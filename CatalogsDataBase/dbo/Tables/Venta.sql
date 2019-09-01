@@ -1,14 +1,31 @@
 ﻿CREATE TABLE [dbo].[Venta] (
     [IdVenta]          INT        IDENTITY (1, 1) NOT NULL,
+	[Folio]			int NULL,
+	[Serie]			NVARCHAR(5) NULL DEFAULT ((NULL)),
     [IdCliente]        INT        NOT NULL,
     [IdOperador]       INT        NOT NULL,
-    [FechaVenta]       DATETIME   NOT NULL,
-    [Descuento]        FLOAT (53) NOT NULL,
-    [EsFactura]        BIT        NOT NULL,
-    [Total]            MONEY      NOT NULL,
-    [GuardadoTemporal] BIT        NOT NULL,
+    [FechaVenta]       DATETIME   NOT NULL,    
+    [EsFactura]        BIT        NOT NULL DEFAULT 0,
+    [Subtotal] MONEY NOT NULL, 
+	[Descuento]        MONEY NOT NULL DEFAULT 0,
+	[IVA] MONEY NOT NULL DEFAULT 0, 
+    [Total]            MONEY      NOT NULL DEFAULT 0,
+	[Pagado]            MONEY      NOT NULL DEFAULT 0,
+    [GuardadoTemporal] BIT        NOT NULL DEFAULT 0,
+    [FechaModificacion] DATETIME NOT NULL DEFAULT GETDATE(), 
+    [PagoParcial] BIT NOT NULL DEFAULT 0, 
+    [Costo] MONEY NOT NULL DEFAULT 0, 
+	[IdEstatus]        TINYINT        NOT NULL DEFAULT 1 ,
+    [PC] NVARCHAR(50) NULL DEFAULT NULL, 
+    [IdUsuario] INT NULL DEFAULT NULL, 
+    [IdAlmacen] SMALLINT NOT NULL DEFAULT 1, 
     CONSTRAINT [PK_Venta] PRIMARY KEY CLUSTERED ([IdVenta] ASC),
     CONSTRAINT [FK_Venta_Clientes] FOREIGN KEY ([IdCliente]) REFERENCES [dbo].[Clientes] ([IdCliente]),
-    CONSTRAINT [FK_Venta_Operador] FOREIGN KEY ([IdOperador]) REFERENCES [dbo].[Operador] ([IdOperador])
+    CONSTRAINT [FK_Venta_Operador] FOREIGN KEY ([IdOperador]) REFERENCES   [Usuario]([IdUsuario]) ,
+    CONSTRAINT [FK_Venta_Estatus] FOREIGN KEY ([IdEstatus]) REFERENCES [Estatus]([IdEstatus]), 
+    CONSTRAINT [FK_Venta_SerieFolio] FOREIGN KEY ([Serie]) REFERENCES [SerieFolio]([Serie]), 
+    CONSTRAINT [FK_Venta_Usuario] FOREIGN KEY ([IdUsuario]) REFERENCES [Usuario]([IdUsuario]), 
+    CONSTRAINT [FK_Venta_Almacen] FOREIGN KEY ([IdAlmacen]) REFERENCES [Almacen]([IdAlmacen])
+ 
 );
 

@@ -30,43 +30,19 @@ namespace CatalogManagement.Models.ViewModels
 
             try
             {
-                string pwEncripted = string.Empty;
-                //UserName = "Administrador";
-                //Password = "321321321";
-                pwEncripted = Security.Encrypt(Password);
+
                 using (CatalogManagementDBEntities db = new CatalogManagementDBEntities())
                 {
-                    var result = db.spUser_DoLogin(UserName, pwEncripted);
+                    var user = db.Usuario.Include("Operations").Where(u => u.Login == UserName && u.Contraseña == Password).FirstOrDefault();
 
-                    if (result == null)
-                    {
-                        errorMessage = "Usuario o contraseña incorrecto";
-                        return null;
-                    }
-                    spUser_DoLogin_Result user = null;
-                    foreach (var item in result)
-                    {
-                        user = item;
-                    }
+                    //   List<Operations> listOp = db.Usuario.Where(u => u.IdUsuario == 1).FirstOrDefault().Operations.ToList();
 
                     if (user == null)
-                    {
-                        errorMessage = "Usuario o contraseña incorrecto";
                         return null;
-                    }
-
-                    List<Operations> listOp = db.Users.Where(u => u.UserID == user.UserID).FirstOrDefault().Operations.ToList();
-                
 
                     var sysUser = new SystemUser()
                     {
-                        SystemUserId = user.UserID,
-                        FirstName = user.Name,
-                        LastName = user.LastName,
-                        Operations = listOp,
-                        Password = user.Password,
-                        RoleName = user.Position,
-                        UserName = user.Login
+                        usuario = user
                     };
 
                     return sysUser;
@@ -76,7 +52,7 @@ namespace CatalogManagement.Models.ViewModels
             }
             catch (System.Data.Entity.Core.EntityException ex)
             {
-                errorMessage = "Error en la conexión [" + ex.Message + (ex.InnerException != null ? ex.InnerException.Message : string.Empty)+ "]";
+                errorMessage = "Error en la conexión [" + ex.Message + (ex.InnerException != null ? ex.InnerException.Message : string.Empty) + "]";
                 return null;
             }
             catch (NullReferenceException e)

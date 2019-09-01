@@ -1,21 +1,38 @@
-﻿-- =============================================
--- EXEC [dbo].[CompraAgregar] 1, 1, '10-11-2017', 110.10
--- =============================================
+﻿
 CREATE PROCEDURE [dbo].[CompraAgregar]
-	@IdProveedor int, @IdOperador int, @FechaCompra datetime, @Total money,  @IdCompra int output
+	@IdProveedor int, @IdOperador int,@Fecha datetime, @Folio nvarchar(15), @EsFactura bit,
+	@Subtotal money, @IVA money, @Descuento money, @Flete money,  @Total money, @IdAlmacen smallint,  @IdCompra int output
 AS
 BEGIN
-	INSERT INTO [dbo].[Compra]
+
+
+INSERT INTO [dbo].[Compra]
            ([IdProveedor]
-           ,[IdOperador]
+           ,[IdUsuario]
            ,[FechaCompra]
-           ,[Total])
+           ,[Folio]
+           ,[EsFactura]
+           ,[Subtotal]
+           ,[IVA]
+		   ,[Descuento]
+           ,[Flete]
+           ,[Total]
+           ,[Pagado],
+		   IdAlmacen)
      VALUES
            (@IdProveedor
            ,@IdOperador
-           ,@FechaCompra
-           ,@Total)
+           ,@Fecha
+           ,@Folio
+           ,@EsFactura
+           ,@Subtotal
+           ,@IVA
+		   ,@Descuento
+           ,@Flete
+           ,@Total
+           ,0,
+		   @IdAlmacen)
 
-   SELECT @IdCompra = cast(SCOPE_IDENTITY() as int)
+   set @IdCompra = cast(SCOPE_IDENTITY() as int)
    SELECT @IdCompra
 END

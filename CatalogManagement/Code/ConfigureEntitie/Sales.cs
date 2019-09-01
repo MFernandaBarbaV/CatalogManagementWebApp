@@ -27,13 +27,13 @@ namespace CatalogManagement.Code.ConfigureEntitie
                     result = new Venta();
                     result.FechaVenta = DateTime.Now;
 
-                    model.SetAttributes(itemId, "Nueva Venta", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteVentas);
+                    model.SetAttributes(itemId, "Nueva Venta", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerVentasDiarias);
 
                 }
                 else // Editar
                 {
                     result = db2.Venta.Where(us => us.IdVenta == itemId).FirstOrDefault();
-                    model.SetAttributes(itemId, "Editar Venta", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteVentas);
+                    model.SetAttributes(itemId, "Editar Venta", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerVentasDiarias);
                 }
 
                 if (result != null)
@@ -42,7 +42,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
 
                     model.Properties.Add(new Propertie() { Id = "Fecha", Label = "Fecha", DateValue = DateTime.Now, Type = PropertieType.Date });
                     model.Properties.Add(new Propertie() { Id = "Cliente", Label = "Cliente", MultipleValues = clientes, Type = PropertieType.ComboBox, ObjectValue = new KeyValuePair<int, string>(result.IdCliente, clientes[result.IdCliente]) });
-                    model.Properties.Add(new Propertie() { Id = "Venta", Label = "Venta", DecimalValue = result.Total, Type = PropertieType.Money, ClassIcon = faIconss.money });
+                    model.Properties.Add(new Propertie() { Id = "Venta", Label = "Venta", DecimalValue = result.Total, Type = PropertieType.Money, ClassIcon = faIconss.money, RegEx = Utils.RegexMoney });
                 }
 
             }
@@ -61,9 +61,10 @@ namespace CatalogManagement.Code.ConfigureEntitie
                     Total = model.GetValuePropertieDecimal("Venta")
                 };
 
-                var resultVentaAgregar = db2.VentaAgregar(venta.IdCliente, userId, 0, false, venta.Total, false, venta.FechaVenta, param);
-                id = resultVentaAgregar.First().Value;
-                db2.SaveChanges();
+                //var resultVentaAgregar = db2.VentaAgregar(venta.IdCliente, userId, 0, false, venta.Total, false, venta.FechaVenta, param);
+                //id = resultVentaAgregar.First().Value;
+                //db2.SaveChanges();
+                id = 0;
                 return true;
             }
 
@@ -94,7 +95,7 @@ namespace CatalogManagement.Code.ConfigureEntitie
                         row.Columns = new List<Column>();
                         row.Columns.Add(new Column() { ColumnHeader = "Fecha", Value = item.FechaVenta.ToString("dd MMMM yyyy hh:mm tt"), ID = item.IdVenta.ToString() });
                         row.Columns.Add(new Column() { ColumnHeader = "Cliente", Value = item.Clientes.NombreCliente, ID = item.IdVenta.ToString() });
-                        row.Columns.Add(new Column() { ColumnHeader = "Vendedor", Value = item.Operador.Nombre, ID = item.IdVenta.ToString() });
+                        row.Columns.Add(new Column() { ColumnHeader = "Vendedor", Value = item.Usuario.Nombre, ID = item.IdVenta.ToString() });
                         row.Columns.Add(new Column() { ColumnHeader = "Venta", Value = item.Total.ToString("c2"), ID = item.IdVenta.ToString() });
 
                         model.Rows.Add(row);
@@ -118,9 +119,9 @@ namespace CatalogManagement.Code.ConfigureEntitie
                 }
                 Dictionary<int, string> vendedoress = new Dictionary<int, string>();
                 vendedoress.Add(0, "-Todos-");
-                foreach (var item in db2.Operador)
+                foreach (var item in db2.Usuario)
                 {
-                    vendedoress.Add(item.IdOperador, item.Nombre);
+                    vendedoress.Add(item.IdUsuario, item.Nombre);
                 }
 
                 model.Filters = new List<Filter>();

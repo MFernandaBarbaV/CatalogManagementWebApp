@@ -18,6 +18,7 @@ namespace CatalogManagement.DBModels
         public Clientes()
         {
             this.Venta = new HashSet<Venta>();
+            this.TipoPrecio = new HashSet<TipoPrecio>();
         }
     
         public int IdCliente { get; set; }
@@ -32,8 +33,16 @@ namespace CatalogManagement.DBModels
         public string CiudadDomicilioFiscal { get; set; }
         public string EstadoDomicilioFiscal { get; set; }
         public string Telefono { get; set; }
+        public string Observaciones { get; set; }
+        public decimal Adeudo { get; set; }
+        public Nullable<System.DateTime> UltimaCompra { get; set; }
+        public decimal Puntos { get; set; }
+        public Nullable<byte> IdTipoPrecio { get; set; }
+        public Nullable<double> PorcentajeDescuento { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Venta> Venta { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TipoPrecio> TipoPrecio { get; set; }
     }
 }

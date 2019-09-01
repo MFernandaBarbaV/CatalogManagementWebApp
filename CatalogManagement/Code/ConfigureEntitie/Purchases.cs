@@ -10,30 +10,30 @@ namespace CatalogManagement.Code.ConfigureEntitie
 {
     internal class Purchases : Base
     {
-        //internal static void GetCatalog(ref ListItemsViewModel model, int operationId, ref string errorMessage)
-        //{
-        //    using (var db2 = new CatalogManagementDBEntities())
-        //    {
-        //        #region Compras
-        //        model.SetAttributes("Compras", (OperationsEnum)operationId);
+        internal static void GetCatalog(ref ListItemsViewModel model, int operationId, ref string errorMessage)
+        {
+            using (var db2 = new CatalogManagementDBEntities())
+            {
+                #region Compras
+                model.SetAttributes("Compras", (OperationsEnum)operationId);
 
 
-        //        foreach (var item in db2.Compra.Where(c=> DbFunctions.TruncateTime(c.FechaCompra) == DateTime.Now.Date))
+                foreach (var item in db2.Compra.Where(c => DbFunctions.TruncateTime(c.FechaCompra) == DateTime.Now.Date))
 
-        //        {
-        //            row = new Row();
-        //            row.Columns = new List<Column>();
-        //            row.Columns.Add(new Column() { ColumnHeader = "Id", Value = item.IdCompra.ToString(), ID = item.IdCompra.ToString() });
-        //            row.Columns.Add(new Column() { ColumnHeader = "FechaCompra", Value = item.FechaCompra.ToString() });
-        //            row.Columns.Add(new Column() { ColumnHeader = "Total", Value = item.Total.ToString() });
-        //            row.Columns.Add(new Column() { ColumnHeader = "", Value = item.IdCompra.ToString(), ID = item.IdCompra.ToString(), Type = ColumnType.Button, ButtonText = "Editar Compra", ButtonAction = "LoadItemData", ButtonController = "Catalog", ButtonOperationId = (int)OperationsEnum.EditarCompra });
-        //            row.Columns.Add(new Column() { ColumnHeader = "", Value = item.IdCompra.ToString(), ID = item.IdCompra.ToString(), Type = ColumnType.Button, ButtonText = "Eliminar Compra", ButtonAction = "DeleteItem", ButtonController = "Catalog", ButtonOperationId = (int)OperationsEnum.EliminarCompra });
+                {
+                    row = new Row();
+                    row.Columns = new List<Column>();
+                    row.Columns.Add(new Column() { ColumnHeader = "Id", Value = item.IdCompra.ToString(), ID = item.IdCompra.ToString() });
+                    row.Columns.Add(new Column() { ColumnHeader = "FechaCompra", Value = item.FechaCompra.ToString() });
+                    row.Columns.Add(new Column() { ColumnHeader = "Total", Value = item.Total.ToString() });
+                    row.Columns.Add(new Column() { ColumnHeader = "", Value = item.IdCompra.ToString(), ID = item.IdCompra.ToString(), Type = ColumnType.Button, ButtonText = "Editar Compra", ButtonAction = "LoadItemData", ButtonController = "Catalog", ButtonOperationId = (int)OperationsEnum.EditarCompra });
+                    row.Columns.Add(new Column() { ColumnHeader = "", Value = item.IdCompra.ToString(), ID = item.IdCompra.ToString(), Type = ColumnType.Button, ButtonText = "Eliminar Compra", ButtonAction = "DeleteItem", ButtonController = "Catalog", ButtonOperationId = (int)OperationsEnum.EliminarCompra });
 
-        //            model.Rows.Add(row);
-        //        }
-        //        #endregion
-        //    }
-        //}
+                    model.Rows.Add(row);
+                }
+                #endregion
+            }
+        }
 
         internal static void GetData(ref ItemViewModel model, int operationId, int itemId, ref string errorMessage)
         {
@@ -59,9 +59,9 @@ namespace CatalogManagement.Code.ConfigureEntitie
 
                     Dictionary<int, string> unidades = new Dictionary<int, string>();
                     unidades.Add(0, "--Seleccionar--");
-                    foreach (var item in db2.Unidad)
+                    foreach (var item in db2.Presentacion)
                     {
-                        unidades.Add(item.IdUnidad, item.Descripcion);
+                        unidades.Add(item.IdPresentacion, item.Descripcion);
                     }
 
                     if (itemId == 0)//Nuevo
@@ -70,13 +70,13 @@ namespace CatalogManagement.Code.ConfigureEntitie
                         result.FechaCompra = DateTime.Now;
                         result.CompraDetalle = new List<CompraDetalle>();
                         result.CompraDetalle.Add(new CompraDetalle());
-                        model.SetAttributes(itemId, "Nueva Compra", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteCompras);
+                        model.SetAttributes(itemId, "Nueva Compra", "Guardar", "New", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerCompras);
 
                     }
                     else // Editar
                     {
                         result = db2.Compra.Where(us => us.IdCompra == itemId).FirstOrDefault();
-                        model.SetAttributes(itemId, "Editar Compra", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerReporteCompras);
+                        model.SetAttributes(itemId, "Editar Compra", "Guardar", "Edit", "Catalog", (OperationsEnum)operationId, OperationsEnum.VerCompras);
                     }
 
                     if (result != null)
@@ -90,9 +90,9 @@ namespace CatalogManagement.Code.ConfigureEntitie
                         foreach (var detalle in result.CompraDetalle)
                         {
                             model.Properties.Add(new Propertie() { Id = "IdProducto", Type = PropertieType.ComboBox, MultipleValues = productos, Label = "Producto", Value = detalle.IdProducto.ToString(), });
-                            model.Properties.Add(new Propertie() { Id = "IdUnidad", Type = PropertieType.ComboBox, MultipleValues = unidades, Label = "Unidad", Value = detalle.IdUnidad.ToString() });
-                            model.Properties.Add(new Propertie() { Id = "Cantidad", Type = PropertieType.TextBox, Label = "Cantidad", Value = detalle.Cantidad.ToString() });
-                            model.Properties.Add(new Propertie() { Id = "CostoUnitario", Label = "Precio Unitario", Type = PropertieType.Money, ClassIcon = faIconss.money, DecimalValue = detalle.CostoUnitario });
+                            model.Properties.Add(new Propertie() { Id = "IdPresentacion", Type = PropertieType.ComboBox, MultipleValues = unidades, Label = "Presentacion", Value = detalle.IdPresentacion.ToString() });
+                            model.Properties.Add(new Propertie() { Id = "Cantidad", Type = PropertieType.TextBox, Label = "Cantidad", Value = detalle.Cantidad.ToString(), RegEx = Utils.RegexMoney });
+                            model.Properties.Add(new Propertie() { Id = "CostoUnitario", Label = "Precio Unitario", Type = PropertieType.Money, ClassIcon = faIconss.money, DecimalValue = detalle.CostoUnitario, RegEx = Utils.RegexMoney });
                             //    model.Properties.Add(new Propertie() { Id = "CostoTotal", Label = "Precio Total", Type = PropertieType.Money, ClassIcon = faIconss.money, DecimalValue = detalle.CostoTotal });
                             //  model.Properties.Add(new Propertie() { Id = "PrecioVenta", Label = "Precio de Venta", Type = PropertieType.Money, ClassIcon = faIconss.money, DecimalValue = detalle.PrecioVenta });
 
@@ -108,37 +108,39 @@ namespace CatalogManagement.Code.ConfigureEntitie
 
         internal static bool New(ItemViewModel model, int userId, ref string errorMessage, out int id)
         {
-            using (var db2 = new CatalogManagementDBEntities())
-            {
-                param = new System.Data.Entity.Core.Objects.ObjectParameter("idCompra", typeof(int));
+            //using (var db2 = new CatalogManagementDBEntities())
+            //{
+            //    param = new System.Data.Entity.Core.Objects.ObjectParameter("idCompra", typeof(int));
 
-                var compra = new Compra()
-                {
-                    IdProveedor = model.GetValuePropertieInteger("IdProveedor"),
-                    FechaCompra = model.GetValuePropertieDateTime("Fecha"),
-                    Total = model.GetValuePropertieDecimal("CostoUnitario") * model.GetValuePropertieInteger("Cantidad"),
-                    IdOperador = 1
-                };
+            //    var compra = new Compra()
+            //    {
+            //        IdProveedor = model.GetValuePropertieInteger("IdProveedor"),
+            //        FechaCompra = model.GetValuePropertieDateTime("Fecha"),
+            //        Total = model.GetValuePropertieDecimal("CostoUnitario") * model.GetValuePropertieInteger("Cantidad"),
+            //        IdOperador = 1
+            //    };
 
-                var resultCompraAgregar = db2.CompraAgregar(compra.IdProveedor, compra.IdOperador, compra.FechaCompra, compra.Total, param);
+            //    var resultCompraAgregar = db2.CompraAgregar(compra.IdProveedor, compra.IdOperador, compra.FechaCompra, compra.Total, param);
 
-                var compraDetalle = new CompraDetalle()
-                {
-                    IdCompra = (int)resultCompraAgregar.First(),
-                    IdUnidad = model.GetValuePropertieInteger("IdUnidad"),
-                    Cantidad = model.GetValuePropertieInteger("Cantidad"),
-                    CostoUnitario = model.GetValuePropertieDecimal("CostoUnitario"),
-                    CostoTotal = model.GetValuePropertieDecimal("CostoUnitario") * model.GetValuePropertieInteger("Cantidad"),
-                    PrecioVenta = 0,
-                    IdProducto = model.GetValuePropertieInteger("IdProducto")
-                };
+            //    var compraDetalle = new CompraDetalle()
+            //    {
+            //        IdCompra = (int)resultCompraAgregar.First(),
+            //        IdUnidad = model.GetValuePropertieInteger("IdUnidad"),
+            //        Cantidad = model.GetValuePropertieInteger("Cantidad"),
+            //        CostoUnitario = model.GetValuePropertieDecimal("CostoUnitario"),
+            //        CostoTotal = model.GetValuePropertieDecimal("CostoUnitario") * model.GetValuePropertieInteger("Cantidad"),
+            //        PrecioVenta = 0,
+            //        IdProducto = model.GetValuePropertieInteger("IdProducto")
+            //    };
 
-                db2.CompraDetalle.Add(compraDetalle);
-                db2.SaveChanges();
-                id = compraDetalle.IdCompra;
-                return true;
-            }
-
+            //    db2.CompraDetalle.Add(compraDetalle);
+            //    db2.SaveChanges();
+            //    id = compraDetalle.IdCompra;
+            //    return true;
+            //}
+            id = 0;
+            
+            return true;
 
         }
 

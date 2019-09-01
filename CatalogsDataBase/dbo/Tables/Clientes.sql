@@ -11,6 +11,12 @@
     [CiudadDomicilioFiscal]         NVARCHAR (100) NULL,
     [EstadoDomicilioFiscal]         NVARCHAR (100) NULL,
     [Telefono]                      NVARCHAR (100) NULL,
+    [Observaciones] NVARCHAR(500) NULL, 
+    [Adeudo] MONEY NOT NULL DEFAULT 0, 
+    [UltimaCompra] DATETIME NULL, 
+    [Puntos] MONEY NOT NULL DEFAULT 0, 
+    [IdTipoPrecio] TINYINT NULL, 
+    [PorcentajeDescuento] FLOAT NULL, 
     CONSTRAINT [PK_Clientes] PRIMARY KEY CLUSTERED ([IdCliente] ASC)
 );
 

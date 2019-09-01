@@ -8,7 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{7106b9d8-fe86-42bd-b0f7-b0a7d2b35a0e}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql90DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -68,13 +68,12 @@
   <ItemGroup>
     <Build Include="dbo\Tables\Venta.sql" />
     <Build Include="dbo\Tables\VentaDetalle.sql" />
-    <Build Include="dbo\Tables\TipoPrecioPorProducto.sql" />
+    <Build Include="dbo\Tables\Precio.sql" />
     <Build Include="dbo\Tables\Clientes.sql" />
     <Build Include="dbo\Tables\Compra.sql" />
     <Build Include="dbo\Tables\Gastos.sql" />
     <Build Include="dbo\Tables\TipoGasto.sql" />
     <Build Include="dbo\Tables\CompraDetalle.sql" />
-    <Build Include="dbo\Tables\Unidad.sql" />
     <Build Include="dbo\Tables\Proveedor.sql" />
     <Build Include="dbo\Tables\Genero.sql" />
     <Build Include="dbo\Tables\Marca.sql" />
@@ -84,14 +83,12 @@
     <Build Include="dbo\Tables\TipoPrecio.sql" />
     <Build Include="dbo\Tables\TipoProducto.sql" />
     <Build Include="dbo\Tables\Configuracion.sql" />
-    <Build Include="dbo\Tables\Operador.sql" />
     <Build Include="dbo\Views\ViewProductos.sql" />
     <Build Include="dbo\Stored Procedures\MarcaAgregar.sql" />
     <Build Include="dbo\Stored Procedures\ProveedorAgregar.sql" />
     <Build Include="dbo\Stored Procedures\TallasAgregar.sql" />
     <Build Include="dbo\Stored Procedures\TipoProductoAgregar.sql" />
-    <Build Include="dbo\Stored Procedures\TipoPrecioProductoAgregar.sql" />
-    <Build Include="dbo\Stored Procedures\UnidadesAgregar.sql" />
+    <Build Include="dbo\Stored Procedures\PrecioAgregar.sql" />
     <Build Include="dbo\Stored Procedures\SubTipoProductoAgregar.sql" />
     <Build Include="dbo\Stored Procedures\CompraAgregar.sql" />
     <Build Include="dbo\Stored Procedures\CompraDetalleAgregar.sql" />
@@ -102,32 +99,78 @@
     <Build Include="dbo\Stored Procedures\MarcasObtener.sql" />
     <Build Include="dbo\Stored Procedures\ProductoAgregar.sql" />
     <Build Include="dbo\Stored Procedures\ProductoModificar.sql" />
-    <Build Include="dbo\Stored Procedures\ProductosObtener.sql" />
-    <Build Include="dbo\Stored Procedures\ProductosObtenerPorCodigo.sql" />
     <Build Include="dbo\Stored Procedures\ProveedorObtener.sql" />
     <Build Include="dbo\Stored Procedures\SubTipoProductoObtener.sql" />
-    <Build Include="dbo\Stored Procedures\TallasObtener.sql" />
-    <Build Include="dbo\Stored Procedures\TipoPrecioObtenerPorIdProducto.sql" />
     <Build Include="dbo\Stored Procedures\TipoProductoObtener.sql" />
-    <Build Include="dbo\Stored Procedures\UnidadesObtener.sql" />
     <Build Include="dbo\Stored Procedures\ProveedorEditar.sql" />
     <Build Include="dbo\Stored Procedures\ClienteEditar.sql" />
     <Build Include="dbo\Stored Procedures\MarcaModificar.sql" />
     <Build Include="dbo\Stored Procedures\TipoProductoModificar.sql" />
-    <PostDeploy Include="Scripts\Script.PostDeploymentCatalogs.sql" />
-    <Build Include="dbo\Tables\Users.sql" />
-    <Build Include="dbo\Tables\Log.sql" />
-    <Build Include="dbo\Tables\Operations.sql" />
-    <Build Include="dbo\Tables\Status.sql" />
-    <Build Include="dbo\Tables\UserOperations.sql" />
-    <Build Include="dbo\Stored Procedures\spUser_Update.sql" />
-    <Build Include="dbo\Stored Procedures\spLog_Insert.sql" />
-    <Build Include="dbo\Stored Procedures\spOperationUser_DeleteAllByUser.sql" />
-    <Build Include="dbo\Stored Procedures\spOperationUser_Insert.sql" />
-    <Build Include="dbo\Stored Procedures\spUser_Delete.sql" />
-    <Build Include="dbo\Stored Procedures\spUser_DoLogin.sql" />
-    <Build Include="dbo\Stored Procedures\spUser_DoLogout.sql" />
-    <Build Include="dbo\Stored Procedures\spUser_Insert.sql" />
+    <None Include="Scripts\Translate info.sql" />
+    <Build Include="dbo\Tables\Usuario.sql" />
+    <Build Include="dbo\Tables\Operaciones.sql" />
+    <Build Include="dbo\Tables\Estatus.sql" />
+    <Build Include="dbo\Tables\OperacionesPorUsuario.sql" />
+    <Build Include="dbo\Stored Procedures\UsuarioEditar.sql" />
+    <Build Include="dbo\Stored Procedures\OperacionesPorUsuarioBorrarPorIdUsuario.sql" />
+    <Build Include="dbo\Stored Procedures\OperacionesPorUsuarioInsertar.sql" />
+    <Build Include="dbo\Stored Procedures\UsuarioAgregar.sql" />
     <None Include="Scripts\Script.PostDeploymentUsers.sql" />
+    <Build Include="dbo\Stored Procedures\VentaEliminar.sql" />
+    <Build Include="dbo\Tables\Pagos.sql" />
+    <Build Include="dbo\Stored Procedures\PagoAgregar.sql" />
+    <Build Include="dbo\Stored Procedures\VentaEditar.sql" />
+    <Build Include="dbo\Stored Procedures\VentaDetalleEliminar.sql" />
+    <Build Include="dbo\Tables\FormaDePago.sql" />
+    <Build Include="dbo\Tables\Informacion.sql" />
+    <Build Include="dbo\Tables\Presentacion.sql" />
+    <Build Include="dbo\Stored Procedures\InsertarImagen.sql" />
+    <Build Include="dbo\Stored Procedures\VentaInsertarCosto.sql" />
+    <Build Include="dbo\Stored Procedures\ClienteCalcularAdeudo.sql" />
+    <Build Include="dbo\Stored Procedures\ProductoModificarFoto.sql" />
+    <None Include="Scripts\Script.PostDeploymentCatalogs.sql" />
+    <Build Include="dbo\Tables\SerieFolio.sql" />
+    <Build Include="dbo\Tables\PrecioHistorial.sql" />
+    <Build Include="dbo\Tables\ClienteTipoPrecio.sql" />
+    <Build Include="dbo\Stored Procedures\ClienteTipoPrecioAgregar.sql" />
+    <Build Include="dbo\Stored Procedures\ExistenciaPorAlmacenModificar.sql" />
+    <Build Include="dbo\Tables\CorteX.sql" />
+    <Build Include="dbo\Stored Procedures\CorteXAgregar.sql" />
+    <Build Include="dbo\Tables\CorteZ.sql" />
+    <Build Include="dbo\Stored Procedures\CorteZAgregar.sql" />
+    <Build Include="dbo\Tables\PagosCompras.sql" />
+    <Build Include="dbo\Stored Procedures\PreciosEliminar.sql" />
+    <Build Include="dbo\Stored Procedures\PagoCompraAgregar.sql" />
+    <Build Include="dbo\Stored Procedures\CompraEditar.sql" />
+    <Build Include="dbo\Stored Procedures\CompraDetalleEliminar.sql" />
+    <Build Include="dbo\Stored Procedures\ProductoCostoModificar.sql" />
+    <Build Include="dbo\Stored Procedures\PagoCompraEliminar.sql" />
+    <Build Include="dbo\Tables\Almacen.sql" />
+    <Build Include="dbo\Tables\ExistenciaPorAlmacen.sql" />
+    <Build Include="dbo\Stored Procedures\MoverExistenciaAlmacen.sql" />
+    <Build Include="dbo\Tables\InventarioHistorial.sql" />
+    <Build Include="dbo\Stored Procedures\InventarioHistorialAgregar.sql" />
+    <Build Include="dbo\Stored Procedures\CantidadVendidaEnCompraModificar.sql" />
+    <Build Include="dbo\Stored Procedures\CrearBackupCatalogManagement.sql" />
+    <Build Include="dbo\Tables\CodigoBarras.sql" />
+    <Build Include="dbo\Stored Procedures\CodigoBarrasAgregar.sql" />
+    <Build Include="dbo\Stored Procedures\CodigoBarrasEliminar.sql" />
+    <Build Include="dbo\Stored Procedures\PagoEliminar.sql" />
+    <Build Include="dbo\Stored Procedures\PagoEliminarPorIdVenta.sql" />
+    <Build Include="dbo\Tables\Devolucion.sql" />
+    <Build Include="dbo\Tables\DevolucionDetalle.sql" />
+    <Build Include="dbo\Stored Procedures\DevolucionAgregar.sql" />
+    <Build Include="dbo\Stored Procedures\DevolucionDetalleAgregar.sql" />
+    <Build Include="dbo\Tables\Log.sql" />
+    <Build Include="dbo\Stored Procedures\LogInsert.sql" />
+    <Build Include="dbo\Tables\InventarioFisico.sql" />
+    <Build Include="dbo\Stored Procedures\InventarioFisicoAgregar.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="SalesDataBase.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\GenerateMergeScript.sql" />
+    <None Include="SalesDataBase.publish.xml" />
   </ItemGroup>
 </Project>
