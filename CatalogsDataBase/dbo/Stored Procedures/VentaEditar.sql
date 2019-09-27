@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[VentaEditar]
-
+@IdCliente int, @IdVendedor int,
 	@Descuento money = 0, 
 	@EsFactura bit = 0, 
 	@Total money, 
@@ -13,7 +13,9 @@ AS
 	
 
 	UPDATE [dbo].[Venta]
-	SET [Descuento] = @Descuento
+	SET  IdCliente = @IdCliente, IdOperador = @IdVendedor,
+	
+	[Descuento] = @Descuento
       ,[EsFactura] = @EsFactura
       ,[Total] = @Total
       ,[Pagado] = @Pagado
@@ -24,7 +26,7 @@ AS
 	  ,[Subtotal] = @Subtotal
 	WHERE IdVenta = @IdVenta
 
-	IF @Pagado > 0 AND (SELECT Folio FROM dbo.Venta WHERE IdVenta = @IdVenta) IS NULL
+	IF ( @Pagado > 0 or @GuardadoTemporal = 0 ) AND (SELECT Folio FROM dbo.Venta WHERE IdVenta = @IdVenta) IS NULL
 	BEGIN
 		
 		DECLARE @Folio int

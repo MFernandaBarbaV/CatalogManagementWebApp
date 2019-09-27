@@ -76,7 +76,10 @@ MERGE INTO operaciones AS Target
 (47, 'NuevoInventarioFisico'),
 (48, 'EditarInventarioFisico'),
 (49, 'EliminarInventarioFisico'),
-(50, 'VerReporteDeVentasPrincipal')
+(50, 'VerReporteDeVentasPrincipal'),
+(51, 'ConfigurarTicket'),
+(52, 'ConfigurarEmpresa'),
+(53, 'ConfigurarImpresoras')
 ) AS Source (idoperacion,descripcion)
 ON (Target.[IdOperacion] = Source.idoperacion)
 WHEN MATCHED AND (
@@ -146,3 +149,53 @@ SET IDENTITY_INSERT [dbo].[usuario] OFF
 GO
 
 
+SET IDENTITY_INSERT [AdministracionSistema] ON
+GO
+MERGE INTO [AdministracionSistema] AS Target
+USING (VALUES
+  (1,N'YG56fomko48IgD3V0u9gMg==',N'GRWQA5RjlCGi8fUJs/VjeQ==',N'udMkyNr2VJEeXK+RPaBlGw==',N'qx3OwVXypno=')
+) AS Source ([Id],[Dato1],[Dato2],[Dato3],[Dato4])
+ON (Target.[Id] = Source.[Id])
+WHEN MATCHED AND (
+	NULLIF(Source.[Dato1], Target.[Dato1]) IS NOT NULL OR NULLIF(Target.[Dato1], Source.[Dato1]) IS NOT NULL OR 
+	NULLIF(Source.[Dato2], Target.[Dato2]) IS NOT NULL OR NULLIF(Target.[Dato2], Source.[Dato2]) IS NOT NULL OR 
+	NULLIF(Source.[Dato3], Target.[Dato3]) IS NOT NULL OR NULLIF(Target.[Dato3], Source.[Dato3]) IS NOT NULL OR 
+	NULLIF(Source.[Dato4], Target.[Dato4]) IS NOT NULL OR NULLIF(Target.[Dato4], Source.[Dato4]) IS NOT NULL) THEN
+ UPDATE SET
+  [Dato1] = Source.[Dato1], 
+  [Dato2] = Source.[Dato2], 
+  [Dato3] = Source.[Dato3], 
+  [Dato4] = Source.[Dato4]
+WHEN NOT MATCHED BY TARGET THEN
+ INSERT([Id],[Dato1],[Dato2],[Dato3],[Dato4])
+ VALUES(Source.[Id],Source.[Dato1],Source.[Dato2],Source.[Dato3],Source.[Dato4])
+WHEN NOT MATCHED BY SOURCE THEN 
+ DELETE
+;
+GO
+SET IDENTITY_INSERT [AdministracionSistema] OFF
+GO
+
+SET IDENTITY_INSERT [CONFIGURACION] ON
+
+MERGE INTO [CONFIGURACION] AS Target
+USING (VALUES
+  (1,N'NombreEmpresa',N'Bonetería La Comercial')
+ ,(2,N'RutaBackup',N'')
+) AS Source ([IdConfiguracion],[Nombre],[Valor])
+ON (Target.[IdConfiguracion] = Source.[IdConfiguracion])
+WHEN MATCHED AND (
+	NULLIF(Source.[Nombre], Target.[Nombre]) IS NOT NULL OR NULLIF(Target.[Nombre], Source.[Nombre]) IS NOT NULL OR 
+	NULLIF(Source.[Valor], Target.[Valor]) IS NOT NULL OR NULLIF(Target.[Valor], Source.[Valor]) IS NOT NULL) THEN
+ UPDATE SET
+  [Nombre] = Source.[Nombre], 
+  [Valor] = Source.[Valor]
+WHEN NOT MATCHED BY TARGET THEN
+ INSERT([IdConfiguracion],[Nombre],[Valor])
+ VALUES(Source.[IdConfiguracion],Source.[Nombre],Source.[Valor])
+WHEN NOT MATCHED BY SOURCE THEN 
+ DELETE
+;
+GO
+SET IDENTITY_INSERT [CONFIGURACION] OFF
+GO

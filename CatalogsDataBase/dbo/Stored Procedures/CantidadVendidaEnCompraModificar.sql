@@ -69,5 +69,4 @@ AS
 	CLOSE @ShoppingCursor;
 	DEALLOCATE @ShoppingCursor;
 
-	INSERT INTO [dbo].[LogMessage] VALUES (@Message)
 RETURN 0

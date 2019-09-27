@@ -685,7 +685,8 @@ SET IDENTITY_INSERT [dbo].[Configuracion] ON
 
 MERGE INTO [dbo].[Configuracion] AS Target
 USING (VALUES
-	(1,'Test',1)
+	(1,'NombreEmpresa','Bonetería La Comercial'),
+	(2,'RutaBackup','')
 ) AS Source ([IdConfiguracion],[Nombre],[Valor])
 ON (Target.[IdConfiguracion] = Source.[IdConfiguracion])
 WHEN MATCHED AND (
